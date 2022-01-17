@@ -33,34 +33,12 @@
     <h1>Sequences and Series of Functions</h1>
     <time datetime="2022-01-17T20:38:23&#43;01:00">January 17, 2022</time>
   </header>
-  <p>This is some content.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">
-<span style="color:#66d9ef">function</span> fixedPoint(f<span style="color:#f92672">::</span><span style="color:#66d9ef">Function</span>, x₀, ϵ<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5E-6</span>, max_iterations<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>)
-    x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Float64</span>}()
-
-    <span style="color:#75715e"># Initial seed</span>
-    push!(x,x₀)
-    x_old <span style="color:#f92672">=</span> x₀
-
-    n <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#66d9ef">while</span>(n <span style="color:#f92672">&lt;</span> max_iterations)
-
-        x_new <span style="color:#f92672">=</span> f(x_old)
-        push!(x,x_new)
-
-        <span style="color:#66d9ef">if</span>(abs(x_new <span style="color:#f92672">-</span> x_old) <span style="color:#f92672">&lt;</span> ϵ)
-            <span style="color:#66d9ef">return</span> true, x, n, x_new
-        <span style="color:#66d9ef">end</span>
-
-        x_old <span style="color:#f92672">=</span> x_new
-        n <span style="color:#f92672">=</span> n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#66d9ef">end</span>;
-
-    <span style="color:#66d9ef">return</span> false, x, n, x_old
-
-<span style="color:#66d9ef">end</span>;
-
-</code></pre></div><p>The function $f(x) = x^2$</p>
+  <p>In 1689, Jakob Bernoulli published his <em>Tractus de seriebus infinitis</em> summarizing what was known about the infinite series towards the end of the 17th century. Full of clever calculations and conclusions, this publication was also notable for one particular question that it didn&rsquo;t answer; namely, what is the precise value of the series</p>
+<p>$$\sum_{n=1}^{\infty}\frac{1}{n^2} = 1 + \frac{1}{4} + \frac{1}{9} + \frac{1}{16} + \ldots$$</p>
+<p>Bernoulli convincingly argued that $\sum \frac{1}{n^2}$ converged to something less than $2$, but he was unable to find an explicit expression for the limit. Generally speaking, it is much harder to sum a series than it is to determin whether or not it converges. In fact, being able to find the sum of a convergent series is the exception rather than the rule. In this case, however, the series $\sum \frac{1}{n^2}$ seemed so elementary more elementary than, say, $\sum_{n=1}^{\infty}n^2/2^n$ or $\sum_{n=1}^{\infty}1/n(n+1)$, both of which Bernoulli was able to handle.</p>
+<hr>
+<p><strong>Definition.</strong> For each $n \in \mathbf{N}$, let $f_n$ be a function</p>
+<hr>
 
 </article>
 
