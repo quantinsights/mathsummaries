@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/</link>
+    <description>Recent content on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Jan 2022 20:38:23 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sequences and Series of Functions&#34;</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/sequences_and_series_of_functions/</link>
+      <pubDate>Mon, 17 Jan 2022 20:38:23 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/sequences_and_series_of_functions/</guid>
+      <description>This is some content.
+import numpy as np print(&amp;#34;Hello World&amp;#34;) </description>
+    </item>
+    
+  </channel>
+</rss>
