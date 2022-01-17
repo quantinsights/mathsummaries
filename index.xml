@@ -14,7 +14,7 @@
       
       <guid>https://quantophile.github.io/mathsummaries/posts/sequences_and_series_of_functions/</guid>
       <description>This is some content.
-import numpy as np print(&amp;#34;Hello World&amp;#34;) </description>
+function fixedPoint(f::Function, x₀, ϵ=0.5E-6, max_iterations=500) x = Vector{Float64}() # Initial seed push!(x,x₀) x_old = x₀ n = 1 while(n &amp;lt; max_iterations) x_new = f(x_old) push!(x,x_new) if(abs(x_new - x_old) &amp;lt; ϵ) return true, x, n, x_new end x_old = x_new n = n + 1 end; return false, x, n, x_old end; The function $f(x) = x^2$</description>
     </item>
     
   </channel>

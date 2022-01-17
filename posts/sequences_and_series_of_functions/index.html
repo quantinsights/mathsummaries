@@ -21,11 +21,34 @@
     <time datetime="2022-01-17T20:38:23&#43;01:00">January 17, 2022</time>
   </header>
   <p>This is some content.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
-<span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">
+<span style="color:#66d9ef">function</span> fixedPoint(f<span style="color:#f92672">::</span><span style="color:#66d9ef">Function</span>, x₀, ϵ<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5E-6</span>, max_iterations<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>)
+    x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Float64</span>}()
 
-print(<span style="color:#e6db74">&#34;Hello World&#34;</span>)
-</code></pre></div>
+    <span style="color:#75715e"># Initial seed</span>
+    push!(x,x₀)
+    x_old <span style="color:#f92672">=</span> x₀
+
+    n <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">while</span>(n <span style="color:#f92672">&lt;</span> max_iterations)
+
+        x_new <span style="color:#f92672">=</span> f(x_old)
+        push!(x,x_new)
+
+        <span style="color:#66d9ef">if</span>(abs(x_new <span style="color:#f92672">-</span> x_old) <span style="color:#f92672">&lt;</span> ϵ)
+            <span style="color:#66d9ef">return</span> true, x, n, x_new
+        <span style="color:#66d9ef">end</span>
+
+        x_old <span style="color:#f92672">=</span> x_new
+        n <span style="color:#f92672">=</span> n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">end</span>;
+
+    <span style="color:#66d9ef">return</span> false, x, n, x_old
+
+<span style="color:#66d9ef">end</span>;
+
+</code></pre></div><p>The function $f(x) = x^2$</p>
+
 </article>
 
 
