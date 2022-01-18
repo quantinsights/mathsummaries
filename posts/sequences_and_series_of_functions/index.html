@@ -42,11 +42,21 @@
 $$</p>
 <p>Thus, for example, $\sum_{n=0}^{\infty}1/2^n = 2$ and $\sum_{n=0}^{\infty}(-1/3)^n = 3/4$. Geometric series were part of the mathematical folklore long before Bernoulli; however what was relatively novel in Bernoulli&rsquo;s time was the idea of operating on infinite series such as (1) with tools from the budding theory of calculus. For instance, what happens if we take the derivative on each side of the equation (1)? The left side is easy enough - we just get $1/(1-x)^2$. But what about the right side? Adopting a 17th century mindset, a natural way to proceed is to treat the infinite series as a polynomial, albeit of infinite degree. Differentiation across equation (1) in this fashion gives:</p>
 <p>$$
-\frac{1}{(1-x)^2} = 0 + 1 + 2x + 3x^2 + 4x^3 + \ldots
+\frac{1}{(1-x)^2} = 0 + 1 + 2x + 3x^2 + 4x^3 + \ldots \tag{2}
 $$</p>
 <p>Is this a valid formula, at least for values of $x$ in $(-1,1)$? Empirical evidence suggests it is. Setting $x = 1/2$, we get</p>
 <p>$$
 4 = \sum_{n=1}^{\infty}\frac{n}{2^{n-1}} = 1 + 1 + \frac{3}{4} + \frac{4}{8} + \frac{5}{16} + \ldots
+$$</p>
+<p>which feels plausible, and is in fact true. Although not Bernoulli&rsquo;s requested series, this does suggest a possible new line of attack.</p>
+<p>Manipulations of this sort can be used to create a wide assortnment of new series representations for familiar functions. Substituting $-x^2$ for $x$ in (1) gives:</p>
+<p>$$
+\frac{1}{1 + x^2} = 1 - x^2 + x^4 - x^6 + x^8 - \ldots \tag{3}
+$$</p>
+<p>for all $x \in (-1,1)$.</p>
+<p>Once again closing our eyes to the potential danger of treating an infinite series as though it were a polynomial, let&rsquo;s see what happens when we take antiderivatives. Using the fact that,</p>
+<p>$$
+(\arctan x)' = \frac{1}{1 + x^2} \quad \text{ and } \arctan 0 = 0
 $$</p>
 <hr>
 <p><strong>Definition.</strong> For each $n \in \mathbf{N}$, let $f_n$ be a function</p>

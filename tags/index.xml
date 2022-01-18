@@ -5,6 +5,34 @@
     <link>https://quantophile.github.io/mathsummaries/tags/</link>
     <description>Recent content in Tags on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://quantophile.github.io/mathsummaries/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Jan 2022 20:38:23 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>real-analysis</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/real-analysis/</link>
+      <pubDate>Mon, 17 Jan 2022 20:38:23 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/real-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sequence-of-functions</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/sequence-of-functions/</link>
+      <pubDate>Mon, 17 Jan 2022 20:38:23 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/sequence-of-functions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>uniform-convergence</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/uniform-convergence/</link>
+      <pubDate>Mon, 17 Jan 2022 20:38:23 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/uniform-convergence/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

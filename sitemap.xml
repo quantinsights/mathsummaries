@@ -2,17 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://quantophile.github.io/mathsummaries/categories/</loc>
+    <lastmod>2022-01-17T20:38:23+01:00</lastmod>
+  </url><url>
     <loc>https://quantophile.github.io/mathsummaries/</loc>
     <lastmod>2022-01-17T20:38:23+01:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/posts/</loc>
     <lastmod>2022-01-17T20:38:23+01:00</lastmod>
   </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/categories/real-analysis/</loc>
+    <lastmod>2022-01-17T20:38:23+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/real-analysis/</loc>
+    <lastmod>2022-01-17T20:38:23+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/sequence-of-functions/</loc>
+    <lastmod>2022-01-17T20:38:23+01:00</lastmod>
+  </url><url>
     <loc>https://quantophile.github.io/mathsummaries/posts/sequences_and_series_of_functions/</loc>
     <lastmod>2022-01-17T20:38:23+01:00</lastmod>
   </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/categories/</loc>
-  </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/</loc>
+    <lastmod>2022-01-17T20:38:23+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/uniform-convergence/</loc>
+    <lastmod>2022-01-17T20:38:23+01:00</lastmod>
   </url>
 </urlset>
