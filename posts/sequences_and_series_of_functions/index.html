@@ -143,6 +143,18 @@ $$</p>
 <p><strong>Definition. (Pointwise Convergence)</strong> For each $n \in \mathbf{N}$, let $f_n$ be a function defined on a set $A \subseteq \mathbf{R}$. The sequence $(f_n)$ of functions <em>converges pointwise</em> on $A$ to a function $f$ if, for all $x \in A$, the sequence of real numbers $f_n(x)$ converges to $f(x)$.</p>
 <hr>
 <p>In this case, we write $f_n \to f$, $\lim f_n = f$ or $\lim_{n \to \infty}f_n(x) = f(x)$. This last expression is helpful if there is any confusion as to whether $x$ or $n$ is the limiting variable.</p>
+<p><strong>Example.</strong> (i) Consider</p>
+<p>$$
+\begin{align*}
+f_n(x) = \frac{x^2 + nx}{n}
+\end{align*}
+$$</p>
+<p>on all of $\mathbf{R}$. Graphs of $f_1,f_5,f_10$ and $f_20$ give an indication of what is happening as $n$ gets larger. Algebraically, we can compute:</p>
+<p>$$
+\lim_{n \to \infty} f_n(x) = \lim_{n \to \infty} \frac{x^2 + nx}{n} = \lim_{n \to \infty} \frac{x^2}{n} + x = x
+$$</p>
+<p>Thus, $(f_n)$ converges pointwise to $f(x) = x$ on $\mathbf{R}$.</p>
+<p>(ii) Let $g_n(x) = x^n$ on the set $[0,1]$, and consider what happens as $n$ tends to infinity. If $0 \leq x &lt; 1$, then we have seen that $x^n \to 0$. On the other hand, if $x = 1$, then $x^n \to 1$. It follows that, $g_n \to g$ pointwise on $[0,1]$, where</p>
 
 </article>
 
