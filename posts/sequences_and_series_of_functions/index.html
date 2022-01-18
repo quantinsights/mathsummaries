@@ -49,7 +49,7 @@ $$</p>
 4 = \sum_{n=1}^{\infty}\frac{n}{2^{n-1}} = 1 + 1 + \frac{3}{4} + \frac{4}{8} + \frac{5}{16} + \ldots
 $$</p>
 <p>which feels plausible, and is in fact true. Although not Bernoulli&rsquo;s requested series, this does suggest a possible new line of attack.</p>
-<p>Manipulations of this sort can be used to create a wide assortnment of new series representations for familiar functions. Substituting $-x^2$ for $x$ in (1) gives:</p>
+<p>Manipulations of this sort can be used to create a wide assortment of new series representations for familiar functions. Substituting $-x^2$ for $x$ in (1) gives:</p>
 <p>$$
 \frac{1}{1 + x^2} = 1 - x^2 + x^4 - x^6 + x^8 - \ldots \tag{3}
 $$</p>
@@ -58,9 +58,91 @@ $$</p>
 <p>$$
 (\arctan x)' = \frac{1}{1 + x^2} \quad \text{ and } \arctan 0 = 0
 $$</p>
+<p>equation (3) becomes</p>
+<p>$$
+\arctan x = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \ldots \tag{4}
+$$</p>
+<p>Plugging $x = 1$ into equation (4) yields the striking relationship</p>
+<p>$$
+\frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \frac{1}{9} - \ldots \tag{5}
+$$</p>
+<p>The constant $\pi$, which arises from the geometry of circles, has somehow found its way into an equation involving the reciprocals of the odd integers. Is this a valid formula? Can we really treat the inifinite series in (3) like a finite polynomial? Even if the answer is yes, there is still another mystery to solve in this example. Plugging $x=1$ into equations (1), (2) or (3) yields mathematical gibberish, so is it prudent to anticipate something meaningful arising from equation (4) at this same value? Will any of these ideas get us closer to computing $\sum_{n=1}^{\infty}1/n^2$?</p>
+<p>As it turned out, Bernoulli&rsquo;s plea for help was answered in an unexpected way by Leonard Euler. At a young age, Euler was a student of Jakob Bernoulli&rsquo;s brother Johann, and the stellar pupil quickly rose to become the preeminent mathematician of his age. Euler&rsquo;s solution is impossible to anticipate. In 1735, he announced that</p>
+<p>$$
+1 + \frac{1}{4} + \frac{1}{9} + \frac{1}{16} + \ldots = \frac{\pi^2}{6}
+$$</p>
+<p>a provocative formula, that even more than equation (5), hints at deep connections between geometry, number theory and analysis. Euler&rsquo;s argument is quite short, but it needs to be viewed in the context of the time in which it was created. The <em>infinite polynomials</em> in this discussion are examples of <em>power series</em>, and a major catalyst for the expanding power of calculus in the 17th and 18th centuries was a proliferation of techniques like the ones used to generate formulas (2), (3) and (4). The machinations of both algebra and calculus are relatively straightforward when restricted to the class of polynomials. So, if in fact power series could be treated more or less like unending polynomials, then there was a great incentive to try to find power series representations for familiar functions like $e^x$, $\sqrt{1 + x}$ or $\sin (x)$.</p>
+<p>The appearance of $\arctan x$ in (4) is an encouraging sign that this might indeed always be possible. One of Issac Newton&rsquo;s more significant achievements was to produce a generalization of the binomial formula. If $n \in \mathbf{N}$, then old-fashioned finite algebra leads to the formula</p>
+<p>$$
+(1 + x)^n = 1 + nx + \frac{n(n-1)}{2!}x^2 + \frac{n(n - 1)(n - 2)}{3!}x^3 + \ldots + x^n
+$$</p>
+<p>Through a process of experimentation and intuition Newton realized that for $r \notin \mathbf{N}$, the infinite series</p>
+<p>$$
+(1 + x)^r = 1 + rx + \frac{r(r-1)}{2!}x^2 + \frac{r(r-1)(r-2)}{3!}x^3 + \ldots
+$$</p>
+<p>was meaningful, atleast for $x \in (-1,1)$. Setting $r = -1$, for example, yields</p>
+<p>$$
+\frac{1}{1+x} = 1 - x + x^2 - x^3 + x^4 - \ldots
+$$</p>
+<p>which can easily be seen to be equivalent to the equation (1). Setting $r = 1/2$ we get,</p>
+<p>$$
+\sqrt{1 + x} = 1 + \frac{1}{2}x - \frac{1}{2^2 2!}x^2 + \frac{1\cdot 3}{2^3 3!}x^3 - \frac{1 \cdot 3 \cdot 5}{2^4 4!}x^4 + \ldots
+$$</p>
+<p>One way to lend a litle credence to this formula for $\sqrt{1+x}$ is to focus on the first few terms and square the series:</p>
+<p>$$
+\begin{align*}
+(\sqrt{1+x})^2 &amp;= \left(1 + \frac{x}{2} - \frac{x^2}{8} + \frac{x^3}{16} - \ldots \right)\left(1 + \frac{x}{2} - \frac{x^2}{8} + \frac{x^3}{16} - \ldots \right)\\
+&amp;= 1 + \left(\frac{1}{2} + \frac{1}{2}\right)x + \left(-\frac{1}{8} - \frac{1}{8} + \frac{1}{4}\right)x^2 + \left(\frac{1}{16} + \frac{1}{16} - \frac{1}{16} - \frac{1}{16}\right)x^3 + \ldots \\
+&amp;= 1 + x + 0x^2 + 0x^3 + \ldots \\
+&amp;= 1 + x
+\end{align*}
+$$</p>
+<p>Amid all of the unfounded assumptions we are making about infinity, calculations like this induce a feeling of optimism about the legitimacy of our search for power series representations.</p>
+<p>Newton&rsquo;s binomial series is the starting point for a modern proof Euler&rsquo;s famous sum, which is sketched out in detail further at length. Euler&rsquo;s original 1735 argument, however, started from the power series representation for $\sin (x)$. The formula:</p>
+<p>$$
+\sin (x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \ldots
+$$</p>
+<p>was known to Newton, Bernoulli and Euler alike. In contrast to equation (1), we will see that this formula is valid for all $x \in \mathbf{R}$. Factoring out $x$ and dividing yields a power series with leading coefficient equal to $1$:</p>
+<p>$$
+\frac{\sin x}{x} = 1 - \frac{x^2}{3!} + \frac{x^4}{5!} - \frac{x^6}{7!} + \ldots
+$$</p>
+<p>Euler&rsquo;s idea was to continue factoring the power in (6), and his strategy for doing this was very much in keeping with what we have seen so far - treat the power series as through it were a polynomial and then extend the pattern to infinity.</p>
+<p>Factoring a polynomial of, say, degree three is straightforward if we know its roots. If $p(x) = 1 + ax + bx^2 + cx^3$ has roots $r_1, r_2$ and $r_3$, then</p>
+<p>$$
+p(x) = \left(1- \frac{x}{r_1}\right)\left(1- \frac{x}{r_2}\right)\left(1- \frac{x}{r_3}\right)
+$$</p>
+<p>To see this just directly substitute to get $p(0)=1$ and $p(r_1) = p(r_2) = p(r_3) = 0$.</p>
+<p>The roots of the power series in (6) are the non-zero roots of $\sin x$ or $x = \pm\pi,\pm 2\pi, \pm 3\pi,$ and so on. All right then - relying on his fabled intuition, Euler surmised that</p>
+<p>$$
+\begin{align*}
+&amp;1 - \frac{x^2}{3!} + \frac{x^4}{5!} - \frac{x^6}{7!} + \ldots \\
+=&amp; \left(1 - \frac{x}{\pi}\right)\left(1 + \frac{x}{\pi}\right)\left(1 - \frac{x}{2\pi}\right)\left(1 + \frac{x}{2\pi}\right)\left(1 - \frac{x}{3\pi}\right)\left(1 + \frac{x}{3\pi}\right)\ldots \\
+=&amp; \left(1- \frac{x^2}{\pi^2}\right)\left(1- \frac{x^2}{4\pi^2}\right)\left(1- \frac{x^2}{9\pi^2}\right)\ldots
+\end{align*}
+$$</p>
+<p>where in the last step adjacent pairs of factors have been multiplied together. What happens if we continue to multiply out the factors on the right? Well, the constant term comes out to be $1$ which happily matches the constant term on the left. The magic comes when we compare the $x^2$ term on each side of (7). Multiplying out the infinite number of factors on the right (using our imagination as necessary) and collecting like powers of $x$, equation (7) becomes</p>
+<p>$$
+\begin{align*}
+1 - \frac{x^2}{3!} + \frac{x^4}{5!} - \frac{x^6}{7!} + \ldots = 1 + \left(-\frac{1}{\pi^2} - \frac{1}{4\pi^2} - \frac{1}{9\pi^2} - \ldots \right)x^2 + \left(\frac{1}{4\pi^4} + \frac{1}{9\pi^4} + \ldots \right)x^4 + \ldots
+\end{align*}
+$$</p>
+<p>Equating the coefficients of $x^2$ on each side yields,</p>
+<p>$$
+-\frac{1}{3!} = -\frac{1}{\pi^2} - \frac{1}{4\pi^2} - \frac{1}{p\pi^2} - \ldots
+$$</p>
+<p>which when we multiply by $-\pi^2$ becomes</p>
+<p>$$
+\frac{\pi^2}{6} = 1 + \frac{1}{4} + \frac{1}{9} + \frac{1}{16} + \ldots
+$$</p>
+<p>Numerical approximations of each side of this equation confirmed for Euler that, despite the audacious leaps in his argument, he had landed on solid groud. By our standards, this derivation falls well short of being a proper proof, and we will have to tend to this in the upcoming chapters. The takeaway of this discussion is that the hard work ahead is worth the effort. Infinite series representations of functions are both useful and surprisingly elegant, and can lead to remarkable conclusions when they are properly handled.</p>
+<p>The evidence so far suggests power series are quite robust when treated as if they were finite in nature. Term-by-term differentiation produced a valid conclusion in equation (2), and taking antiderivatives fared similarly well in (4). We will see these manipulations are <em>not</em> always justified for infinite series of more general types of functions. What is it about power series in particular that makes them so impervious to the dangers of the infinite? Of the many unanswered questions in this discussion, this last one is probably the most central, and the most important to understand series of functions in general.</p>
+<h2 id="uniform-converence-of-a-sequence-of-functions">Uniform Converence of a Sequence of Functions</h2>
+<p>Adopting the same strategy we used in chapter 2, we will initially concern ourselves with the behaviour and properties of converging <em>sequences</em> of functions. Because convergence of the infinite series is defined in terms of the associated sequence of partial sums, the results from our study of sequences will be immediately applicable to the questions we have raised about both power series and more general infinite series of functions.</p>
+<h3 id="pointwise-convergence">Pointwise Convergence.</h3>
 <hr>
-<p><strong>Definition.</strong> For each $n \in \mathbf{N}$, let $f_n$ be a function</p>
+<p><strong>Definition. (Pointwise Convergence)</strong> For each $n \in \mathbf{N}$, let $f_n$ be a function defined on a set $A \subseteq \mathbf{R}$. The sequence $(f_n)$ of functions <em>converges pointwise</em> on $A$ to a function $f$ if, for all $x \in A$, the sequence of real numbers $f_n(x)$ converges to $f(x)$.</p>
 <hr>
+<p>In this case, we write $f_n \to f$, $\lim f_n = f$ or $\lim_{n \to \infty}f_n(x) = f(x)$. This last expression is helpful if there is any confusion as to whether $x$ or $n$ is the limiting variable.</p>
 
 </article>
 

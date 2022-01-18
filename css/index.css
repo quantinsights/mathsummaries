@@ -18,6 +18,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Open Sans";
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("../fonts/OpenSans-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
 html {
   background: #d3d4db;
   font-size: 16px;
@@ -28,7 +35,7 @@ html {
 body {
   background: #ffffff;
   color: black;
-  font-family: "Open Sans", "Segoe UI","PT Sans", "Roboto",  "Helvetica Neue", sans-serif, -apple-system  ;
+  font-family: "Open Sans", "Segoe UI", "Roboto",  "Helvetica Neue", sans-serif, -apple-system  ;
   font-weight: 400;
   line-height: 1.4;
   margin: 0;
