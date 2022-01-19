@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stochastic Calculus on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/</link>
+    <description>Recent content in Stochastic Calculus on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Jan 2022 13:01:03 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Binomial Model</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/schreve_voli_01_the_binomial_model/</link>
+      <pubDate>Wed, 19 Jan 2022 13:01:03 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/schreve_voli_01_the_binomial_model/</guid>
+      <description>Model Description. Running time is denoted by the letter $t$, and by definition we have two points in time, $t=0$ and $t=1$. In the model, we have two assets: a bond and a stock. At time $t$, the bond is denoted by $B_t$ and the price of one share of stock is denoted by $S_t$. Thus, we have two price processes $B$ and $S$.
+The bond price process is deterministic and given by,</description>
+    </item>
+    
+  </channel>
+</rss>

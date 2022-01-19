@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>The Binomial Model | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.92.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/index.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/posts/schreve_voli_01_the_binomial_model/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/katex/katex.min.css">
+<script defer src="https://quantophile.github.io/mathsummaries/katex/katex.min.js"></script>
+<script defer src="https://quantophile.github.io/mathsummaries/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+</header>
+
+<article>
+  <header>
+    <h1>The Binomial Model</h1>
+    <time datetime="2022-01-19T13:01:03&#43;01:00">January 19, 2022</time>
+  </header>
+  <h2 id="model-description">Model Description.</h2>
+<p>Running time is denoted by the letter $t$, and by definition we have two points in time, $t=0$ and $t=1$. In the model, we have two assets: a <strong>bond</strong> and a <strong>stock</strong>. At time $t$, the bond is denoted by $B_t$ and the price of one share of stock is denoted by $S_t$. Thus, we have two price processes $B$ and $S$.</p>
+<p>The bond price process is deterministic and given by,</p>
+<p>$$
+\begin{align*}
+B_0 &amp;= 1\\
+B_1 &amp;= B_0(1+r)
+\end{align*}
+$$</p>
+<p>The constant $r$ is the spot rate for the period, we can also interpret the existence of the bond as the existence of a bank with $r$ as its rate of interest. The stock price process is a stochastic process, and its dynamical behavior can be described as follows:</p>
+<p>$$
+\begin{align*}
+S_0 &amp;= s \\
+S_1 &amp;= \begin{cases}
+s \cdot u, \quad \text{ with probability } p_u \\
+s \cdot d, \quad \text{ with probability } p_d
+\end{cases}
+\end{align*}
+$$</p>
+<p>It is often convenient to write this as,</p>
+<p>$$
+\begin{align*}
+\begin{cases}
+S_0 &amp;= s \\
+S_1 &amp;= s \cdot Z
+\end{cases}
+\end{align*}
+$$</p>
+<p>where $Z$ is a stochastic variable defined as</p>
+<p>$$
+\begin{align*}
+Z &amp;= \begin{cases}
+u, \text{ with probability } p_u\\
+d, \text{ with probability } p_d
+\end{cases}
+\end{align*}
+$$</p>
+<p><img src="attachment:one_period_binomial.png" alt="one_period_binomial.png"></p>
+<p>We assume that today&rsquo;s stock price $s$ is known, as are the positive constants, $u$, $d$, $p_u$ and $p_d$. We assume that $d &lt; u$ and we have of course $p_u + p_d = 1$. We can illustrate the price dynamics using the tree structure in the above figure.</p>
+<h2 id="portfolios-and-arbitrage">Portfolios and arbitrage.</h2>
+<p>We will study the behavior of various portfolios on the $(B,S)$ market and to this end we define a portfolio as a vector $\mathbf{h} = (x,y)$ in $\mathbf{R}^2$. The interpretation is that $x$ is the number of bonds we hold in our portfolio, whereas $y$ in the number of units of the stock held by us. Note that, it is quite acceptable for $x$ and $y$ to be positive as well as negative. If, for example, $x=3$, this means that we have bought three bonds at time $t=0$. If on the other hand $y=-2$, this means that we have sold two share of the stock at time $t=0$. In financial jargon, we have a \textbf{long} position in the bond and a \textbf{short} position in the stock. It is an important assumption of the model, that \textbf{short} positions are allowed.</p>
+<hr>
+<p><strong>Assumptions</strong>. We assume the following institutional facts:</p>
+<ul>
+<li>Short positions as well as fractional holdings are allowed. In mathematical terms, this means that every $\mathbf{h}\in\mathbf{R}^2$ is an allowed portfolio.</li>
+<li>There is no bid-ask spread. That is, the selling price is equal to the buying price.</li>
+<li>There are no transactions costs of trading.</li>
+<li>The market is completely liquid i.e. it is always possible to buy and/or sell unlimited quantities on the market. In particular, it is possible to borrow unlimited amounts from the bank (by selling bonds short).</li>
+</ul>
+<hr>
+<p>Consider now a fixed portfolio $\mathbf{h} =(x,y)$. This portfolio has a deterministic market value at $t=0$ and a stochastic value at $t=1$.</p>
+<hr>
+<p><strong>Definition (Value process $V_t^h$)</strong>. The <strong>value process</strong> of the portfolio $h$ is defined by</p>
+<p>$$
+\begin{align*}
+V_t^h = xB_t + yS_t, \quad t=0,1
+\end{align*}
+$$</p>
+<p>or in more detail,</p>
+<p>$$
+\begin{align*}
+V_0^h &amp;= x + ys \\
+V_1^h &amp;= x(1+r) + ysZ
+\end{align*}
+$$</p>
+<hr>
+<p>Everyone wants to make a profit by trading on the market, and in this context a so-called arbitrage-portfolio is a dream come true, this is one of the central concepts of the theory.</p>
+<hr>
+<p>Arbitrage Portfolio.
+An arbitrage portfolio is a portfolio $h$ with the properties,</p>
+<p>$$
+\begin{align*}
+V_0^h &amp;= 0,\\
+V_1^h &amp;&gt; 0, \text{ with probability }1
+\end{align*}
+$$</p>
+<hr>
+<p>An arbitrage portfolio is a deterministic money-making machine, and we interpret the existence of an arbitrage portfolio as equivalent to a serious case of mispricing on the market. It is now natural to investigate when a given market model is arbitrage free i.e. when there are no arbitrage opportunities.</p>
+<hr>
+<p><strong>Proposition</strong>. The model above is arbitrage-free if and only if the following conditions hold:
+$$
+\begin{align*}
+d \leq (1 + r) \leq u \tag{1}
+\end{align*}
+$$</p>
+<hr>
+<p><em>Proof</em>. The above condition has an easy economic interpretation. It simply says that the return on the stock is not allowed to dominate the bond and vice versa. To show that, absence of arbitrage implies equation (\ref{eq:arb_free}), we assume that (\ref{eq:arb_free}) does in fact not hold, and then we show that this implies an arbitrage opportunity. Let us assume that the inequalities in (\ref{eq:arb_free}) does not hold, so that we have the inequality $s(1+r)&gt;su$. Then, we also have $s(1+r)&gt;sd$, so it always more profitable to invest in the bond than in the stock. An arbitrage strategy can now be formed by the portfolio $h=(s,-1)$. For this portfolio, we therefore have, $V_0^h = s + (-1)(s) = 0$, and as for $t=1$, we have :</p>
+<p>$$
+\begin{align*}
+V_1^h = s(1+r) - sZ
+\end{align*}
+$$</p>
+<p>which by the assumption is positive.</p>
+<p>Now assume that (\ref{eq:arb_free}) is satisfied. To show that this implies absence of arbitrage, let us consider an arbitrary portfolio such that $V_0^h = 0$. We thus have $x + ys = 0$ i.e. $x = -ys$. Using this relation, we can write the value of the portfolio at $t=1$ as</p>
+<p>$$
+\begin{align*}
+V_1^h &amp;= \begin{cases}
+-ys(1+r) + ysu &amp; \text{ if } Z=u\\
+-ys(1+r) + ysd &amp; \text{ if } Z=d\\
+\end{cases}
+\end{align*}
+$$</p>
+<p>That is,
+$$
+\begin{align*}
+V_1^h &amp;= \begin{cases}
+ys(u-(1+r)) &amp; \text{ if } Z=u\\
+ys(d-(1+r)) &amp; \text{ if } Z=d\\
+\end{cases}
+\end{align*}
+$$</p>
+<p>Assume now that $y&gt;0$. Then, $h$ is an arbitrage strategy, if and only, if we have the inequalities:</p>
+<p>$$
+\begin{align*}
+u &amp;&gt; (1+r)\\
+d &amp;&gt; (1+r)
+\end{align*}
+$$</p>
+<p>but this is impossible because of condition (\ref{eq:arb_free}). The case $y &lt; 0$ is treated similarly. This closes the proof.</p>
+<p>At first glance, this result is perhaps only moderately exciting, but we may write it in a more suggestive form. To say that \eqref{eq:arb_free} holds is equivalent to saying that, geometrically, the point $(1+r)$ lies between the points $u$ and $d$ on the real line, and therefore it is a convex combination of $u$ and $d$. By the section formula,</p>
+<p>$$
+\begin{align*}
+1+r = q_u \cdot u + q_d \cdot d
+\end{align*}
+$$</p>
+<p>where $q_u,q_d \geq 0$ are some fractions and $q_u + q_d = 1$. The point $(1+r)$ divides the line joining $(u,0)$ and $(d,0)$, into the ratio $q_d:q_u$. In particular, we see that these weights $q_u$ and $q_d$ can be interpreted as probabilities for a new probability measure $Q$ with the probability with the property $Q(Z=u)=q_u$ and $Q(Z=d) = q_d$. Denoting the expectation w.r.t this measure by $E^Q$, we have the following easy calculation:</p>
+<p>$$
+\begin{align*}
+\frac{1}{1+r}E^Q[S_1] = \frac{1}{1+r}[q_u su + q_d sd] = \frac{1}{1+r} \cdot s(1+r) = s
+\end{align*}
+$$</p>
+<p>We thus have the relation
+$$
+\begin{align*}
+s = \frac{1}{1+r}E^Q[S_1]
+\end{align*}
+$$</p>
+<p>This is called the <strong>risk-neutral pricing formula</strong>, in the sense that, it gives today&rsquo;s stock price as the discounted expected value of tomorrow&rsquo;s stock price. Of course, we do not assume that the agents in our market are risk-neutral - what we have shown is only that if we use $Q$-probabilities then we in fact have a risk-neutral valuation of the stock(given absence of arbitrage). A probability measure is called a <strong>risk-neutral measure</strong>, or alternatively a <strong>risk adjusted measure</strong> or a <strong>martingale measure</strong>.</p>
+<hr>
+<p><strong>Definition (Martingale Measure)</strong>. A probability measure $Q$ is called a martingale measure if the following condition holds:
+$$
+\begin{align*}
+S_0 = \frac{1}{1+r}E^Q[S_1]
+\end{align*}
+$$</p>
+<hr>
+<hr>
+<p><strong>Proposition (Equivalence of No-arbitrage and existence of Martingale measure).</strong> The market model is arbitrage free if and only if there exists a martingale measure $Q$.</p>
+<hr>
+<p><em>Proof</em>.</p>
+<p>The binomial model is arbitrage free, if
+$$
+\begin{align*}
+d \leq (1+r) \leq u
+\end{align*}
+$$</p>
+<p>Let $(1+r) = q_u u + q_d d$. Then, by the section formula,
+$$
+\begin{align*}
+q_u &amp;= \frac{(1+r)-d}{u-d}\\
+q_d &amp;= \frac{u - (1+r)}{u-d}
+\end{align*}
+$$</p>
+<p>Clearly, $0 &lt; q_u &lt; 1$, $0 &lt; q_d &lt; 1$ and $q_u + q_d = 1$. Moreover, they satisfy the equation $q_u \cdot u + q_d \cdot d = (1+r)$. So, the discounted expectation of tomorrow&rsquo;s stock price under the $Q$-measure is today&rsquo;s stock price. Thus, there exists a martingale measure $Q$. This closes the proof.</p>
+<hr>
+<p><strong>Proposition (Martingale probabilities in the Binomial Model).</strong>
+For the binomial model above, the martingale probabilities are:</p>
+<p>$$
+\begin{align*}
+q_u &amp;= \frac{(1+r)-d}{u - d}\\
+q_d &amp;= \frac{u-(1+r)}{u - d}
+\end{align*}
+$$</p>
+<hr>
+<hr>
+<p><strong>Defintion (Contingent claim).</strong> A contingent claim(financial derivative) is any stochastic variable $X$ of the form $X = \Phi(Z)$, where $Z$ is the stochastic variable driving the stock price process above.</p>
+<hr>
+<p>The function $\Phi$ is called the <strong>contract function</strong>. A typical example would be a European call option on the stock with strike price $K$. For this option to be interesting we assume that $sd &lt; K &lt; su$. If $S_1 &gt; K$, then we use the option, pay $K$ to get the stock and then sell the stock on the market for $su$, thus making a net profit of $su - K$. If $S_1 &lt; K$, then the option is obviously worthless. In this example, we thus have:</p>
+<p>$$
+\begin{align*}
+X = \begin{cases}
+su - K, \quad &amp;\text{ if } Z=u,\\
+0, \quad &amp; \text{ if } Z = d
+\end{cases}
+\end{align*}
+$$</p>
+<p>and the contract function is given by</p>
+<p>$$
+\begin{align*}
+\Phi(u) &amp;= su - K,\\
+\Phi(d) &amp;= 0
+\end{align*}
+$$</p>
+<p>Our main problem is now to determine the fair price of this financial derivative at time $0$, if such an object exists at all, for a given contingent claim $X$.</p>
+<p><img src="attachment:contingent_claim.png" alt="contingent_claim.png"></p>
+<p>If we denote the price of $X$ at time $t$ by $\Pi_t[X]$, then it can be seen that at time $t=1$, the problem is easy to solve. In order to avoid arbitrage, we must have</p>
+<p>$$
+\begin{align*}
+\Pi_1[X] = X
+\end{align*}
+$$</p>
+<p>If $\Pi_1[X] &gt; X$, everyone would borrow the asset worth $X$ at time $1$ and sell it for a price $\Pi_1[x]$ to make a risk-less profit of $\Pi_X - X$, forcing the price downwards. If $\Pi_1[X] &lt; X$, then everyone would buy the asset worth $X$ at time $1$ for a cheaper price $\Pi_1[X]$ and make a risk-less profit of $X - \Pi_1[X]$, thus pushing the price upwards. Thus, $X = \Pi_1[X]$, if there is to be no arbitrage opportunities.</p>
+<p>The hard part of the problem is to now determine $\Pi_0[X]$. To attack this problem, we make a slight detour.</p>
+<p>Since, we have assumed the absence of arbitrage we know that we cannot make money out of nothing, but it is interesting to study what we can achieve on the market.</p>
+<hr>
+<p><strong>Definition (Replication portfolio).</strong> A given contingent claim $X$ can be \textbf{replicated}, or is said to be reachable if there if there exists a portfolio $h$ such that
+$$
+\begin{align*}
+V_1^h &amp;= X
+\end{align*}
+$$
+with probability $1$. In that case, we say that the portfolio $h$ is a \textbf{hedging} portfolio or a \textbf{replicating} portfolio. If all claims can be replicated we say that the market is \textbf{complete}.</p>
+<hr>
+<p>If a certain claim $X$ is reachable with the replicating portfolio $h$, then from a financial point of view, there is no difference between holding the claim and holding the portfolio. No matter what happens on the stock market, the value of the claim at time $1$ will be exactly equal to the value of the portfolio at $t=1$. Thus, the price of the claim should equal the market value of the portfolio, and we have the following basic principle.</p>
+<p><strong>Pricing principle 1.</strong> If the claim $X$ is reachable with the replicating portfolio $h$, then the only reasonable price process for $X$ is given by
+$$
+\begin{align*}
+\Pi_t[X] = V_t^h, \quad t=0,1
+\end{align*}
+$$</p>
+<p>The word &ldquo;reasonable&rdquo; above can be given a more precise meaning as in the following proposition. We leave the proof to the reader.</p>
+<hr>
+<p><strong>Proposition. Price of a contingent claim $X$</strong> Suppose that the claim $X$ is reachable with the replicating portfolio $h$. Then any price at $t=0$ of the claim $X$, other than $V_0^h$ will lead to an arbitrage possibility.</p>
+<hr>
+<p><em>Proof.</em>
+Case I. $\Pi_0[X] &gt; V_0^h$. Then at time $t=0$, short sell the claim $X$ for $\Pi_0[X]$, invest $V_0^h$ dollars to buy the replicating portfolio and the remaining difference $\Pi_0[X] - V_0^h$ in a risk-free money-market account. At time $t=1$, we can sell the replicating portfolio for $V_1^h = \Pi_1[X]$ dollars and return the claim. We will be left with a risk-less profit of $(\Pi_0[X] - V_0^h)(1+r)$.</p>
+<p>Case II. $\Pi_0[X] &lt; V_0^h$. Then, at time $t=0$, short sell the replicating portfolio for $V_0^h$ dollars, buy the claim $X$ for $\Pi_0[X]$ and invest the remaining sum of money in a risk-free bank account. At time $t=1$, the claim $X$ is worth $\Pi_1[X]$ which is enough to square off our short position on the hedging portfolio worth $V_1^h$, and we are left with a risk-less profit of $(V_0^h - \Pi_0[X])(1+r)$.</p>
+<p>We see that in a complete market, we can in fact price all contingent claims, so it is of great interest to investigate when a given market is complete. For the binomial model, we have the following result.</p>
+<hr>
+<p><strong>Proposition (Binomial model is complete)</strong>. Assume that the general binomial model is free of arbitrage. Then, it is also complete.</p>
+<hr>
+<p><em>Proof.</em></p>
+<p>We fix an arbitrary claim $X$ with the contract function $\Phi$, and we want to show that there exists a portfolio $h=(x,y)$ such that</p>
+<p>$$
+\begin{align*}
+V_1^h &amp;= \Phi(u), \text{ if } Z=u\\
+V_1^h &amp;= \Phi(d), \text{ if } Z=d
+\end{align*}
+$$</p>
+<p>If we write this out in detail, we want to find a solution $(x,y)$ such that:</p>
+<p>$$
+\begin{align*}
+(1+r)x + suy &amp;= \Phi(u)\\
+(1+r)x + sdy &amp;= \Phi(d)
+\end{align*}
+$$</p>
+<p>Solving for $x$ and $y$, we get:</p>
+<p>$$
+\begin{align*}
+x &amp;= -\frac{1}{1+r}\cdot\frac{\Phi(u)\cdot d - \Phi(d) \cdot u}{u - d}\\
+y &amp;= \frac{\Phi(u) - \Phi(d)}{s(u - d)}
+\end{align*}
+$$</p>
+<h2 id="risk-neutral-valuation">Risk-neutral Valuation</h2>
+<p>Since the binomial model is shown to be complete we can now price any contingent claim. According to the pricing principle of the preceding section, the time-zero price $\Pi_0[X]$ of the claim $X$ is given by,</p>
+<p>$$
+\begin{align*}
+\Pi_0[X] &amp;=  V_0^h
+\end{align*}
+$$</p>
+<p>and using the explicit formulas \eqref{eq:bonds}-\eqref{eq:stocks}, we obtain:</p>
+<p>$$
+\begin{align*}
+\Pi_0[X] &amp;= x + ys \\
+&amp;= -\frac{1}{1+r}\cdot \frac{\Phi(u)\cdot d - \Phi(d) \cdot u}{u - d} +  \frac{\Phi(u) - \Phi(d)}{s(u-d)} \cdot s\\
+&amp;= -\frac{1}{1+r}\cdot \frac{\Phi(u)\cdot d - \Phi(d) \cdot u}{u - d} +  \frac{1}{1+r}\cdot\frac{(1+r)\Phi(u) - (1+r)\Phi(d)}{(u-d)}\\
+&amp;= \frac{1}{1+r}\left[\Phi(u) \left(\frac{(1+r) - d}{u - d}\right) + \Phi(d) \left(\frac{u - (1+r)}{u - d}\right)\right]
+\end{align*}
+$$</p>
+<p>Here we recognize the martingale probabilities $q_u$ and $q_d$. If we assume that the model is free of arbitrage, these are the true probabilities, so we can write the pricing formula above as</p>
+<p>$$
+\begin{align*}
+\Pi_0[X] = \frac{1}{1+r}{\Phi(u)\cdot q_u + \Phi(d)\cdot q_d}
+\end{align*}
+$$
+The right hand side can now be interpreted as an expected value under the martingale probability measure $Q$, so we have proved the following basic pricing result, where we also add our old results about hedging.</p>
+<hr>
+<p><strong>Proposition (Arbitrage free price of a contingent claim).</strong> If the binomial model is free of arbitrage, then the arbitrage free price of a contingent claim $X$ is given by,
+$$
+\begin{align*}
+\Pi_0[X] &amp;= \frac{1}{1+r}E^Q[X]
+\end{align*}
+$$</p>
+<p>Here the martingale measure $Q$ is uniquely determined by the relation
+$$
+\begin{align*}
+S_0 = \frac{1}{1+r}E^Q[S_1]
+\end{align*}
+$$
+and the explicit expressions for $q_u$ and $q_d$ are given in the proposition \ref{prop:binomial_probabilities}. Furthermore the claim can be replicated using the portfolio</p>
+<p>$$
+\begin{align*}
+x &amp;= -\frac{1}{1+r}\cdot \frac{d\Phi(u) - u\Phi(d)}{u - d}\\
+y &amp;= \frac{\Phi(u) - \Phi(d)}{s(u-d)}
+\end{align*}
+$$</p>
+<hr>
+<p>We see that the formula \eqref{eq:risk_neutral_valuation_formula} is a &ldquo;risk-neutral&rdquo; valuation formula, and that the probabilities which are used are just those for which the stock itself admits a risk-neutral valuation.</p>
+<hr>
+<p><strong>Moral:</strong></p>
+<ul>
+<li>The only role played by the objective probabilities is that they determine which events are possible and which are impossible. In more abstract probabilistic terminology they thus determine the class of equivalent probability measures.</li>
+<li>When we compute the arbitrage free price of a financial derivative we carry out the computations <strong>as if</strong> we live in a risk neutral world.</li>
+<li>This does <strong>not</strong> mean that we de facto live (or believe that we live) in a risk-neutral world.</li>
+<li>The formula above holds for all investors, regardless of their attitude towards risk, as long as they prefer more deterministic money to less.</li>
+</ul>
+<hr>
+
+</article>
+
+
+
+</html>
