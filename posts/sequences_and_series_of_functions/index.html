@@ -229,7 +229,106 @@ $$</p>
 n \geq N \quad \text{ implies } \quad |g_n(x) - g(x)| &lt; \epsilon
 $$</p>
 <p>for all $x \in \mathbf{R}$. By definition, $g_n \to 0$ uniformly on $\mathbf{R}$.</p>
-<p>(ii) Look back at example 6.2.2 (i), where we saw that $f_n(x) = (x^2 + nx)/n$ converges pointwise on $\mathbf{R}$ to $f(x) = x$. On</p>
+<p>(ii) Look back at example 6.2.2 (i), where we saw that $f_n(x) = (x^2 + nx)/n$ converges pointwise on $\mathbf{R}$ to $f(x) = x$. On $\mathbf{R}$, the convergence is not uniform. To see this write</p>
+<p>$$
+|f_n(x) - f(x)| = \left|\frac{x^2 + nx}{n} - x\right| = \frac{x^2}{n}
+$$</p>
+<p>and notice that in order to force $|f_n(x) - f(x)|&lt;\epsilon$, we are going to have to choose</p>
+<p>$$
+N &gt; \frac{x^2}{\epsilon}
+$$</p>
+<p>Although this is possible to do for each $x \in \mathbf{R}$, there is not way to choose a single value of $N$ that will work for all values of $x$ at the same time.</p>
+<p>On the other hand, we can show that $f_n \to f$ uniformly on the set $[-b,b]$. By restricting our attention to a bounded interval, we may now assert that</p>
+<p>$$
+\frac{x^2}{n} \leq \frac{b^2}{n}
+$$</p>
+<p>Given $\epsilon &gt; 0$ then, we can choose:</p>
+<p>$$
+N &gt; \frac{b^2}{\epsilon}
+$$</p>
+<p>Graphically speaking, the uniform convergence of $f_n$ to a limit $f$ on a set $A$ can be visualized by constructing a band of radius $\pm \epsilon$ around the limit function $f$. If $f_n \to f$ uniformly, then there exists a point in the sequence after which each $f_n$ is <em>completely</em> contained in this $\epsilon-$strip.</p>
+<h3 id="cauchy-criterion">Cauchy Criterion</h3>
+<p>Recall that the Cauchy criterion for convergent sequences of real numbers was an equivalent characterization of convergence which, unlike the definition, did not make explicit mention of the limit. The usefulness of the Cauchy criterion suggests the need for an analogous characterization of uniformly convergent sequences of functions. As with all statements about uniformity, pay special attention to the relationship between the response variable ($N \in \mathbf{N}$) and the domain variable ($x \in A$).</p>
+<hr>
+<p><strong>Theorem (Cauchy Criterion for Uniform Convergence).</strong> A sequence of functions $(f_n)$ defined on a set $A \subseteq \mathbf{R}$ converges uniformly on $A$, if and only if, for every $\epsilon &gt; 0$ there exists $N \in \mathbf{N}$ such that $|f_n(x) - f_m(x)| &lt; \epsilon$ whenever $m,n \geq N$ and $x \in A$.</p>
+<hr>
+<h3 id="continuity-revisited">Continuity Revisited</h3>
+<p>The stronger assumption of uniform convergence is precisely what is required to remove the flaws from our attempted proof that the limit of continuous functions is continuous.</p>
+<hr>
+<p><strong>Theorem (Continuous Limit Theorem).</strong> Let $(f_n)$ be a sequence of functions defined on $A \subseteq \mathbf{R}$ that converges uniformly on $A$ to a function $f$. If each $f_n$ is continuous at $c \in A$, then $f$ is continuous at $c$.</p>
+<hr>
+<p><em>Proof.</em> Fix $c \in A$ and let $\epsilon &gt; 0$. Choose $N(\epsilon)$ so that:</p>
+<p>$$
+|f_N(x) - f(x)| &lt; \frac{\epsilon}{3}
+$$</p>
+<p>for all $x \in A$. We are able to do so, because $(f_n)$ converges to $f$ uniformly. Because $f_N$ is continuous, there exists $\delta(\epsilon,N,c)&gt;0$ for which</p>
+<p>$$
+f_N(x) - f_N(c)| &lt; \frac{\epsilon}{3}
+$$</p>
+<p>for all $|x - c| &lt; \delta$.</p>
+<p>And finally, since $(f_n)$ uniformly converges to $f$ on $A$, for the same $N(\epsilon)$, it follows that</p>
+<p>$$
+f_N(c) - f(c)| &lt; \frac{\epsilon}{3}
+$$</p>
+<p>This implies that,</p>
+<p>$$
+\begin{align*}
+|f(x) - f(c)| &amp;= |f(x) - f_N(x) + f_N(x) - f_N(c) + f_N(c) - f(c)|\\
+&amp;\leq |f(x) - f_N(x)| + |f_N(x) - f_N(c)| + |f_N(c) - f(c)|\\
+&amp;&lt; \frac{\epsilon}{3} + \frac{\epsilon}{3} + \frac{\epsilon}{3} = \epsilon
+\end{align*}
+$$</p>
+<p>Thus, $f$ is continuous at $c \in A$.</p>
+<h3 id="exercise-problems">Exercise Problems.</h3>
+<hr>
+<ol>
+<li>[Abbott 6.2.1] Let</li>
+</ol>
+<p>$$f_n(x) = \frac{nx}{1 + nx^2}$$</p>
+<p>(a) Find the pointwise limit of $(f_n)$ for all $x \in (0,\infty)$.</p>
+<p>(b) Is the convergence uniform on $(0,\infty)$?</p>
+<p>(c) Is the convergence uniform on $(0,1)$?</p>
+<p>(d) Is the convergence uniform on $(1,\infty)$?</p>
+<hr>
+<p><em>Proof.</em></p>
+<p>(a) We have,</p>
+<p>$$
+\begin{align*}
+\lim_{n \to \infty} f_n(x) &amp;= \lim_{n \to \infty} \frac{nx}{1 + nx^2} =\lim_{n \to \infty}  \frac{x}{\frac{1}{n} + x^2} \\
+&amp;= \frac{x}{x^2} = \frac{1}{x}
+\end{align*}
+$$</p>
+<p>Define</p>
+<p>$$
+f(x) = \frac{1}{x}
+$$</p>
+<p>Then, $(f_n)$ converges pointwise to $f$.</p>
+<p>(b) Consider the distance</p>
+<p>$$
+\begin{align*}
+|f_n(x) - f(x)| &amp;= \left|\frac{nx}{1 + nx^2} - \frac{1}{x}\right| = \left|\frac{nx^2 - 1 - nx^2}{x(1+nx^2)}\right|\\
+&amp;= \left|\frac{1}{x(1+nx^2)}\right|\\
+&amp;\leq \frac{1}{n|x|^3}
+\end{align*}
+$$</p>
+<p>We are interested to make the above distance as small as we please. So, we must $N &gt; \frac{|x|^3}{\epsilon}$. Here, $N$ is function of both the point $x$ and $\epsilon$. We cannot choose a single $N$, that works for all $x$. Hence, $(f_n)$ does not converge uniformly to $f$ on $(0,\infty)$.</p>
+<p>(c) $(f_n)$ does not converge uniformly to $f$ on $(0,1)$.</p>
+<p>(d) We have,</p>
+<p>$$
+N &gt; \frac{|x|^3}{\epsilon}
+$$</p>
+<p>If we replace the right hand by it&rsquo;s lower bound, we are strengthening the condition we wish to prove. Since $x \in (1,\infty)$, we have $|x| &gt; 1$. So, pick</p>
+<p>$$
+N &gt; \frac{1}{\epsilon}
+$$</p>
+<p>It follows that, $(f_n)$ converges to $f$ uniformly.</p>
+<hr>
+<ol start="2">
+<li>[Abbott 6.2.2] (a) Define a sequence of functions on $\mathbf{R}$ by,</li>
+</ol>
+<p>$$
+$$</p>
+<hr>
 
 </article>
 
