@@ -378,7 +378,53 @@ $$</p>
 <p>$f_M$ is continuous at $c = 0$. Pick an arbitrary $\epsilon &gt; 0$. By the Archimedean property, there exists a natural number $N \in\mathbf{N}$ such that, $N &lt; \frac{1}{\epsilon}$. We are interested to make the distance $|f_M(x) - f_M(0)| &lt; \frac{1}{N}$. Pick $\delta = \min \{\frac{1}{2M},\frac{1}{2N}\}$. Then, for all $x \in (-\delta,\delta)$, it follows that $|f_M(x) - f_M(0)| = |0 - 0| = 0 &lt;\epsilon$.</p>
 <p><strong>Continuity of $f$.</strong></p>
 <p>$f$ is not continuous at $c = 0$. Consider the sequence $(x_n)$ defined by $x_n:= \frac{1}{n}$. We have, $(x_n) \to 0$. But, $f(x_n)$ is the sequence $(1,1,1,\ldots)$, which converges to $1$, whilst $f(0)= 0$. So, $f$ fails to be continuous at $c=0$.</p>
-<p>(b)</p>
+<p>(b) Define</p>
+<p>$$
+g(x) = \begin{cases}
+x \quad \text{ if } x \in \{\frac{1}{n} : n \in \mathbf{N}\}\\
+0 \quad \text{ otherwise }
+\end{cases}
+$$</p>
+<p><strong>Pointwise convergence.</strong></p>
+<p>Pick an arbitrary $\epsilon &gt; 0$. By the Archimedean property, there exists $N \in\mathbf{N}$, such that, $\frac{1}{N} &lt; \epsilon$.</p>
+<p>Let $x \in \{\frac{1}{n}:n\in\mathbf{N}\}$.</p>
+<p>If $n &lt; N$, then $x = \frac{1}{n} &gt; \frac{1}{N}$. Pick $M &gt; N + 1$, then $\frac{1}{M} &lt; \frac{1}{N} &lt; x$. Thus, $|g_m(x) - g(x)| = |x - x| = 0 &lt; \frac{1}{N} &lt; \epsilon$ for all $m \geq M$.</p>
+<p>If $n &gt; N$, then $x = \frac{1}{n} &lt; \frac{1}{N}$. Again, pick $M &gt; \left(\frac{1}{x} + 1\right)$. Then, $\frac{1}{M} &lt; x &lt; \frac{1}{N}$. Thus, $|g_m(x) - g(x)| = |x - x| = 0 &lt; \epsilon$ for all $m \geq M$.</p>
+<p>Consequently, $(g_n)$ converges pointwise to $g$.</p>
+<p><strong>Uniform convergence.</strong></p>
+<p>Consider an arbitrary $g_N(x)$. And sample $g_N(x)$ at $x = \frac{1}{n}$, $n \in\mathbf{N}$. We have,</p>
+<p>$$
+g_N(1) = 1, g_N\left(\frac{1}{2}\right) = \frac{1}{2}, g_N\left(\frac{1}{3}\right) = \frac{1}{3},\ldots, g_N\left(\frac{1}{N}\right) = \frac{1}{N}, g_N\left(\frac{1}{N+1}\right) = 0
+$$</p>
+<p>And,</p>
+<p>$$
+g(1) = 1, g\left(\frac{1}{2}\right) = \frac{1}{2}, g\left(\frac{1}{3}\right) = \frac{1}{3},\ldots, g\left(\frac{1}{N}\right) = \frac{1}{N}, g\left(\frac{1}{N+1}\right) = \frac{1}{N+1}
+$$</p>
+<p>So, $\sup_x |g_N(x) - g(x)| = \frac{1}{N+1}$.</p>
+<p>If we pick, $N &gt; \frac{1}{\epsilon}$, then $|g_n(x) - g(x)| &lt; \epsilon$ for all $x \in A$ and for all $n \geq N$. Consequently, $(g_n)$ converges uniformly to $g$ on $\mathbf{R}$.</p>
+<p><strong>Continuity of $g_n$.</strong></p>
+<p>$(g_n)$ is continuous at $c = 0$.</p>
+<p><strong>Continuity of $g$.</strong></p>
+<p>By continuous limit theorem, since $(g_n)$ converges uniformly to $g$, and each $g_n$ is continuous at $c=0$, it follows that $g$ is continuous at $c = 0$.</p>
+<p>$g$ is continuous at $c = 0$. Pick an arbitrary $\epsilon &gt; 0$. Let $(x_n)$ be an arbitrary sequence, such that $(x_n) \to 0$, with $x_n \neq 0$. The image sequence $g(x_n) = (x_n)$, which converges to $0$. This is true for all sequences $(x_n)$. Consequently, $g$ is continuous at $c = 0$.</p>
+<p>(c) Define</p>
+<p>$$
+h(x) = \begin{cases}
+x &amp;\text{ if } x \in \{\frac{1}{n}:n\in\mathbf{N}\}\\
+0 &amp;\text{ otherwise }
+\end{cases}
+$$</p>
+<p><strong>Pointwise convergence.</strong></p>
+<p>Pick an arbitrary $\epsilon &gt; 0$. By the Archimedean property, there exists $N &gt; 0$ such that $\frac{1}{N} &lt; \epsilon$.</p>
+<p>Let $x \in \{\frac{1}{n}:n \in \mathbf{N} \}$.</p>
+<p>Pick $M &gt; \max \{N+1, \frac{1}{x}\}$. Then, the distance $|h_m(x) - h(x)|=|x - x| = 0 &lt;\epsilon$ for all $m \geq M$ and $x \in (0,\infty)$. Consequently, $(h_m)$ converges to $h$ pointwise.</p>
+<p><strong>Uniform convergence.</strong></p>
+<p>Pick $\epsilon_0 = \frac{1}{2}$. If $M = 1$, pick $x_0 = 1/2$, we have $|h_2(1/2) - h(1/2)| = 1 - \frac{1}{2} \geq \frac{1}{2}$. If $M \geq 2$, pick $x_0 = \frac{1}{M}$, for all $M \in \mathbf{N}$. Then, $|h_M(x_0) - h(x_0)|=1 - \frac{1}{M} \geq \frac{1}{2} = \epsilon_0$.</p>
+<p>Consequently, $(h_m)$ does not converge uniformly to $h$.</p>
+<p><strong>Continuity of $(h_n)$.</strong></p>
+<p>$h_n$ is continuous at $c = 0$.</p>
+<p><strong>Continuity of $h$.</strong></p>
+<p>$h$ is continuous at $c = 0$.</p>
 
 </article>
 
