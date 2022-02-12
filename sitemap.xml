@@ -2,28 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://quantophile.github.io/mathsummaries/tags/binomial-model/</loc>
-    <lastmod>2022-01-19T13:01:03+01:00</lastmod>
+    <loc>https://quantophile.github.io/mathsummaries/posts/basic_notions_of_probability/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/categories/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/law-of-large-numbers/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/posts/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/probability/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/random-variables/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/</loc>
+    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/binomial-model/</loc>
     <lastmod>2022-01-19T13:01:03+01:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/martingale/</loc>
     <lastmod>2022-01-19T13:01:03+01:00</lastmod>
   </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/</loc>
-    <lastmod>2022-01-19T13:01:03+01:00</lastmod>
-  </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/no-arbitrage/</loc>
-    <lastmod>2022-01-19T13:01:03+01:00</lastmod>
-  </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/</loc>
-    <lastmod>2022-01-19T13:01:03+01:00</lastmod>
-  </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/</loc>
-    <lastmod>2022-01-19T13:01:03+01:00</lastmod>
-  </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/tags/</loc>
     <lastmod>2022-01-19T13:01:03+01:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/posts/schreve_voli_01_the_binomial_model/</loc>
