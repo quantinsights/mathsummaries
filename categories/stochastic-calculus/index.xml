@@ -20,7 +20,7 @@ Probability Space. Probability theory provides a framework to study random exper
     <item>
       <title>Joint Distributions</title>
       <link>https://quantophile.github.io/mathsummaries/posts/joint_distributions/</link>
-      <pubDate>Fri, 11 Feb 2022 11:36:50 +0100</pubDate>
+      <pubDate>Fri, 11 Feb 2022 21:22:12 +0100</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/posts/joint_distributions/</guid>
       <description>The individual distributions of two random variables do not tell us anything about whether the random varaibles are independent or dependent. Although, the PMF of $X$ is a complete blueprint for the distribution of $X$ and the PMF of $Y$ is a complete blueprint for the distribution of $Y$, these individual PMFs are missing important information about the dependence structure of $X$ and $Y$.
