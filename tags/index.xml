@@ -6,34 +6,7 @@
     <description>Recent content in Tags on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Feb 2022 11:36:50 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>joint-distributions</title>
-      <link>https://quantophile.github.io/mathsummaries/tags/joint-distributions/</link>
-      <pubDate>Sat, 12 Feb 2022 11:36:50 +0100</pubDate>
-      
-      <guid>https://quantophile.github.io/mathsummaries/tags/joint-distributions/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>multi-variate-gaussian</title>
-      <link>https://quantophile.github.io/mathsummaries/tags/multi-variate-gaussian/</link>
-      <pubDate>Sat, 12 Feb 2022 11:36:50 +0100</pubDate>
-      
-      <guid>https://quantophile.github.io/mathsummaries/tags/multi-variate-gaussian/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>probability</title>
-      <link>https://quantophile.github.io/mathsummaries/tags/probability/</link>
-      <pubDate>Sat, 12 Feb 2022 11:36:50 +0100</pubDate>
-      
-      <guid>https://quantophile.github.io/mathsummaries/tags/probability/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Fri, 11 Feb 2022 21:22:12 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>law-of-large-numbers</title>
       <link>https://quantophile.github.io/mathsummaries/tags/law-of-large-numbers/</link>
@@ -44,11 +17,38 @@
     </item>
     
     <item>
+      <title>probability</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/probability/</link>
+      <pubDate>Fri, 11 Feb 2022 21:22:12 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/probability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>random-variables</title>
       <link>https://quantophile.github.io/mathsummaries/tags/random-variables/</link>
       <pubDate>Fri, 11 Feb 2022 21:22:12 +0100</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/tags/random-variables/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>joint-distributions</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/joint-distributions/</link>
+      <pubDate>Fri, 11 Feb 2022 11:36:50 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/joint-distributions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>multi-variate-gaussian</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/multi-variate-gaussian/</link>
+      <pubDate>Fri, 11 Feb 2022 11:36:50 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/multi-variate-gaussian/</guid>
       <description></description>
     </item>
     
