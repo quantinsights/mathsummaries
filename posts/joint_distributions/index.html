@@ -180,9 +180,9 @@ f_{X,Y}(x_j,y_k) &amp;= P(X = x_j, Y = y_k)\\
 <p>Let $X \sim Poisson(\lambda p)$ and $Y \sim Poisson(\lambda q)$ be independent random variables. Let $N = X + Y$. We have:</p>
 <p>\begin{align*}
 P(N = n) &amp;= P(X + Y = n) \\
-&amp;= \sum_{x} P(X = x, Y = n - x) \quad \{ \text{Law of total probability}\}\\
+&amp;= \sum_{x} P(X + Y = n | X = x) P(X = x) \quad \{ \text{Law of total probability}\}\\
 &amp;= \sum_{x} P(Y = n - x | X = x) P(X = x) \\
-&amp;= \sum_{x} P(Y = n - x ) \cdot P(X = x) \quad \{ X \text{ is independent of } Y\} \\
+&amp;= \sum_{x} P(Y = n - x) \cdot P(X = x) \quad \{ X \text{ is independent of } Y\} \\
 &amp;= \sum_{x} e^{-\lambda q} \frac{(\lambda q)^{n-x}}{(n - x)!} \cdot e^{-\lambda p} \frac{(\lambda p)^x}{x!}\\
 &amp;= e^{-\lambda} \frac{\lambda^n}{n!} \sum_{x} \frac{n!}{(n-x)!x!} p^x q^{n - x} \\
 &amp;= e^{-\lambda} \frac{\lambda^n}{n!} \sum_{x} {n \choose x} p^x q^{n - x} \\
@@ -193,8 +193,58 @@ P(N = n) &amp;= P(X + Y = n) \\
 <p>Further, we wish to prove that the conditional on $N = n$, $X$ is a binomial random variable. We have:</p>
 <p>\begin{align*}
 f_{X|N = n}(x) &amp;= P(X = x|N = n) \\
-&amp;=
+&amp;= \frac{P(X = x, N = n)}{P(N = n)}\\
+&amp;= \frac{P(N = n | X = x) \cdot P(X = x)}{P(N = n)} \\
+&amp;= \frac{P(Y = n - x|X = x)P(X = x)}{P(N = n)} \\
+&amp;= \frac{P(Y = n - x)P(X = x)}{P(N = n)} \quad \{ X \text{ is independent of } Y\} \\
+&amp;= \frac{e^{-\lambda p}\frac{(\lambda p)^x}{x!} \cdot e^{-\lambda q}\frac{(\lambda q)^{n - x}}{(n-x)!}}{e^{-\lambda}\frac{(\lambda)^n}{n!}} \\
+&amp;= {n \choose x} p^x q^{n - x}
 \end{align*}</p>
+<p>Consequently, $X|N = x \sim Binomial(n,p)$.</p>
+<p>By the Chicken-egg story, we now have the converse to this theorem.</p>
+<hr>
+<p><strong>Theorem.</strong> If $N \sim Poisson(\lambda)$ and $X|N = n \sim Binomial(n,p)$, then $X \sim Poisson(\lambda p)$, $Y = N - X \sim Poisson(\lambda q)$, and $X$ and $Y$ are independent.</p>
+<hr>
+<h3 id="continuous">Continuous.</h3>
+<p>Once we have a handle on discrete joint distributions, it isn&rsquo;t much harder to consider continuous joint distributions. We simply make the now-familiar substitutions of integrals for sums and PDFs for PMFs, remember that the probability of any individual point is now $0$.</p>
+<p>Formally, in order for $X$ and $Y$ to have a continuous joint distribution, we require that the joint CDF</p>
+<p>$$F_{X,Y}(x,y) = P(X \leq x, Y \leq y)$$</p>
+<p>be differentiable with respect to $x$ and $y$. The partial derivative with respect to $x$ and $y$ is called the joint PDF. The joint density function characterizes the joint distribution, as does the joint CDF.</p>
+<hr>
+<p><strong>Definition.</strong> (Joint PDF). If $X$ and $Y$ are continuous with joint CDF $F_{X,Y}(x,y)$, their joint PDF is the derivative of the joint CDF with respect to $x$ and $y$:</p>
+<p>$$f_{X,Y}(x,y) = \frac{\partial^2}{\partial x \partial y}F_{X,Y}(x,y)$$</p>
+<hr>
+<p>We require valid joint PDFs to be nonnegative and integrate to $1$:</p>
+<p>$$
+f_{X,Y}(x,y) \geq 0 \quad \text{and } \int_{\infty}^{\infty} \int_{-\infty}^{\infty} f_{X,Y}(x,y) dx dy = 1
+$$</p>
+<p>In the univariate case, the PDF was the function we integrated to get the probability of an interval. Similarly, the joint PDF of two random variables is the function we integrate to get the probability of a two dimensional region. For example,</p>
+<p>$$
+P(X &lt; 3, 1 &lt; Y &lt; 4) = \int_{1}^{4} \int_{-\infty}^{3} f_{X,Y}(x,y) dx dy
+$$</p>
+<p>For a general region $A \subseteq \mathbb{R}^2$,</p>
+<p>$$
+P((X,Y) \in A) = \int_A \int f_{X,Y}(x,y) dx dy
+$$</p>
+<p>When we integrate the joint PDF over a region $A$, we are calculating the volume under the surface of the joint PDF and above $A$. Thus, probability is represented by <em>volume under the joint</em> PDF. The total volume under a valid joint PDF is $1$.</p>
+<p>In the discrete case, we get the marginal PMF of $X$ by summing over all possible values of $Y$ in the joint PMF. In the continuous case, we get the <em>marginal</em> PDF of $X$ by integrating over all possible values of $Y$ in the joint PDF.</p>
+<hr>
+<p><strong>Definition.</strong> (Marginal Density.) For continuous random variables $X$ and $Y$ with the joint density $f_{X,Y}$, the marginal density of $X$ is</p>
+<p>$$f_{X}(x) = \int_{-infty}^{\infty}f_{X,Y}(x,y) dy$$</p>
+<hr>
+<p>This is the density of $X$, viewing $X$ individually rather than jointly with $Y$.</p>
+<p>On similar lines, if we have the joint density of $X,Y,Z,YW$ but want the joint density of $X,W$, we just have to integrate over all possible values of $Y$ and $Z$:</p>
+<p>$$
+f_{X,W}(x,w) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f_{X,Y,Z,W}(x,y,z,w) dy dz
+$$</p>
+<p>Conceptually, this is easy - just integrate over the unwanted variables to get the joint PDF of the wanted variables - but computing it may or may not be easy.</p>
+<p>Returning to the case of the joint distribution of two random variables $X$ and $Y$, let&rsquo;s consider how to update our distribution for $Y$ after observing the value of $X$, using the conditional density function.</p>
+<hr>
+<p><strong>Definition.</strong> For continuous random variables $X$ and $Y$ with the joint density function $f_{X,Y}$, the conditional PDF of $Y$ given $X = x$ is,</p>
+<p>\begin{align*}
+f_{Y|X}(y) = \frac{f_{X,Y}(x,y)}{f_X(x)}
+\end{align*}</p>
+<p>for all $x$ with $f_X(x) &gt; 0$. This is considered as a function of $y$ for fixed $x$. As a convention, in order to make $f_{Y|X}(x)$ well-defined for all real $x$, let $f_{Y|X}(y) = 0$ for all $x$ with $f_X(x) = 0$.</p>
 
 </article>
 
