@@ -161,6 +161,40 @@ print(conditionalPMF)
 <p>We&rsquo;ll do one more example of discrete joint distribution to round out this section. We&rsquo;ve named it the chicken-egg story; in it, we use wishful thinking to find a joint PMF, and our efforts land us a surprising independence result.</p>
 <p><strong>Story.</strong> (Chicken-Egg). Suppose a chicken lays a random number of eggs, $N$, where $N \sim Poisson(\lambda)$. Each egg independently hatches with probability $p$ and fails to hatch with probability $q = 1 - p$. Let $X$ be the number of eggs that hatch and $Y$ the number that do not hatch, so $X + Y = N$. What is the joint PMF of $X$ and $Y$?</p>
 <p><em>Solution:</em></p>
+<p>We seek the joint PMF $P(X = x_j,Y = y_k)$ for non-negative integers $x_j$, $y_k$. Conditional on the total number of eggs $N$, the eggs are independent Bernoulli trials with probability of success $p$, so by the story of the binomial and further $X$ and $Y$ are conditionally dependent, because $Y = N - X$. Thus, we can write:</p>
+<p>\begin{align*}
+f_{X,Y}(x_j,y_k) &amp;= P(X = x_j, Y = y_k)\\
+&amp;= P(X = x_j, Y = y_k, N = x_j + y_k)\\
+&amp;= P(X = x_j, Y = y_k | N = x_j + y_k) \cdot P(N = x_j + y_k)\\
+&amp;= {x_j + y_k \choose x_j}p^{x_j}q^{y_k} \cdot e^{-\lambda} \frac{\lambda^{(x_j + y_k)}}{(x_j + y_k)!}\\
+&amp;= \frac{(x_j + y_k)!}{x_j! y_k!}p^{x_j}q^{y_k} \cdot e^{-\lambda(p+q)} \frac{\lambda^{(x_j + y_k)}}{(x_j + y_k)!}\\
+&amp;= e^{-\lambda p} \frac{(\lambda p)^{x_j}}{x_j!} \cdot e^{-\lambda q} \frac{(\lambda q)^{y_k}}{y_k!}
+\end{align*}</p>
+<p>The joint PMF factors into the product of the $Poisson(\lambda p)$ PMF (as a function of $x$) and the $Poisson(\lambda q)$ PMF (as a function of $y$). This tells us two elegant facts: (1) $X$ and $Y$ are independent, since their joint PMF is the product of their marginal PMFs, and (2) $X \sim Poisson(\lambda p)$ and $Y \sim Poisson(\lambda q)$.</p>
+<p>At first it may seem deeply counterintuitive that $X$ is unconditionally independent of $Y$. Doesn&rsquo;t knowing that a lot of eggs hatched mean that there are probably not so many that didn&rsquo;t hatch? For a <em>fixed</em> number of eggs, this independence would be impossible: knowing the number of hatched eggs would perfectly determine the number of unhatched eggs. But, in this example, the number of eggs is random, following a Poisson distribution. Without any advanced knowledge of the total number of eggs, the number of eggs reveals no additional information about the number of unhatched ones.</p>
+<p>The chicken-egg story supplements the following result:</p>
+<hr>
+<p><strong>Theorem.</strong> If $X \sim Poisson(\lambda p)$, $Y \sim Poisson(\lambda q)$, and $X$ and $Y$ are independent, then $N = X + Y \sim Poisson (\lambda)$ and $X|N = n \sim Binomial(n,p)$.</p>
+<hr>
+<p><em>Proof.</em></p>
+<p>Let $X \sim Poisson(\lambda p)$ and $Y \sim Poisson(\lambda q)$ be independent random variables. Let $N = X + Y$. We have:</p>
+<p>\begin{align*}
+P(N = n) &amp;= P(X + Y = n) \\
+&amp;= \sum_{x} P(X = x, Y = n - x) \quad \{ \text{Law of total probability}\}\\
+&amp;= \sum_{x} P(Y = n - x | X = x) P(X = x) \\
+&amp;= \sum_{x} P(Y = n - x ) \cdot P(X = x) \quad \{ X \text{ is independent of } Y\} \\
+&amp;= \sum_{x} e^{-\lambda q} \frac{(\lambda q)^{n-x}}{(n - x)!} \cdot e^{-\lambda p} \frac{(\lambda p)^x}{x!}\\
+&amp;= e^{-\lambda} \frac{\lambda^n}{n!} \sum_{x} \frac{n!}{(n-x)!x!} p^x q^{n - x} \\
+&amp;= e^{-\lambda} \frac{\lambda^n}{n!} \sum_{x} {n \choose x} p^x q^{n - x} \\
+&amp;= e^{-\lambda} \frac{\lambda^n}{n!} (p + q)^n \\
+&amp;= e^{-\lambda} \frac{\lambda^n}{n!}
+\end{align*}</p>
+<p>Thus, $N \sim Poisson (\lambda)$.</p>
+<p>Further, we wish to prove that the conditional on $N = n$, $X$ is a binomial random variable. We have:</p>
+<p>\begin{align*}
+f_{X|N = n}(x) &amp;= P(X = x|N = n) \\
+&amp;=
+\end{align*}</p>
 
 </article>
 
