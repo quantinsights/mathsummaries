@@ -240,11 +240,40 @@ $$</p>
 <p>Conceptually, this is easy - just integrate over the unwanted variables to get the joint PDF of the wanted variables - but computing it may or may not be easy.</p>
 <p>Returning to the case of the joint distribution of two random variables $X$ and $Y$, let&rsquo;s consider how to update our distribution for $Y$ after observing the value of $X$, using the conditional density function.</p>
 <hr>
-<p><strong>Definition.</strong> For continuous random variables $X$ and $Y$ with the joint density function $f_{X,Y}$, the conditional PDF of $Y$ given $X = x$ is,</p>
+<p><strong>Definition.</strong> For continuous random variables $X$ and $Y$ with the joint density function $f_{X,Y}$, the conditional density of $Y$ given $X = x$ is,</p>
 <p>\begin{align*}
-f_{Y|X}(y) = \frac{f_{X,Y}(x,y)}{f_X(x)}
+f_{Y|X}(y|x) = \frac{f_{X,Y}(x,y)}{f_X(x)}
 \end{align*}</p>
+<hr>
 <p>for all $x$ with $f_X(x) &gt; 0$. This is considered as a function of $y$ for fixed $x$. As a convention, in order to make $f_{Y|X}(x)$ well-defined for all real $x$, let $f_{Y|X}(y) = 0$ for all $x$ with $f_X(x) = 0$.</p>
+<p>Note that, we can recover the joint density function $f_{X,Y}$, if we have the conditional density $f_{Y|X}$ and the corresponding marginal $f_X$:</p>
+<p>$$
+f_{X,Y}(x,y) = f_{Y|X=x}(y|x) \cdot f_X(x)
+$$</p>
+<p>Similarly, we can recover the joint density if we have $f_{X|Y=y}$ and $f_Y$:</p>
+<p>$$
+f_{X,Y}(x,y) = f_{X|Y}(x|y) f_Y(y)
+$$</p>
+<p>This allows us to develop the continuous versions of the Bayes' rule and LOTP, The continuous versions are analogous to the discrete versions, with probability density functions in place of probabilities and integrals in place of sums.</p>
+<hr>
+<p><strong>Theorem.</strong> (Continuous form of Bayes' rule and LOTP). For continuous random variables $X$ and $Y$, we have the following continuous form of Bayes' rule:</p>
+<p>$$
+f_{Y|X}(y|x) = \frac{f_{X|Y}(x|y)f_Y(y)}{f_X(x)}, \quad \text{ for } f_X(x) &gt; 0
+$$</p>
+<p>And we have the following continuous form of the law of total probability:</p>
+<p>$$
+f_X(x) = \int_{-\infty}^{\infty} f_{X|Y}(x|y) f_Y(y) dy
+$$</p>
+<hr>
+<p><em>Proof</em>.</p>
+<p>By the definition of conditional density functions, we have:</p>
+<p>$$
+f_{Y|X}(y|x) f_X(x) = f_{X,Y}(x,y) = f_{X|Y}(x|y) f_Y(y)
+$$</p>
+<p>The continuous version of Bayes' rule follows immediately from dividing by $f_X(x)$. The continuous version of LOTP follows immediately from integrating with respect to $y$:</p>
+<p>$$
+f_X(x) = \int_{-\infty}^{\infty} f_{X,Y}(x,y)dy = \int_{\infty}^{\infty}f_{X|Y}(x|y)f_Y(y)dy
+$$</p>
 
 </article>
 

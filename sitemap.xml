@@ -2,10 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/basic_notions_of_probability/</loc>
-    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
-  </url><url>
     <loc>https://quantophile.github.io/mathsummaries/categories/</loc>
+    <lastmod>2022-03-18T19:24:24+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/</loc>
+    <lastmod>2022-03-18T19:24:24+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/categories/measure-theory/</loc>
+    <lastmod>2022-03-18T19:24:24+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/measure-theory/</loc>
+    <lastmod>2022-03-18T19:24:24+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/posts/null_sets/</loc>
+    <lastmod>2022-03-18T19:24:24+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/null-sets/</loc>
+    <lastmod>2022-03-18T19:24:24+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/posts/</loc>
+    <lastmod>2022-03-18T19:24:24+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/</loc>
+    <lastmod>2022-03-18T19:24:24+01:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/posts/basic_notions_of_probability/</loc>
     <lastmod>2022-02-11T21:22:12+01:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/posts/joint_distributions/</loc>
@@ -17,13 +38,7 @@
     <loc>https://quantophile.github.io/mathsummaries/tags/law-of-large-numbers/</loc>
     <lastmod>2022-02-11T21:22:12+01:00</lastmod>
   </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/</loc>
-    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
-  </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/multi-variate-gaussian/</loc>
-    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
-  </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/</loc>
     <lastmod>2022-02-11T21:22:12+01:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/probability/</loc>
@@ -33,9 +48,6 @@
     <lastmod>2022-02-11T21:22:12+01:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/</loc>
-    <lastmod>2022-02-11T21:22:12+01:00</lastmod>
-  </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/tags/</loc>
     <lastmod>2022-02-11T21:22:12+01:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/binomial-model/</loc>
