@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>Solution of equations by iteration | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.92.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/index.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/posts/solution_of_equations_by_iteration/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/katex/katex.min.css">
+<script defer src="https://quantophile.github.io/mathsummaries/katex/katex.min.js"></script>
+<script defer src="https://quantophile.github.io/mathsummaries/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+</header>
+
+<article>
+  <header>
+    <h1>Solution of equations by iteration</h1>
+    <time datetime="2022-03-29T19:23:36&#43;02:00">March 29, 2022</time>
+  </header>
+  <h2 id="introduction">Introduction.</h2>
+<p>Equations of various kinds arise in physical applications and a substantial body of mathematical research is devoted to their study. Some equations are rather simple. In our high school days, we all encountered the single linear equation $ax + b = 0$, where $a$ and $b$ are real numbers and $a \neq 0$, whose solution is given by $x = -b/a$. Many equations are however non-linear: a simple example is $ax^2 + bx + c = 0$, $a \neq 0$, involving a quadratic polynomial with real coefficients $a,b,c$ and $a \neq 0$. The two solutions to this equation labelled $x_1$ and $x_2$ are found in terms of the coefficients of the polynomial from the familiar formulae:</p>
+<p>$$x_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a}, \quad x_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a}$$</p>
+<p>It is less likely that you have seen more intricate formulae for the solution of cubic and quartic polynomials due to the Italian mathematicians Scipone Del Derrero(1465-1526) and Lodovico Ferrari(1522-1565), respectively which were published by Girolano Cardano(1501-1576), in 1545 in his Artis Magnae Sive de regulis algebracis liber unus. In any case, if you have been led to believe that similar expressions involving radicals (roots of sums of products of coefficients) will supply the solution to any polynoial equation, then you should brace yourself for a surprise: no such closed form forumula exists for a general polynomial of degree $n$ when $n \geq 5$. It transpires that for each $n \geq 5$ there exists a polynomial equation of degree $n$ with integer coefficients, which cannot be solved in terms of radicals; such is for example $x^5 - 4x - 2 = 0$.</p>
+<p>Since there is no general formula for the solution of the polynomial equation, no general formula will exists for the solution of an arbitrary  non-linear equation of the form $f(x) = 0$, where $f$ is a continuous real-valued function. How can we then decide whether or not such an equation possesses  a solution in the set of real numbers and how can we find its solution?</p>
+<p>The present chapter is devoted to these questions. Our goal is to develop simple numerical methods for the approximate solution of the equation $f(x) = 0$ where $f$ is a real-valued function, defined and continuous on a bounded and closed interval of the real line. Methods of the kind discussed here are iterative in nature and produce sequences of real numbers, which in favorable circumstances, converge to the required solution.</p>
+<p>We begin by reviewing a few basic results in analysis.</p>
+<h2 id="review-of-basic-real-analysis">Review of basic Real Analysis.</h2>
+<p><strong>Connected Sets.</strong> Although the two open sets $(1,2)$ and $(2,5)$ have the limit point $x=2$, in common, there is still some space between them in the sense that no limit point of one of these intervals is actually contained in the other. Said another way, the closure of $(1,2)$ is disjoint from $(2,5)$, and the closure of $(2,5)$ does not intersect $(1,2)$. Notice that this same observation cannot be made about $(1,2]$ and $(2,5)$, even though these latter sets are disjoint.</p>
+<hr>
+<p><strong>Definition.</strong> (Connected Sets). Two non-empty sets $A,B \subseteq \mathbf{R}$ are separated if $cl(A) \cap B$ and $A \cap cl(B)$ are both empty. A set $E$ is disconnected, if it can be partitioned into two disjoint sets $E = A \cup B$, where $A$ and $B$ are disconnected. A set that is not disconnected is called a connected set.</p>
+<hr>
+<p><strong>Example.</strong>
+(i) If we let $A = (1,2)$ and $B=(2,5)$, then it is not difficult to verify that $E = A \cup B$ is disconnected. Notice that the sets $C=(1,2]$ and $D=(2,5)$ are not separated, because $C \cap cl(D) = \{2\}$ is not empty. This should be comforthing. The union $C \cap D$  is equal to the interval $(1,5)$ which better not qualify as a disconnected set. We will prove in a moment that every interval is a connected subset of $\mathbf{R}$ and vice versa.</p>
+<p>(ii) Let&rsquo;s show that the set of rational numbers is disconnected. If we let</p>
+<p>$$A = \mathbf{Q} \cap (-\infty,\sqrt{2}), \quad B = \mathbf{Q} \cap (\sqrt{2},\infty)$$</p>
+<p>then we certainly have $\mathbf{Q} = A \cup B$. $A$ and $B$ are non-empty disjoint sets, therefore they are a valid partition of $\mathbf{Q}$. Any limit point of $A$ must necessaily fall in $(-\infty,\sqrt{2}]$ by the order limit theorem. Because this is disjoint from $B$ , we get $cl(A) \cap B = \emptyset$. We can similarly show that $A \cap cl(B) = \emptyset$. Thus, $\mathbf{Q}$ is disconnected.</p>
+<p>The definition of connected set is stated as the negation of disconnected set, but a little care with the logical negation of quantitifiers in the above definition results in a positive characterization of connectedness. Essentially, a set $E$ is connected, no matter, how it is partitioned, it is possible to to show that atleast one of the sets contains a limit point of the other.</p>
+<hr>
+<p><strong>Theorem.</strong> A set $E \subseteq \mathbf{R}$ is connected if and only if, for all non-empty disjoint sets satisfying $E = A \cup B$, there always exists a convergent sequence $(x_n) \to x$, with $(x_n)$ contained in one of $A$ or $B$, and $x$ an element of the other.</p>
+<hr>
+<p><em><strong>Proof.</strong></em></p>
+<p>$\Longrightarrow$ direction.</p>
+<p>Negating the definition of connected sets, we have -</p>
+<p>A set $E$ is connected, if for all non-empty disjoint sets $A$, $B$ satisfying $E = A\cup B$, atleast one of $cl(A) \cap B \neq \emptyset$ or $A \cap cl(B) \neq \emptyset$.</p>
+<p>Consequently, there exists an element $x \in cl(A) \cap B$ or $x \in A \cap cl(B)$.</p>
+<p>Since, $A$ and $B$ are disjoint non-empty sets, $A \cap B = \emptyset$. So, $x \notin A \cap B$. Thus, we have the possibilities:</p>
+<p>(i) $x \in A, x \notin B$.</p>
+<p>(ii) $x \notin A, x \in B$.</p>
+<p>(iii) $x \notin A, x \notin B$.</p>
+<p>If $x \in A, x \notin B$, then $x \in A \cap cl(B)$ must be true (The other possibility cannot hold). So, $x$ is a limit point of $B$. $x \in cl(B)$. There exists a convergent sequence $(x_n) \subseteq B$, such that $\lim x_n = x$.</p>
+<p>If $x \notin A, x \in B$, then $x \in cl(A) \cap B$ must be true. So, $x$ is a limit point of $A$. $x \in cl(A)$. There exists a convergent sequence $(x_n) \subseteq A$, such that $\lim x_n = x$.</p>
+<p>The third possibility is rejected, because it would mean that $x$ is neither in $cl(A) \cap B$, nor in $A \cap cl(B)$, which is false.</p>
+<p>In both cases (i) and (ii), exists a convergent sequence $(x_n) \to x$, with $(x_n)$ contained in one of $A$ or $B$, and $x$ an element of the other.</p>
+<p>$\Longleftarrow$ direction.</p>
+
+</article>
+
+
+
+</html>

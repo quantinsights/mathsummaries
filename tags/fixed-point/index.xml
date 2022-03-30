@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fixed-point on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/tags/fixed-point/</link>
+    <description>Recent content in fixed-point on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 29 Mar 2022 19:23:36 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/fixed-point/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solution of equations by iteration</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/solution_of_equations_by_iteration/</link>
+      <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/solution_of_equations_by_iteration/</guid>
+      <description>Introduction. Equations of various kinds arise in physical applications and a substantial body of mathematical research is devoted to their study. Some equations are rather simple. In our high school days, we all encountered the single linear equation $ax + b = 0$, where $a$ and $b$ are real numbers and $a \neq 0$, whose solution is given by $x = -b/a$. Many equations are however non-linear: a simple example is $ax^2 + bx + c = 0$, $a \neq 0$, involving a quadratic polynomial with real coefficients $a,b,c$ and $a \neq 0$.</description>
+    </item>
+    
+  </channel>
+</rss>
