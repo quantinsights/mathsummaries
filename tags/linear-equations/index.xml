@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linear Equations on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/tags/linear-equations/</link>
+    <description>Recent content in Linear Equations on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 30 Mar 2022 17:32:54 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/linear-equations/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solution of systems of linear equations</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/solution_of_systems_of_linear_equations/</link>
+      <pubDate>Wed, 30 Mar 2022 17:32:54 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/solution_of_systems_of_linear_equations/</guid>
+      <description>Previously, we consider the solution of a single equation of the form $f(x) = 0$, where $f$ is a real-valued function defined and continuous on a closed interval of the real line. The simplest example of this kind is the linear equation $ax = b$, where $a$ and $b$ are given real numbers, with $a \neq 0$, whose solution is
+$$x = a^{-1}b$$
+trivially. Of course, we could have expressd the solution as $x = b/a$ as in the previous post, but as we will see in a moment, writing $x = a^{-1}b$ is much more revealing in the present context.</description>
+    </item>
+    
+  </channel>
+</rss>

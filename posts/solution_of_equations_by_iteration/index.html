@@ -41,6 +41,32 @@
 <p>The present chapter is devoted to these questions. Our goal is to develop simple numerical methods for the approximate solution of the equation $f(x) = 0$ where $f$ is a real-valued function, defined and continuous on a bounded and closed interval of the real line. Methods of the kind discussed here are iterative in nature and produce sequences of real numbers, which in favorable circumstances, converge to the required solution.</p>
 <p>We begin by reviewing a few basic results in analysis.</p>
 <h2 id="review-of-basic-real-analysis">Review of basic Real Analysis.</h2>
+<hr>
+<p><strong>Definition.</strong> (Compactness) A set $K \subseteq \mathbf{R}$ is <em>compact</em> if every sequence in $K$ has a subsequence that converges to a limit that is also in $K$.</p>
+<hr>
+<hr>
+<p><strong>Theorem.</strong> (Characterization of Compactness) A set $K \subseteq \mathbf{R}$ is compact if and only if it is closed and bounded.</p>
+<hr>
+<p><em><strong>Proof.</strong></em></p>
+<p>$\Longrightarrow$ direction.</p>
+<p>We are given that $K$ is compact. We first prove the boundedness of $K$. We proceed by contradiction. Assume that $K$ is not bounded. Then, for all $n \in \mathbf{N}$, there exists $x \in K$, such that $|x|&gt; n$. Pick $x_1 \in K$, such that $|x_1| &gt; 1$. Pick $x_2 \in K$, such that $|x_2| &gt; 2$. In general, we pick $|x_n| &gt; n$ for all $n \in \mathbf{N}$. $(x_n)$ is unbounded. Every subsequence of $(x_n)$ increases without bounds.</p>
+<p>By definition of compact sets, every sequence in $K$ has a subsequence that converges to a limit that is also in $K$. Consequently, $(x_n)$ has a subsequence $(x_{n_k})$ such that $\lim x_{n_k}$ exists. Convergent sequences are bounded. This is a contradiction. Hence, our initial assumption is false. $K$ is bounded.</p>
+<p>Our claim is that $K$ is closed.</p>
+<p>Let $x$ be an arbitrary limit point of $K$. We are intereted to prove that $x \in K$.</p>
+<p>Since, $x$ is a limit point of $K$, there exists an sequence $(x_n) \in K$, with $x_n \neq x$ for all $n \in\mathbf{N}$, such that $\lim x_n = x$.</p>
+<p>Since $K$ is compact, every sequence in $K$, has atleast one subsequence that converges to a limit that is also in $K$. Consequently, $(x_n)$ has a subsequence $(x_{n_m})$ such that $\lim x_{n_m} \in K$. But, $\lim x_{n_m} = \lim x_n = x$. Consequently, $x \in K$. Since, $x$ was arbitrary, this is true for all limit points of $K$. Therefore, $K$ is closed.</p>
+<p>$\Longleftarrow$ direction.</p>
+<p>We are given that $K$ is closed and bounded. We are interested to prove that $K$ is compact.</p>
+<p>Let $(x_n)$ be an arbitrary sequence in $K$. Since, $(x_n)$ is a bounded sequence, by the Bolzanno Weierstrass theorem, there exists atleast one convergent subsequence $(x_{n_m})$ of $(x_n)$. Since, $K$ is closed, $\lim x_{n_m} \in K$. As $(x_n)$ was arbitrary to begin with, this holds for all sequences in $K$. Every sequence has atleast one subsequence that converges to a limit also in $K$. Therefore, $K$ is compact.</p>
+<hr>
+<p><strong>Theorem.</strong> (Nested Compact Set property).</p>
+<p>If</p>
+<p>$$K_1 \supseteq K_2 \supseteq K_3 \supseteq K_4 \ldots$$</p>
+<p>is a nested sequence of non-empty compact sets, then the intersection</p>
+<p>$$\bigcap_{n=1}^{\infty}K_n$$</p>
+<p>is non-empty.</p>
+<hr>
+<p><em><strong>Proof.</strong></em></p>
 <p><strong>Connected Sets.</strong> Although the two open sets $(1,2)$ and $(2,5)$ have the limit point $x=2$, in common, there is still some space between them in the sense that no limit point of one of these intervals is actually contained in the other. Said another way, the closure of $(1,2)$ is disjoint from $(2,5)$, and the closure of $(2,5)$ does not intersect $(1,2)$. Notice that this same observation cannot be made about $(1,2]$ and $(2,5)$, even though these latter sets are disjoint.</p>
 <hr>
 <p><strong>Definition.</strong> (Connected Sets). Two non-empty sets $A,B \subseteq \mathbf{R}$ are separated if $cl(A) \cap B$ and $A \cap cl(B)$ are both empty. A set $E$ is disconnected, if it can be partitioned into two disjoint sets $E = A \cup B$, where $A$ and $B$ are disconnected. A set that is not disconnected is called a connected set.</p>
@@ -115,13 +141,6 @@
 <p>We are interested to prove that $x \notin V$. For the sake of contradiction, assume that $x \in V$. Since $V$ is an open set, there exists an $\epsilon-$ball around $x$, $V_\epsilon(x)=(x-\epsilon,x+\epsilon)$ that is contained in $V$. Since, $U$ and $V$ are disjoint, $(x - \epsilon,x+\epsilon) \cap U = \emptyset$. Since, $x$ is a limit point of $U$, we must have that, $(x-\epsilon,x+\epsilon)$ intersects $U$ in atleast one point other than $x$. So, $(x - \epsilon,x+\epsilon) \cap U \neq \emptyset$. This is a contradiction. Our initial assumption is false. It follows that $x \notin V$. This implies, $x \notin B$. Since, $x$ was arbitrary, we conclude that $cl(A) \cap B = \emptyset$.</p>
 <p>We can similarly argue that if $x$ is an arbitrary limit point of $B$, it does not belong to $A$.</p>
 <p>Consequently, $A$ and $B$ are separated.</p>
-<hr>
-<p><strong>Definition.</strong> (Compactness) A set $K \subseteq \mathbf{R}$ is <em>compact</em> if every sequence in $K$ has a subsequence that converges to a limit that is also in $K$.</p>
-<hr>
-<hr>
-<p><strong>Theorem.</strong> (Characterization of Compactness) A set $K \subseteq \mathbf{R}$ is compact if and only if it is closed and bounded.</p>
-<hr>
-<p><em><strong>Proof.</strong></em></p>
 
 </article>
 

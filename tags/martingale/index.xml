@@ -13,8 +13,8 @@
       <pubDate>Wed, 19 Jan 2022 13:01:03 +0100</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/posts/schreve_voli_01_the_binomial_model/</guid>
-      <description>One-Period Binomial Model. The binomial asset pricing model provides a powerful tool to understand arbitrage pricing theory and probability. In this post, we introduce this tool for the first purpose. In this section we consider the simplest binomial model, the one with only one period. This is generalized to the more realistic multiperiod binomial model in the next section.
-For the general one-period model, we call the beginning of period time zero and the dned of the period time one.</description>
+      <description>One-Period Binomial Model. We start with the one-period version of the model. In the further sections, we will easily extend the model to an arbitrary number of periods.
+Model description. Running time is denoted by the letter $t$, and by definition we have two points in time $t = 0$ (&amp;ldquo;today&amp;rdquo;) and $t=1$ (&amp;ldquo;tomorrow&amp;rdquo;). In the model, we have two assets: a bond and a stock. At time $t$, the price of the bond is denoted by $B_t$ and the price of one share of the stock is denote by $S_t$.</description>
     </item>
     
   </channel>
