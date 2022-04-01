@@ -351,11 +351,23 @@ y &amp;= \frac{1}{100} \cdot \frac{10 - 0}{1.2 - 0.8} = 0.25
 \end{align*}</p>
 <p>In everyday terms, this means that the replicating portfolio is formed by borrowing $20$ dollars from the bank account, and investing this money in a quarter of a share of the stock. Thus, the net value of the portfolio at $t=0$ is $-20 + (0.25)(100)=5$. And at time $t=1$, the value is given by:</p>
 <p>\begin{align*}
-V_1^h &amp;= -20 + (0.25)120 = 10, &amp; \quad { if } S_1 = 120 \\
-V_1^h &amp;= -20 + (0.25)80 = 0, &amp; \quad { if } S_1 = 80
+V_1^h &amp;= -20 + (0.25)120 = 10, &amp; \quad \text{ if } S_1 = 120 \\
+V_1^h &amp;= -20 + (0.25)80 = 0, &amp; \quad \text{ if } S_1 = 80
 \end{align*}</p>
 <p>so we see, that we have indeed replicated the option. We also see that if anyone is foolish enough to buy the option for $6$ dollars, then we can make a risk-less profit. We short-sell the option for six dollars. Out of these six, we invest $5$ in the replicating portfolio and the remaining one in the bank. At time $t=1$, the claims of the buyer are completely balanced by the replicating portfolio, and we still have one dollar invested in the bank. We have thus, made an arbitrage profit. If someone is willing to sell the option to us at a price lower than five dollars, then we can still make an arbitrage profit by selling the portfolio short.</p>
 <p>We end this section by making few remarks.</p>
+<p>First of all we have seen that in a complete market, like the binomial model above, there is indeed a unique price for any contingent claim. This price is given by the value of the replicating portfolio, and a negative way of expressing this is as follows. There exists a theoretical price for the claim precisely because of the fact, that strictly speaking, the claim is superfluous - it can well be replaced by its hedging portfolio.</p>
+<p>Secondly, we see that the structural reason for the completeness of the binomial market model is the fact that we have two financial instruments at our disposal (the bond and the stock) in order to solve the two equations (one for each possible outcome in the sample space). This fact can be generalized. A model is complete (in the generic case) if the number of underlying assets (including the bank account) equals the number of outcomes in the sample space.</p>
+<p>If we would like to make a more realistic multiperiod model of the stock market, then the last remark above seems discouraging. If we make a (non-recombining) tree with $20$ time steps this means that we have $2^20 \approx 10^6$ elementary outcomes, and this number far exceeds by a large margin the number of assets on the existing stock market. It would therefore seem that it is impossible to construct an interesting complete model with a reasonably large number of time steps. Fortunately, the situation is not at all as bad as that; in a multiperiod model we will also have the possibility of considering intermediary trading i.e. we can allow for portfolios which are rebalanced over time. This will give us many more degrees of freedom.</p>
+<h2 id="the-multiperiod-model">The Multiperiod Model.</h2>
+<h3 id="portfolios-and-arbitrage-1">Portfolios and arbitrage.</h3>
+<p>The multiperiod binomial model is a discrete time model with the time index $t$ running from $t=0$ to $t=T$, where the horizon $T$ is fixed. As before we have two underlying assets, a bond with a price process $B_t$ and a stock with a price process $S_t$.</p>
+<p>We assume a constant deterministic short rate of interest $r$m which is interpreted as the simple period rate. This means that the bond price dynamics are given by:</p>
+<p>\begin{align*}
+B_{n+1} &amp;= (1+r)B_n\\
+B_0 &amp;= 1
+\end{align*}</p>
+<p>The</p>
 
 </article>
 
