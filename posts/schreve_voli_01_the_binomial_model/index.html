@@ -383,6 +383,52 @@ P(Z_n = d) &amp;= p_d
 <p>We can now define the multiperiod version of an arbitrage possibility.</p>
 <hr>
 <p><strong>Definition.</strong> An <strong>arbitrage</strong> possibility is a self-financing portfolio $h$ with the properties</p>
+<p>\begin{align*}
+V_0^h &amp;= 0 \\
+P(V_T^h \geq 0) &amp;= 1 \\
+P(V_T^h &gt; 0 ) &amp;&gt; 0
+\end{align*}</p>
+<hr>
+<p>If the model is free of arbitrage then the following conditions necessarily must hold:</p>
+<p>$$d \leq (1 + r) \leq u$$</p>
+<p>The condition above is in fact also sufficient for the absence of arbitrage, but this fact is a little harder to show, and we will prove it later.</p>
+<p>As in the one period model, we will have use for martingale probabilities which are defined and computed exactly as before.</p>
+<hr>
+<p><strong>Definition.</strong> The martingale probabilities $q_u$ and $q_d$ are defined as the probabilities for which the relation</p>
+<p>$$s = \frac{1}{1+r}E^Q[S_{t+1}|S_t = s]$$</p>
+<p>holds.</p>
+<hr>
+<hr>
+<p><strong>Proposition.</strong> The martingale probabilities are given by</p>
+<p>\begin{align*}
+\begin{cases}
+q_u &amp;= \frac{(1+r)-d}{u - d}\\
+q_d &amp;= \frac{u - (1+r)}{u - d}
+\end{cases}
+\end{align*}</p>
+<hr>
+<h3 id="contingent-claims">Contingent Claims.</h3>
+<p>We now give the formal definition of a contingent claim (financial derivative contract) in the model.</p>
+<hr>
+<p><strong>Definition.</strong> A <strong>contingent claim</strong> is a stochastic variable $X$ of the form</p>
+<p>$$X = \Phi(S_T)$$</p>
+<p>where the <strong>contract function</strong> $\Phi$ is some given real valued function.</p>
+<hr>
+<p>The interpretation is that the holder of the contract receives the stochastic amount $X$ at time $t = T$. Notice, that we are only considering claims that are simple in the sense that the value of the claim only depends on the value $S_T$ of the stock price at the final time $T$. It is also possible to consider stochastic payoffs which depend on the entire path of the price process during the interval $[0,T]$, but then the theory becomes a little more complicated, and in particular the event tree will become non-recombining.</p>
+<p>Our main problem is that of finding a reasonable price process</p>
+<p>$$\{\Pi_t[X];t = 0,\ldots,T\}$$</p>
+<p>for a given claim $X$, and as in the one period case we attack this problem by means of replicating portfolios.</p>
+<hr>
+<p><strong>Definition.</strong> A given contingent claim $X$ is said to be reachable if there exists a self-financing portfolio $h$ such that:</p>
+<p>$$V_T^h = X$$</p>
+<p>with probability $1$. In that case, we say that the portfolio $h$ is a <strong>hedging</strong> portfolio or a <strong>replicating</strong> portfolio. If all claims can be replicated, we say that the market is (dynamically) <strong>complete</strong>.</p>
+<hr>
+<p>Again, we have a natural pricing principle for reachable claims.</p>
+<hr>
+<p><strong>Pricing Principle 2.</strong> If a claim $X$ is reachable with replicating (self-financing) portfolio $h$, the the only reasonable price process for $X$ is given by:</p>
+<p>$$\Pi_t[X] = V_t^h, \quad t=0,1,\ldots,T$$</p>
+<hr>
+<p>Let us go through the argument in some detail.</p>
 
 </article>
 
