@@ -428,7 +428,27 @@ q_d &amp;= \frac{u - (1+r)}{u - d}
 <p><strong>Pricing Principle 2.</strong> If a claim $X$ is reachable with replicating (self-financing) portfolio $h$, the the only reasonable price process for $X$ is given by:</p>
 <p>$$\Pi_t[X] = V_t^h, \quad t=0,1,\ldots,T$$</p>
 <hr>
-<p>Let us go through the argument in some detail.</p>
+<p>Let us go through the argument in some detail. Suppose that $X$ is reachable using the self-financing $h$. Fix $t$ and suppose that at time $t$ we have access to the amount $V_t^h$. Then, we can invest this money in the portfolio $h$, and since the portfolio is self-financing we can rebalance it over time without any extra cost so as to have the stochastic value $V_T^h$ at time $T$. By definition $V_T^h = X$ with probability one, so regardless of the stochastic movements of the stock price process, the value of our portfolio will, at time $T$, be equal to the value of the claim $X$. Thus, from a financial point of view, the portfolio $h$ and the claim $X$ are equivalent so they should fetch the same price.</p>
+<p>The reasonableness of the pricing formula above can be expressed more formally as follows. The proof is left to the reader.</p>
+<hr>
+<p><strong>Proposition.</strong> Suppose that $X$ is reachable using the portfolio $h$. Suppose furthermore that, at some time $t$, it is possible to buy $X$ at a price cheaper than (or to sell it at a price higher than) $V_t^h$. Then, it is possible to make an arbitrage profit.</p>
+<hr>
+<p>We now turn to the completeness of the model:</p>
+<hr>
+<p><strong>Proposition.</strong> The multiperiod binomial model is complete i.e. every claim can be replicated by a self-financing portfolio.</p>
+<hr>
+<p>It is possible and not very hard to give a formal proof of this proposition by mathematical induction. The formal proof will, however, look rather messy with lots of indices, so instead we prove the proposition for a concrete example, using a binomial tree. This should (hopefully) convey the idea of the proof, and the mathematically inclined reader is then invited to formalize the argument.</p>
+<p><strong>Example.</strong> We set $T = 3$, $S_0 = 80$, $u = 1.5$, $d=0.5$, $p_u = 0.60$, $p_d = 0.40$ and for computational simplicity $r = 0$.</p>
+<p>The dynamics of the stock price can now be illustrated using the binomial tree in the figure below, where in each node we have written the value of the stock price.</p>
+<p>We now consider a particular contingent claim, namely a European call on the underlying stock. The date of expiration of the option is $T=3$, and the strike price is chosen to be $K=80$. Formally, this claim is described as</p>
+<p>$$X = \max [S_T - K,0]$$</p>
+<p><img src="../../static/price_dynamics.svg" alt="Stock Price Process"></p>
+<p><img src="../../static/contingent_claim.svg" alt="Contingent Claim"></p>
+<p>We will now show that this particular claim can be replicated, and it will be obvious from the argument that the result can be generalized to any binomial model and any claim.</p>
+<p>The idea is to use induction on the time variable $t$ and work backwards in the tree to the root at $t=0$. We start by computing the price of the option at the date of expiration. This is easily done since obviously (why?) we must have, for any claim $X$, the relation</p>
+<p>$$\Pi_T[X] = X$$</p>
+<p>The result is illustrated in the figure above where the boxed numbers indicate the price of the claim. Just to check, we see that if $S_3 = 90$, then we exercise the option and pay $80$ to obtain the stock, and then immediately sell the stock at the market price of $90$, thus making a profit of $10$.</p>
+<p>Our problem is thus that of replicating the boxed payoff structure at time $t = 3$. Imagine for a moment that we are at some node at $t=2$ e.g. at the node $S_2 = 180$. What we then see in front of us, from this particular node, is a simple one period binomial model, given in the figure and it now follows from the one-period theory that the payoff structure in the figure can indeed be replicated</p>
 
 </article>
 
