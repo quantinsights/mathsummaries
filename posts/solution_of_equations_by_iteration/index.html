@@ -18,6 +18,21 @@
 
 <article>
   <header>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
     <h1>Solution of equations by iteration</h1>
     <time datetime="2022-03-29T19:23:36&#43;02:00">March 29, 2022</time>
   </header>
@@ -71,8 +86,23 @@
 <p>is an open cover for $[0,1]$. But this time, notice that there is a finite subcover. Because of the addition of the set $O_0$, we can choose $x'$ so that $x'/2 &lt; \epsilon$. It follows that $\{O_0,O_{x'},O_1\}$ is a finite subcover for the closed interval $[0,1]$.</p>
 <hr>
 <hr>
-<p><strong>Theorem.</strong> (Heine-Borel Theorem)</p>
+<p><strong>Theorem.</strong> (Heine-Borel Theorem) Let $K$ be a subset of $\mathbf{R}$. All of the following statements are equivalent in the sense that any one of them implies the two others:</p>
+<p>(i) $K$ is compact.</p>
+<p>(ii) $K$ is closed and bounded.</p>
+<p>(iii) Every open cover for $K$ has a finite subcover.</p>
 <hr>
+<p><em><strong>Proof.</strong></em></p>
+<p>The equivalence of (i) and (ii) is the content of theorem on the characterization of compactness. What remains is to show that (iii) is equivalent to (i) and (ii). Let&rsquo;s first assume (iii), and prove that it implies (ii) (and thus (i) as well).</p>
+<p>$\Longleftarrow$ direction.</p>
+<p>To show that $K$ is bounded, we construct an open cover for $K$ by defining $O_x = (x - 1, x + 1)$. Clearly, $\bigcup_{x \in K}O_x$ contains $K$. Every open cover for $K$ has a finite subcover. So, there exists a finite subcover $\{O_{x_1},\ldots,O_{x_N}\}$ that covers $K$. Then, we have the following bounds for $K$:</p>
+<p>$$\min_{1 \leq n \leq N}\{x_n\} - 1 &lt; x \leq \max_{1 &lt; n \leq N}\{x_n\} + 1$$</p>
+<p>for all $x \in K$.</p>
+<p>To show that $K$ is closed, we construct another open cover for $K$ as follows. Let $y$ be a limit point of $K$. We are interested to prove that $y \in K$. Define</p>
+<p>$$O_x = \left(x - \frac{|x-y|}{2},x + \frac{|x-y|}{2}\right)$$</p>
+<p>Clearly, $\{O_x:x \in K\}$ is an open cover for $K$.</p>
+<p>Every open cover for $K$ has a finite subcover that completely contains $K$. So, there exists a finite subcover</p>
+<p>$$\{O_{x_1},\ldots,O_{x_N}\}$$</p>
+<p>that completely contains $K$.</p>
 <p><strong>Connected Sets.</strong> Although the two open sets $(1,2)$ and $(2,5)$ have the limit point $x=2$, in common, there is still some space between them in the sense that no limit point of one of these intervals is actually contained in the other. Said another way, the closure of $(1,2)$ is disjoint from $(2,5)$, and the closure of $(2,5)$ does not intersect $(1,2)$. Notice that this same observation cannot be made about $(1,2]$ and $(2,5)$, even though these latter sets are disjoint.</p>
 <hr>
 <p><strong>Definition.</strong> (Connected Sets). Two non-empty sets $A,B \subseteq \mathbf{R}$ are separated if $cl(A) \cap B$ and $A \cap cl(B)$ are both empty. A set $E$ is disconnected, if it can be partitioned into two disjoint sets $E = A \cup B$, where $A$ and $B$ are disconnected. A set that is not disconnected is called a connected set.</p>
