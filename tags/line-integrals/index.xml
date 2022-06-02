@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>line-integrals on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/tags/line-integrals/</link>
+    <description>Recent content in line-integrals on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 May 2022 17:42:31 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/line-integrals/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Line Integrals</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/line_integrals/</link>
+      <pubDate>Fri, 27 May 2022 17:42:31 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/line_integrals/</guid>
+      <description>Scalar and Vector Line Integrals. Scalar Line Integrals. To begin, we find a way to integrate a function (a scalar field) along a path. Let $\mathbf{x}:[a,b] \to \mathbf{R}^3$ be a path of class $C^1$. Let $f:X \subset \mathbf{R}^3 \to \mathbf{R}$ be a continuous function whose domain $X$ contains the image of $\mathbf{x}$ (so that the composite $f(\mathbf{x}(t))$ is defined). As has been the case with every other integral, the scalar line integral is a limit of appropriate Riemann sums.</description>
+    </item>
+    
+  </channel>
+</rss>
