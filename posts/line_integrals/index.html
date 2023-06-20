@@ -55,7 +55,7 @@ $$</p>
 <p><img src="../../static/line_integrals_01.svg" alt="Stock Price Process"></p>
 <p>Figure. The sum $\sum_{k=1}^{n}f(\mathbf{x}(t_k^{*}))\Delta s_k$ approximates the total charge along an idealized wire described by the path $\mathbf{x}$.</p>
 <p>The mean value theorem for integrals tells us that there is some number $t_k^{**}$ in $[t_{k-1},t_k]$ such that:</p>
-<p>$$\Delta s_k = \int_{t_{k-1}}^{t_k}||x'(t)|| dt = ||x'(t_k^{**})||(t_k - t_{k-1}) = ||x'(t_k^{**})||\Delta t_k$$</p>
+<p>$$\Delta s_k = \int_{t_{k-1}}^{t_k}||\mathbf{x}'(t)|| dt = ||\mathbf{x}'(t_k^{**})||(t_k - t_{k-1}) = ||\mathbf{x}'(t_k^{**})||\Delta t_k$$</p>
 <p>Since $t_k^{*}$ is an arbitrary point in $[t_{k-1},t_k]$ we may take it equal to $t_k^{**}$. Therefore, by substituting for $\Delta s_k$ in equation (2), and letting $t_k^{*} = t_k^{**}$, we have:</p>
 <p>$$
 \begin{aligned}
@@ -83,7 +83,7 @@ First</p>
 <p>$$
 \begin{aligned}
 \int_{\mathbf{x}}f ds &amp;= \sqrt{2}\left(\frac{1}{2}\int_{0}^{2\pi} \sin 2t dt + \int_{0}^{2\pi} t dt \right)\\
-&amp;= \sqrt{2}\left(\frac{1}{2}\left[-\frac{\cos 2t}{2}\right]_{t=0}^{t=2\pi} + \left[\frac{t^2}{2}\right]\right)\\
+&amp;= \sqrt{2}\left(\frac{1}{2}\left[-\frac{\cos 2t}{2}\right]_{t=0}^{t=2\pi} + \left[\frac{t^2}{2}\right]_{t=0}^{t=2\pi}\right)\\
 &amp;= 2\sqrt{2}\pi^2
 \end{aligned}
 $$</p>
@@ -91,6 +91,69 @@ $$</p>
 <p>The definition (1) is made only for paths $\mathbf{x}$ in $\R^3$ and functions $f$ defined on domains in $\R^3$. Nonetheless, for arbitrary $n$, we may certainly use the definite integral:</p>
 <p>$$\int_{a}^{b} f(\mathbf{x}(t)) ||\mathbf{x}'(t)||dt$$</p>
 <p>where $\mathbf{x}$ is a $C^1$ path $\R^n$ and $f$ is an appropriate function of $n$ variables. We call this definite integral the scalar line integral as well and rely on the context to make clear the dimensionality of the situation. Also, if $\mathbf{x}$ is not of class $C^1$, but only piecewise $C^1$ (meaning that $\mathbf{x}$ can be broken into a finite number of segments that are individually of class $C^1$), then we may still define the scalar line integral $\int_{\mathbf{x}}f ds$ by breaking it up in a suitable manner. A similar technique must be used if $f(\mathbf{x}(t))$ is only piecewise continuous.</p>
+<hr>
+<p><strong>Example 2.</strong> Let $f(x,y) = y - x$ and let $\mathbf{x}:[0,3] \to \mathbf{R}^2$ be the planar path</p>
+<p>$$
+\mathbf{x}(t) = \begin{cases}
+(2t,t) &amp; \text{ if } 0 \leq t &lt; 1 \\
+(t + 1,5-4t) &amp; \text{ if } 1 &lt; t \leq 3 \\
+\end{cases}
+$$</p>
+<hr>
+<p>Hence, $\mathbf{x}$ is piecewise $C^1$ the two path segments defined for $t$ in $[0,1]$ and for $t$ in $[1,3]$ are each of class $C^1$. Thus,</p>
+<p>$$\int_{\mathbf{x}}f ds = \int_{\mathbf{x}_1}f ds + \int_{\mathbf{x}_2} f ds$$</p>
+<p>where $\mathbf{x}_1(t) = (2t,t)$ for $0 \leq t &lt; 1$ and $\mathbf{x}_2(t) = (t+1,5-4t)$ for $1 \leq t &lt; 3$. Note that:</p>
+<p>$$\mathbf{x}_1'(t) = (2,1), \quad ||\mathbf{x}_1'(t)|| = \sqrt{5}$$</p>
+<p>$$\mathbf{x}_2'(t) = (1,-4), \quad ||\mathbf{x}_2'(t)|| = \sqrt{17}$$</p>
+<p>Consequently,</p>
+<p>$$
+\begin{aligned}
+\int_{\mathbf{x}_1} f ds &amp;= \int_{0}^{1}f(\mathbf{x}(t))||\mathbf{x}'(t)||dt \\
+&amp;=\int_{0}^{1} (t - 2t) \cdot \sqrt{5} dt \\
+&amp;= -\sqrt{5} \left[\frac{t^2}{2}\right]_{0}^{1}\\
+&amp;= -\frac{\sqrt{5}}{2}
+\end{aligned}
+$$</p>
+<p>Also,</p>
+<p>$$
+\begin{aligned}
+\int_{\mathbf{x}_2} f ds &amp;= \int_{1}^{3}f(\mathbf{x}(t))||\mathbf{x}'(t)|| dt \\
+&amp;= \int_{1}^{3} ((5 - 4t)-(t + 1))\sqrt{17}dt\\
+&amp;= \sqrt{17} \int_{1}^{3} (4 - 5t) dt\\
+&amp;= \sqrt{17} \left[4t - \frac{5t^2}{2}\right]_{1}^{3}\\
+&amp;= \sqrt{17} [-\frac{21}{2} - \frac{3}{2}]\\
+&amp;= -12 \sqrt{17}
+\end{aligned}
+$$</p>
+<h3 id="vector-line-integrals">Vector Line Integrals.</h3>
+<p>Now, we see how to integrate a vector field along a path. Again, let $\mathbf{x}:[a,b] \to \mathbf{R}^n$ be of class $C^1$. Let $\mathbf{F}$ be a vetor field defined on a subset $X$ of $\mathbf{R}^n$ such that $X$ contains the image of $\mathbf{x}$. Assume that $\mathbf{F}$ varies continuously along $\mathbf{x}$.</p>
+<hr>
+<p><strong>Definition.</strong> The <strong>vector line integral</strong> of $\mathbf{F}$ along $\mathbf{x}:[a,b] \to \mathbf{R}^n$ denoted by $\int_{\mathbf{x}}\mathbf{F} \cdot d\mathbf{s}$ is :</p>
+<p>$$\int_{\mathbf{x}}\mathbf{F}\cdot d\mathbf{s} = \int_{a}^{b} \mathbf{F}(\mathbf{x}(t))\cdot \mathbf{x}'(t) dt$$</p>
+<hr>
+<p>We caution you to be clear about the notation. In the vector line integral $\int_{\mathbf{x}}\mathbf{F}\cdot d\mathbf{s}$, the differential term $d\mathbf{s}$ should be thought of as a vector quantity (namely, the differential of the position vector along the path), whereas in the <em>scalar</em> line integral $\int_{x}f ds$, the differential term $ds$ is a scalar quantity (namely, the differential of the arclength).</p>
+<hr>
+<p><strong>Example 3.</strong> Let $\mathbf{F}$ be the radial vector field on $\mathbf{R}^3$ given by $\mathbf{F} = x\mathbf{i} + y\mathbf{j} + z\mathbf{k}$ and let $\mathbf{x}:[0,1]\to\mathbf{R}^3$ be the path $\mathbf{x}(t) = (t,3t^2,2t^3)$.</p>
+<hr>
+<p>Then, $\mathbf{x}'(t) = (1,6t,6t^2)$, and so:</p>
+<p>$$
+\begin{aligned}
+\int_{\mathbf{x}}\mathbf{F}\cdot d\mathbf{s} &amp;= \int_{0}^{1} \mathbf{F}(\mathbf{x}(t))\cdot \mathbf{x}'(t) dt \\
+&amp;=\int_{0}^{1}(t\mathbf{i} + 3t^2 \mathbf{j} + 2t^3 \mathbf{k})\cdot (\mathbf{i} + 6t \mathbf{j} + 6t^2 \mathbf{k}) dt \\
+&amp;= \int_{0}^{1}(t + 18t^3 + 12t^5)dt \\
+&amp;= \left[\frac{t^2}{2} + \frac{18t^4}{4} + \frac{12t^6}{6}\right]_{0}^{1}\\
+&amp;= \left[\frac{t^2}{2} + \frac{9t^4}{2} + 2t^6\right]_{0}^{1}\\
+&amp;=\frac{1}{2} + \frac{9}{2} + 2 \\
+&amp;= 7
+\end{aligned}
+$$</p>
+<p>As with scalar line integrals, we may define $\int_{\mathbf{x}}\mathbf{F}\cdot d\mathbf{s}$ when $\mathbf{x}$ is only a piecewise $C^1$ path by breaking up the integral in a suitable manner.</p>
+<hr>
+<p><strong>Physical interpretation of vector line integrals.</strong> Consider $\mathbf{F}$ to a force field in space. Then, $\int_{\mathbf{x}}\mathbf{F}\cdot d\mathbf{s}$ may be taken to represent the <strong>work</strong> done by the force $\mathbf{F}$ on a particle as the particle moves along the path $\mathbf{x}$.</p>
+<hr>
+<p>To justify this interpretation, first recall that, if $\mathbf{F}$ is a constant vector field and $\mathbf{x}$ is a straight-line path, then the work done by $\mathbf{F}$ in moving the particle from one point along $\mathbf{x}$ to another is given by,</p>
+<p>$$\text{Work} = \mathbf{F} \cdot \Delta \mathbf{s}$$</p>
+<p>where $\Delta \mathbf{s}$ is the displacement vector from the initial to the final position.</p>
 
 </article>
 
