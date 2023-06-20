@@ -19,12 +19,16 @@ trivially. Of course, we could have expressd the solution as $x = b/a$ as in the
     </item>
     
     <item>
-      <title>Solution of equations by iteration</title>
-      <link>https://quantophile.github.io/mathsummaries/posts/solution_of_equations_by_iteration/</link>
+      <title>Review of basic real analysis</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</link>
       <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/posts/solution_of_equations_by_iteration/</guid>
-      <description>Introduction. Equations of various kinds arise in physical applications and a substantial body of mathematical research is devoted to their study. Some equations are rather simple. In our high school days, we all encountered the single linear equation $ax + b = 0$, where $a$ and $b$ are real numbers and $a \neq 0$, whose solution is given by $x = -b/a$. Many equations are however non-linear: a simple example is $ax^2 + bx + c = 0$, $a \neq 0$, involving a quadratic polynomial with real coefficients $a,b,c$ and $a \neq 0$.</description>
+      <guid>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</guid>
+      <description>Review of basic Real Analysis.  Definition. (Compactness) A set $K \subseteq \mathbf{R}$ is compact if every sequence in $K$ has a subsequence that converges to a limit that is also in $K$.
+  Theorem. (Characterization of Compactness) A set $K \subseteq \mathbf{R}$ is compact if and only if it is closed and bounded.
+ Proof.
+$\Longrightarrow$ direction.
+We are given that $K$ is compact. We first prove the boundedness of $K$.</description>
     </item>
     
   </channel>
