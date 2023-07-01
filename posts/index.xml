@@ -19,16 +19,14 @@ trivially. Of course, we could have expressd the solution as $x = b/a$ as in the
     </item>
     
     <item>
-      <title>Review of basic real analysis</title>
+      <title>Real Analysis</title>
       <link>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</link>
       <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</guid>
-      <description>Review of basic Real Analysis.  Definition. (Compactness) A set $K \subseteq \mathbf{R}$ is compact if every sequence in $K$ has a subsequence that converges to a limit that is also in $K$.
-  Theorem. (Characterization of Compactness) A set $K \subseteq \mathbf{R}$ is compact if and only if it is closed and bounded.
- Proof.
-$\Longrightarrow$ direction.
-We are given that $K$ is compact. We first prove the boundedness of $K$.</description>
+      <description>Real Analysis. These are unofficial solutions to the undergrad text, Understanding Analysis by Stephen Abbott. I started writing these solutions, when I was self-studying and taking a first course in real analysis, and felt that I might as well give the problems an effort by writing out solutions.
+TeX PDF
+Why should I read this? While the official solutions may be more accurate, they may be terse and sometimes hard to understand, so a different perspective may help.</description>
     </item>
     
     <item>
@@ -37,7 +35,7 @@ We are given that $K$ is compact. We first prove the boundedness of $K$.</descri
       <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/posts/stochastic-calculus/</guid>
-      <description>Stochastic Calculus. I have been continuously expanding my notes on stochastic calculus. Its a great summary of the most important and basic results in financial mathematics.</description>
+      <description>Stochastic Calculus. I have been continuously expanding my notes on stochastic calculus. Its a summary of the most important and basic results in financial mathematics.</description>
     </item>
     
   </channel>

@@ -17,20 +17,56 @@
     </item>
     
     <item>
-      <title>fixed-point</title>
-      <link>https://quantophile.github.io/mathsummaries/tags/fixed-point/</link>
+      <title>analysis</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/analysis/</link>
       <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/tags/fixed-point/</guid>
+      <guid>https://quantophile.github.io/mathsummaries/tags/analysis/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>iteration</title>
-      <link>https://quantophile.github.io/mathsummaries/tags/iteration/</link>
+      <title>continuity</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/continuity/</link>
       <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/tags/iteration/</guid>
+      <guid>https://quantophile.github.io/mathsummaries/tags/continuity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>differentiability</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/differentiability/</link>
+      <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/differentiability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>integration</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/integration/</link>
+      <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/integration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sequences</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/sequences/</link>
+      <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/sequences/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>series</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/series/</link>
+      <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/series/</guid>
       <description></description>
     </item>
     
@@ -40,6 +76,15 @@
       <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/tags/stochastic-calculus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>uniform-convergence</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/uniform-convergence/</link>
+      <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/uniform-convergence/</guid>
       <description></description>
     </item>
     

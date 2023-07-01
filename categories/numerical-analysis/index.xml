@@ -18,18 +18,5 @@ $$x = a^{-1}b$$
 trivially. Of course, we could have expressd the solution as $x = b/a$ as in the previous post, but as we will see in a moment, writing $x = a^{-1}b$ is much more revealing in the present context.</description>
     </item>
     
-    <item>
-      <title>Review of basic real analysis</title>
-      <link>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</link>
-      <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
-      
-      <guid>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</guid>
-      <description>Review of basic Real Analysis.  Definition. (Compactness) A set $K \subseteq \mathbf{R}$ is compact if every sequence in $K$ has a subsequence that converges to a limit that is also in $K$.
-  Theorem. (Characterization of Compactness) A set $K \subseteq \mathbf{R}$ is compact if and only if it is closed and bounded.
- Proof.
-$\Longrightarrow$ direction.
-We are given that $K$ is compact. We first prove the boundedness of $K$.</description>
-    </item>
-    
   </channel>
 </rss>
