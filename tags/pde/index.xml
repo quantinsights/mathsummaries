@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pde on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/tags/pde/</link>
+    <description>Recent content in pde on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Jul 2023 20:51:12 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/pde/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Partial Differential Equations</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/pde/</link>
+      <pubDate>Sun, 02 Jul 2023 20:51:12 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/pde/</guid>
+      <description>These are my notes on analytic methods to solve linear second order partial differential equations, heavily based on text Partial Differential Equations: An introduction by Walter, Strauss.
+TeX PDF</description>
+    </item>
+    
+  </channel>
+</rss>

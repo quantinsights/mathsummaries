@@ -6,7 +6,17 @@
     <description>Recent content on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Mar 2022 17:32:54 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Jul 2023 20:51:12 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Partial Differential Equations</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/pde/</link>
+      <pubDate>Sun, 02 Jul 2023 20:51:12 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/pde/</guid>
+      <description>These are my notes on analytic methods to solve linear second order partial differential equations, heavily based on text Partial Differential Equations: An introduction by Walter, Strauss.
+TeX PDF</description>
+    </item>
+    
     <item>
       <title>Solution of systems of linear equations</title>
       <link>https://quantophile.github.io/mathsummaries/posts/solution_of_systems_of_linear_equations/</link>
