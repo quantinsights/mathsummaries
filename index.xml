@@ -6,7 +6,19 @@
     <description>Recent content on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Jul 2023 20:51:12 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Sep 2023 11:33:41 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Numerical methods for ODEs</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/differential-equations/</link>
+      <pubDate>Sat, 09 Sep 2023 11:33:41 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/differential-equations/</guid>
+      <description>Difference operators. Difference operators are handy tools for derivation, analysis and practical applications of numerical methods for many problems of interpolation, differentiation and quadrature of a function in terms of its values at equidistant arguments.
+Consider the sequence $(y_n)$. Then, we define the shift operator $E$ and the forward difference operator $\Delta$ by the relations:
+$$Ey_n = (y_{n+1}), \quad \Delta y_n = (y_{n+1} - y_n)$$
+$E$ and $\Delta$ are thus operators which map one sequence to another sequence.</description>
+    </item>
+    
     <item>
       <title>Partial Differential Equations</title>
       <link>https://quantophile.github.io/mathsummaries/posts/pde/</link>
