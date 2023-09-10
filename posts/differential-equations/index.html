@@ -123,6 +123,103 @@ $$</p>
 <p>This example shows the <strong>effect of a disturbance in one element</strong> on the sequence of higher differences. Because the effect broadens out and grows quickly, difference schemes are useful in the investigation and correction of computational errors, so called <strong>difference checks</strong>. Notice that, since the differences are linear functions of the sequence, a <strong>superposition</strong> principle holds.</p>
 <p><strong>Lemma 1.</strong> It holds that :</p>
 <p>$$\Delta^k (a^x) = (a^h - 1)^k a^x , \quad \nabla^k (a^x) = (1 - a^{-h})^k $$</p>
+<p>Solution.</p>
+<p>We have:</p>
+<p>$$
+\begin{aligned}
+\Delta^k (a^x) &amp;= \Delta^{k-1}(\Delta a^x)\\
+&amp;= \Delta^{k-1} (a^{x+h} - a^{x}) \\
+&amp;= (a^h - 1) \Delta^{k-1} (a^x)
+\end{aligned}
+$$</p>
+<p>Applying the above argument repeatedly, it follows that $\Delta^k (a^x) = (a^h - 1)^k a^x$.</p>
+<p>Similarly,</p>
+<p>$$
+\begin{aligned}
+\nabla^k (a^x) &amp;= \nabla^{k-1}(\nabla a^x)\\
+&amp;= \nabla^{k-1} (a^{x} - a^{x-h}) \\
+&amp;= (1-a^{-h}) \nabla^{k-1} (a^x)
+\end{aligned}
+$$</p>
+<p>Applying the above argument repeatedly, it follows that $\nabla^k (a^x) = (1 - a^{-h})^k $.</p>
+<p><strong>Lemma 2.</strong> (Difference of a product).</p>
+<p>$$\Delta (u_n v_n) = u_n \Delta v_n + \Delta u_n v_{n+1}$$</p>
+<p>Solution.</p>
+<p>The left hand side can be written as :</p>
+<p>$$ \Delta (u_n v_n) = u_{n+1} v_{n+1} - u_n v_n$$</p>
+<p>The right hand side can be expressed as:</p>
+<p>$$u_n \Delta v_n + \Delta u_n v_{n+1} = u_n (v_{n+1} - v_n) + (u_{n+1} - u_n) v_{n+1} = u_{n+1} v_{n+1} - u_n v_n$$</p>
+<p>Hence, the identity holds.</p>
+<h3 id="the-calculus-of-operators">The Calculus of Operators.</h3>
+<p>Formal calculations with operators, using the rules of algebra and analysis are often an elegant means of assistance in finding approximation formulas that are exact for all polynomials of degree less than (say) $k$, and they should therefore be useful for functions that can be accurately approximated by such a polynomial. Operator calculations also provide error estimates.</p>
+<p>Just a small a digression about terminology. An <strong>operator</strong> is a linear transformation from a space $V$ into another linear space $W$. $V$ can be the space of functions, a coordinate space or a space of sequences. The dimension of these spaces can be finite or infinite. For example, the differential operator $D$ maps the infinite dimensional space $C^1 [a,b]$ of functions with a continuous derivative defined on an interval $[a,b]$ to the space of $C[a,b]$ of continuous functions.</p>
+<p>$\mathcal{P}_n$ denotes the space of polynomials of degree less than $n$. $\mathcal{P}_n$ is an $n$-dimensional linear space for which ${1,x,x^2,\ldots,x^{n-1}}$ is a basis, called the <em>power basis</em>; the coefficients $(c_1,\ldots,c_n)$ are then the coordinates of the polynomial $p$ defined by $p(x) = \sum{i=1}^n c_i x^{i-1}$. We define the following operators:</p>
+<p>$$
+\begin{aligned}
+E f(x) &amp;= f(x + h)	&amp; \text{Shift operator} \\
+\Delta f(x) &amp;= f(x + h) - f(x) &amp; \text{Forward difference operator } \\
+\nabla f(x) &amp;= f(x) - f(x-h) &amp; \text{Backward difference operator } \\
+Df(x) &amp;= f&rsquo;(x) &amp; \text{Differentiation operator } \\
+\delta f(x) &amp;= f(x + h/2) - f(x - h/2) &amp; \text{Central difference operator}
+\end{aligned}
+$$</p>
+<p>These are all linear operators. They are associative, and they distribute well over addition. In addition, they form a commutative ring. So, their products are commutative.</p>
+<p>Now, we shall go outside of polynomial algebra and consider also the infinite series of operators. The Taylor&rsquo;s series:</p>
+<p>$$f(x + h) = f(x) + h f&rsquo;(x) + \frac{h^2}{2!} f&rsquo;&rsquo;(x) + \frac{h^3}{3!} f&rsquo;&rsquo;&rsquo;(x)+\mathcal{O}(h^4)$$</p>
+<p>can be written symbolically as:</p>
+<p>$$Ef = \left(1 + hD + \frac{(hd)^2}{2!}+ \frac{(hD)^3}{3!} + \right)f$$</p>
+<p><strong>Theorem.</strong> We have:</p>
+<p>$$e^{hD} = E = 1 + \Delta, \quad e^{-hD} = E^{-1} = 1 - \nabla$$</p>
+<p>$$2 \sin \frac{hD}{2} = e^{hD/2} - e^{-hD/2}$$</p>
+<p>$$(1 + \Delta)^{\theta} = (e^{hD})^{\theta} = e^{\theta hD}, \quad \theta \in \mathbf{R}$$</p>
+<p>It is an easy exercise to prove these results.</p>
+<p>It follows from the power-series expansion, that,</p>
+<p>$$(e^{hD})^\theta f(x) = e^{\theta hD} f(x) = f(x + \theta h)$$</p>
+<p>Since, $E = e^{hD}$, it is natural to define:</p>
+<p>$$E^{\theta} f(x) = f(x + \theta h)$$</p>
+<h3 id="adam-moultons-implicit-and-adam-bashforths-explicit-formula">Adam-Moulton&rsquo;s implicit and Adam-Bashforth&rsquo;s explicit formula.</h3>
+<p>The above ideas can be used to compute the coefficients of the following relations due to John Adams, which are of great interest in the numerical integration of differential equations of the form $y&rsquo; = f(t,y)$.</p>
+<p>(a) <strong>Adam-Moulton&rsquo;s implicit formula</strong>:</p>
+<p>$$y_{n+1} - y_n = h(a_0 y_{n+1}&rsquo; + a_1 \nabla y_{n+1}&rsquo; + a_2 \nabla^2 y_{n+1}&rsquo; + \ldots )$$</p>
+<p>We can show that $\nabla = - \log (1 - \nabla) \sum a_i \nabla^ i $, and find a recurrence relation for the coefficients.</p>
+<p>Solution.</p>
+<p>We have:</p>
+<p>$$
+\begin{aligned}
+\nabla y_{n+1}  &amp;= h(a_0 D + a_1 h \nabla D + a_2 \nabla^2 D + \ldots ) y_{n+1} \\
+&amp;= hD (a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots ) y_{n+1} \\
+&amp; \{ \text{ Multiplication is commutative } \} \\
+&amp;= -\log (1 - \nabla) (a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots ) y_{n+1}
+\end{aligned}
+$$</p>
+<p>Equating both sides, we get:</p>
+<p>$$\nabla = \left( \nabla + \frac{\nabla^2}{2} + \frac{\nabla^3}{3} + \frac{\nabla^4}{4} + \ldots \right) (a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots )$$</p>
+<p>Collecting the cofficients of $\nabla$, $\nabla^2$, $\nabla^3$, $\nabla^4$, $\ldots$, we have:</p>
+<p>$$a_0 = 1$$</p>
+<p>$$\frac{a_0}{2} + a_1 = 0$$</p>
+<p>$$\frac{a_0}{3} + \frac{a_1}{2} + a_2 = 0$$</p>
+<p>In general, we solve the recurrence relation:</p>
+<p>$$a_m = -\left(\frac{a_{m-1}}{2} + \frac{a_{m-2}}{3} + \frac{a_{m-3}}{4} + \ldots + \frac{a_{1}}{m-1} + \frac{a_0}{m}\right)$$</p>
+<p>for AM($m$).</p>
+<p>(b) <strong>Adam-Bashforth&rsquo;s explicit formula</strong>:</p>
+<p>$$y_{n+1} - y_n = h(b_0 y_{n}&rsquo; + b_1 \nabla y_{n}&rsquo; + b_2 \nabla^2 y_{n}&rsquo; + \ldots )$$</p>
+<p>We can show that $\sum b_i \nabla^i E^{-1} = \sum a_i \nabla ^i $ and that $b_n - b_{n-1} = a_n$.</p>
+<p>Solution.</p>
+<p>From the previous derivation, it follows that:</p>
+<p>$$y_{n+1} - y_n = hD (a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots ) y_{n+1} = hD (b_0 + b_1 \nabla + b_2 \nabla^2 + \ldots ) E^{-1} y_{n+1}$$</p>
+<p>Consequently,</p>
+<p>$$(a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots ) = (b_0 + b_1 \nabla + b_2 \nabla^2 + \ldots ) E^{-1}$$</p>
+<p>Or,</p>
+<p>$$
+\begin{aligned}
+\sum a_i \nabla^i &amp;= \sum b_i \nabla^i E^{-1} \\
+&amp;= \sum b_i \nabla^i (1 - \nabla) \\
+&amp;= b_0 (1 - \nabla) + b_1 (\nabla - \nabla^2) + b_2 (\nabla^2 - \nabla^3) + \ldots \\
+&amp;= b_0 + (b_1 - b_0) \nabla + (b_2 - b_1) \nabla^2 + (b_3 - b_2) \nabla^3 + \ldots\\
+\sum a_i \nabla^i &amp;= \sum (b_i - b_{i-1}) \nabla_i
+\end{aligned}
+$$</p>
+<p>Consequently, $b_0 = a_0 = 1$, $b_i - b_{i-1} = a_i$.</p>
 <h3 id="implementation">Implementation.</h3>
 <p>I coded a few numerical methods from first principles for solving a scalar IVP. The objective is to properly map algorithms to code.</p>
 <p>We are interested to solve the scalar IVP:</p>
