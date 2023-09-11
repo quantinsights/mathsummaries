@@ -944,17 +944,18 @@ $y&rsquo;+xy^{2}-2x^{2}y+x^{3}=x+1$, particular solution $y=x-1$.</p>
 <p>Since the particular solution $y_{p}=x-1$ satisfies the given differential
 equation:</p>
 <p>$$\begin{aligned}
-y_{p}&rsquo;+xy_{p}^{2}-2x^{2}y_{p}+x^{3} &amp; =x+1
+y_{p}&rsquo; + xy_{p}^{2} - 2x^{2}y_{p}+x^{3} &amp;= x+1
 \end{aligned}$$</p>
 <p>Substituting $y=y_{p}+\frac{1}{z}=(x-1)+\frac{1}{z}$, we get:</p>
 <p>$$\begin{aligned}
-y_{p}&rsquo;-\frac{1}{z^{2}}z&rsquo;+x\left(y_{p}+\frac{1}{z}\right)^{2}-2x^{2}\left(y_{p}+\frac{1}{z}\right)+x^{3} &amp; =x+1\\
+y_{p}&rsquo;-\frac{1}{z^{2}}z&rsquo;+x\left(y_{p}+\frac{1}{z}\right)^{2}-2x^{2}\left(y_{p}+\frac{1}{z}\right)+x^{3} &amp;=x+1 \\
 z^{2}y_{p}&rsquo;-z&rsquo;+x(zy_{p}+1)^{2}-2x^{2}(z^{2}y_{p}+z)+x^{3}z^{2} &amp; =(x+1)z^{2}\\
-z^{2}y_{p}&rsquo;-z&rsquo;+x(z^{2}y_{p}^{2}+2zy_{p}+1)-2x^{2}z^{2}y_{p}-2x^{2}z+x^{3}z^{2} &amp; =(x+1)z^{2}\\
-\{\text{Collecting terms in }z^{2}\}\\
-z^{2}\underbrace{(y_{p}&rsquo;+xy_{p}^{2}-2x^{2}y_{p}+x^{3}-(x+1)}<em>{\text{Equals 0}} &amp; =z&rsquo;-2xzy</em>{p}-x+2x^{2}z\\
-z&rsquo;-2x(x-1)z+2x^{2}z &amp; =x\\
-z&rsquo;+2xz &amp; =x
+z^{2}y_{p}&rsquo;-z&rsquo;+x(z^{2}y_{p}^{2}+2zy_{p}+1)-2x^{2}z^{2}y_{p}-2x^{2}z+x^{3}z^{2} &amp;=(x+1)z^{2}\\
+\{\text{Collecting terms in }z^{2}\} \\
+z^{2}{(y_{p}&rsquo;+xy_{p}^{2}-2x^{2}y_{p}+x^{3}-(x+1))} &amp;= z&rsquo;-2xzy_{p}-x+2x^{2}z \\
+\{ \text{The coefficient of }z^2 \text{ equals 0} \} \\
+z&rsquo;-2x(x-1)z+2x^{2}z &amp;=x\\
+z&rsquo;+2xz &amp;=x
 \end{aligned}$$</p>
 <p>The integrating factor $\mu(x)$ for the above differential equation
 is:</p>
@@ -986,8 +987,9 @@ then it follows that:</p>
 <p>$$\begin{aligned}
 2\left(y_{p}&rsquo;-\frac{1}{z^{2}}z&rsquo;\right)-\frac{1}{x^{2}}\left(y_{p}+\frac{1}{z}\right)^{2}-1 &amp; =0\\
 2z^{2}y_{p}&rsquo;-2z&rsquo;-\frac{1}{x^{2}}(y_{p}z+1)^{2}-z^{2} &amp; =0\\
-2z^{2}y_{p}&rsquo;-2z&rsquo;-\frac{1}{x^{2}}(y_{p}^{2}z^{2}+2y_{p}z+1)-z^{2} &amp; =0\\
-z^{2}\underbrace{\left(2y_{p}&rsquo;-\frac{y_{p}^{2}}{x^{2}}-1\right)}<em>{\text{Equals 0}} &amp; =2z&rsquo;+\frac{2}{x^{2}}y</em>{p}z+\frac{1}{x^{2}}\\
+2z^{2}y_{p}&rsquo;-2z&rsquo;-\frac{1}{x^{2}}(y_{p}^{2}z^{2}+2y_{p}z+1)-z^{2} &amp; =0 \\
+z^{2}\left(2y_{p}&rsquo;-\frac{y_{p}^{2}}{x^{2}}-1\right) &amp; =2z&rsquo;+\frac{2}{x^{2}}y_{p}z+\frac{1}{x^{2}}\\
+\{ \text{The coefficient of }z^2 \text{ equals 0} \} \\
 z&rsquo;+\frac{1}{x}z &amp; =-\frac{1}{2x^{2}}
 \end{aligned}$$</p>
 <p>The integrating factor for the above differential equation is:</p>
@@ -1045,7 +1047,9 @@ y_{p}&rsquo;-(\sin^{2}x)y_{p}^{2}+\frac{1}{\sin x\cos x}y_{p}+\cos^{2}x &amp; =0
 y_{p}&rsquo;-\frac{1}{z^{2}}z&rsquo;-\sin^{2}x\left(y_{p}+\frac{1}{z}\right)^{2}+\frac{1}{\sin x\cos x}\left(y_{p}+\frac{1}{z}\right)+\cos^{2}x &amp; =0\\
 z^{2}y_{p}&rsquo;-z&rsquo;-\sin^{2}x(y_{p}z+1)^{2}+\frac{1}{\sin x\cos x}(y_{p}z^{2}+z)+z^{2}\cos^{2}x &amp; =0\\
 z^{2}y_{p}&rsquo;-z&rsquo;-\sin^{2}x(y_{p}^{2}z^{2}+2y_{p}z+1)+\frac{1}{\sin x\cos x}(y_{p}z^{2}+z)+z^{2}\cos^{2}x &amp; =0\\
-z^{2}\underbrace{(y_{p}&rsquo;-\sin^{2}xy_{p}^{2}+\frac{1}{\sin x\cos x}y_{p}+\cos^{2}x)}<em>{\text{Equals 0}} &amp; =z&rsquo;+2\sin^{2}xy</em>{p}z+\sin^{2}x-\frac{1}{\sin x\cos x}z\\
+z^{2}(y_{p}&rsquo;-\sin^{2}xy_{p}^{2}+\frac{1}{\sin x\cos x}y_{p}+\cos^{2}x) &amp; =z&rsquo;+2\sin^{2}xy_{p}z \\
+&amp; + \sin^{2}x-\frac{1}{\sin x\cos x}z\\
+\{ \text{The coefficient of }z^2 \text{ equals 0} \} \\
 z&rsquo;+\left(2\sin x\cos x-\frac{2}{2\sin x\cos x}\right)\cdot z &amp; =-\sin^{2}x\\
 z&rsquo;+(\sin2x-2cosec(2x))z &amp; =-\sin^{2}x
 \end{aligned}$$</p>
@@ -1078,19 +1082,21 @@ Riccati equation. Show that the general solution of the equation is:</p>
 \end{aligned}$$</p>
 <p>where $c$ is an arbitrary constant.</p>
 <p>Hint: Consider the expression :</p>
-<p>[
+<p>$$
 \frac{y&rsquo;-y_{1}&rsquo;}{y-y_{1}}-\frac{y&rsquo;-y_{2}&rsquo;}{y-y_{2}}
-]</p>
-<p>\emph{Proof.}</p>
+$$</p>
+<p><em>Proof.</em></p>
 <p>The Riccati equation is given by:</p>
 <p>$$\begin{aligned}
-y&rsquo;+a_{2}(x)y^{2}+a_{1}(x)y+a_{0}(x) &amp; =0\quad\tag{21}
+y&rsquo;+a_{2}(x)y^{2}+a_{1}(x)y+a_{0}(x) &amp;=0 \quad\tag{21}
 \end{aligned}$$</p>
 <p>Since $y_{1}$ and $y_{2}$ satisfy this differential equation, we
 must have:</p>
 <p>$$\begin{aligned}
-y_{1}&rsquo;+a_{2}(x)y_{1}^{2}+a_{1}(x)y_{1}+a_{0}(x) &amp; =0\quad\tag{22}\\
-y_{2}&rsquo;+a_{2}(x)y_{2}^{2}+a_{1}(x)y_{2}+a_{0}(x) &amp; =0\quad\tag{23}
+y_{1}&rsquo;+a_{2}(x)y_{1}^{2}+a_{1}(x)y_{1}+a_{0}(x) &amp;=0\quad \tag{22}
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+y_{2}&rsquo;+a_{2}(x)y_{2}^{2}+a_{1}(x)y_{2}+a_{0}(x) &amp;=0\quad \tag{23}
 \end{aligned}$$</p>
 <p>Subtracting (22) and (23) from expression (21), we find that:</p>
 <p>$$\begin{aligned}
@@ -1106,7 +1112,7 @@ y&rsquo;-y_{1}&rsquo;+a_{2}(x)(y^{2}-y_{1}^{2})+a_{1}(x)(y-y_{1}) &amp; =0\\
 <p>$$\begin{aligned}
 \frac{y&rsquo;-y_{1}&rsquo;}{y-y_{1}}-\frac{y&rsquo;-y_{2}&rsquo;}{y-y_{2}} &amp; =a_{2}(x)(y_{2}-y_{1})
 \end{aligned}$$</p>
-<p>\subsubsection*{Existence and uniqueness of solutions; Initial Value Problems(IVP).}</p>
+<h4 id="existence-and-uniqueness-of-solutions-initial-value-problemsivp">Existence and uniqueness of solutions; Initial Value Problems(IVP).</h4>
 <p>On the strength of the results of the preceding section, we can assert
 that every first order linear differential equation which is defined
 on the interval $I=[a,b]$ has solutions. In fact, it has infinitely
@@ -1163,15 +1169,15 @@ a_{n}(x)\frac{d^{n}y}{dx^{n}}+\ldots+a_{0}(x) &amp; =h(x)\quad\tag{24}
 $I$, and let $x_{0}$ be any point in $I=[a,b]$. Then, if $y_{0}$,
 $y_{1}$, $\ldots$, $y_{n-1}$ are arbitrary real numbers, there
 exists one and only one solution $y(x)$ of with the property that</p>
-<p>[
+<p>$$
 y(x_{0})=y_{0},y&rsquo;(x_{0})=y_{1},\ldots,y^{(n-1)}(x_{0})=y_{n-1}\quad\tag{25}
-]</p>
+$$</p>
 <p>As in the case of first-order equations, the problem of finding a
 solution of (24) which satisfies the $n$ additional conditions given
 in (25) is called an initial-value problem with initial conditions:</p>
-<p>[
+<p>$$
 y(x_{0})=y_{0},y&rsquo;(x_{0})=y_{1},\ldots,y^{(n-1)}(x_{0})=y_{n-1}
-]</p>
+$$</p>
 <p>It is also worth noting that the theorem can be phrased in the language
 of linear operators, in which case it assumes the following suggestive
 form:</p>
@@ -1182,9 +1188,9 @@ $G:\mathcal{C}([a,b])\to\mathcal{C}^{n}([a,b])$ such that:}</p>
 L([G(h)] &amp; =h,\quad\text{for all }h \text{ in }\mathcal{C}([a,b])
 \end{aligned}$$</p>
 <p>and</p>
-<p>[
+<p>$$
 G(h)(x_{0})=y_{0},G(h)&rsquo;(x_{0})=y_{1},\ldots,G(h)^{(n-1)}(x_{0})=y_{n-1}
-]</p>
+$$</p>
 <p>When stated in these terms, it is clear that the task of solving an
 initial-value problem for a linear differential equation comes down
 to finding an explicit form for the inverse operator $G$, since once
@@ -1192,9 +1198,9 @@ $G$ is known, the problem:</p>
 <p>$$\begin{aligned}
 Ly &amp; =h
 \end{aligned}$$</p>
-<p>[
+<p>$$
 y(x_{0})=y_{0},y&rsquo;(x_{0})=y_{1},\ldots,y^{(n-1)}(x_{0})=y_{n-1}
-]</p>
+$$</p>
 <p>can be solved by computing the value of $G(h)$. This point of view
 will be exploited in later chapters where much of our work will be
 directed towards finding $G$ for specific classes of linear differential
@@ -1287,8 +1293,8 @@ y&rsquo;-\frac{1-x^{2}}{1+x^{2}}y &amp; =\frac{e^{-x}}{1+x^{2}}
 <p>$$\begin{aligned}
 \mu(x) &amp; =e^{\int p(x)dx}\\
 &amp; =\exp\left[-\int\frac{1-x^{2}}{1+x^{2}}dx\right]\\
-&amp; =\exp\left[-\int\left{ -1+\frac{2}{1+x^{2}}\right} dx\right]\\
-&amp; =\exp\left[\int dx-\int\frac{2dx}{1+x^{2}}\right]\\
+&amp; =\exp\left[-\int \left \{-1 + \frac{2}{1+x^2} \right \} dx \right] \\
+&amp; =\exp\left[ \int dx - \int \frac{2dx}{1+x^{2}} \right]
 &amp; =\exp(x-2\arctan x)\\
 &amp; =\frac{e^{x}}{e^{2\arctan x}}
 \end{aligned}$$</p>
@@ -1304,7 +1310,7 @@ d\left(\frac{e^{x}}{e^{2\arctan x}}\cdot y\right) &amp; =\frac{dx}{(1+x^{2})e^{2
 y\cdot e^{x} &amp; =-\frac{1}{2}+ce^{2\arctan x}\\
 y &amp; =e^{-x}(ce^{2\arctan x}-\frac{1}{2})
 \end{aligned}$$</p>
-<p>###Dimensions of the solution space.}</p>
+<h3 id="dimensions-of-the-solution-space">Dimensions of the solution space.</h3>
 <p>We cna use the existence and the uniqueness theorem to give a simple
 and elegant proof of the fact, that the dimension of the solution
 space of every homogenous linear differential equation is equal to
@@ -1316,19 +1322,18 @@ equation</p>
 a_{n}(x)\frac{d^{n}y}{dx^{n}}+\ldots+a_{0}(x)y &amp; =0\quad\tag{26}
 \end{aligned}$$</p>
 <p>defined on an interval $I=[a,b]$ is an n-dimensional subspace of
-$\mathcal{C}([a,b])$.
-\end{thm*}
-\emph{Proof.}</p>
+$\mathcal{C}([a,b])$.</p>
+<p><em>Proof.</em></p>
 <p>Let $x_{0}$ be a fixed point in $I=[a,b]$. Then, by the existence
 and uniqueness theorem, we know that this equation admits the unique
 solutions $y_{1}(x),y_{2}(x),\ldots,y_{n}(x_{0})$ satisfying the
 initial conditions:</p>
-<p>$\begin{array}{cccc}
+<p>$$\begin{array}{cccc}
 y_{1}(x_{0})=1, &amp; y_{1}&rsquo;(x_{0})=0, &amp; \ldots, &amp; y_{1}^{(n-1)}(x_{0})=0\\
 y_{2}(x_{0})=0, &amp; y_{2}&rsquo;(x_{0})=1, &amp; \ldots, &amp; y_{2}^{(n-1)}(x_{0})=0\\
 \vdots\\
 y_{n}(x_{0})=0, &amp; y_{n}&rsquo;(x_{0})=0 &amp; \ldots, &amp; y_{n}^{(n-1)}(x_{0})=1
-\end{array}\quad\tag{27}$</p>
+\end{array}\quad\tag{27}$$</p>
 <p>In other words, $y_{1}(x),\ldots,y_{n}(x)$ have the property that
 the vectors</p>
 <p>$$\begin{aligned}
@@ -1376,8 +1381,8 @@ L(\gamma_{1}y_{1}(x_{0})+\ldots+\gamma_{n}y_{n}(x_{0})) &amp; =0\quad\tag{32}
 <p>Hence, any solution $y(x)$ of the initial value problem $Ly=x$,
 $(y_{i}(x_{0}),y_{i}&rsquo;(x_{0}),\ldots,y_{i}^{(n-1)}(x_{0}))=\mathbf{e}<em>{i}$
 must be of the form $\sum\gamma</em>{i}y_{i}(x)$.</p>
-<p>This closes the proof.
-<strong>Example.</strong>
+<p>This closes the proof.</p>
+<p><strong>Example.</strong>
 The second-order equation</p>
 <p>$$\begin{aligned}
 \frac{d^{2}y}{dx^{2}}-y &amp; =0\quad\tag{33}
@@ -1385,13 +1390,13 @@ The second-order equation</p>
 <p>has a $2$-dimensional solution space. It is easy to see that $y_{1}(x)=\frac{e^{x}+e^{-x}}{2}$,
 and $y_{2}(x)=\frac{e^{x}-e^{-x}}{2}$ are solutions to the initial
 value problems:</p>
-<p>[
+<p>$$
 y(0)=1,\quad y&rsquo;(0)=0\quad\tag{34}
-]</p>
+$$</p>
 <p>and</p>
-<p>[
+<p>$$
 y(0)=0,\quad y&rsquo;(0)=1\quad\tag{35}
-]</p>
+$$</p>
 <p>Thus, $y_{1}(x)$ and $y_{2}(x)$ form a basis for the solution space
 of the differential equation. Hence, the general solution to (33)
 is given by:</p>
@@ -1422,32 +1427,32 @@ Let $y_{1}(x),\ldots,y_{n}(x)$ be functions in $\mathcal{C}[a,b]$,
 each of which possesses derivatives upto order $n-1$ everywhere in
 $[a,b]$ and suppose that at some point $x_{0}$ in $[a,b]$, the
 vectors:</p>
-<p>[
+<p>$$
 y_{i}(x_{0}),y_{i}&rsquo;(x_{0}),\ldots,y_{i}^{(n-1)}(x_{0}),\quad i=1,2,\ldots,n
-]
+$$
 are linearly independent in $\mathbf{R}^{n}$. Then, $y_{1}(x),y_{2}(x),\ldots,y_{n}(x)$
 are linearly independent in $\mathcal{C}[a,b]$.
 \end{cor*}</p>
-<p>###The Wronskian.}</p>
+<h3 id="the-wronskian">The Wronskian.</h3>
 <p>In the preceding section, we proved that $y_{1},y_{2},\ldots,y_{n}$
 are linearly independent functions in $\mathcal{C}^{n-1}[a,b]$ whenever
 there exists a point $x_{0}$ in $[a,b]$ such that the vectors</p>
-<p>[
+<p>$$
 y_{i}(x_{0}),y_{i}&rsquo;(x_{0}),\ldots,y_{i}^{(n-1)}(x_{0}),\quad i=1,2,\ldots,n\quad\tag{36}
-]</p>
+$$</p>
 <p>are linearly independent in $\mathbf{R}^{n}$. For our present purposes,
 this result can be stated more conveniently in terms of the determinant
 of a certain matrix, as follows :</p>
 <p>Let $y_{1},y_{2},\ldots,y_{n}$ be arbitrary functions in $\mathcal{C}^{n-1}[a,b]$
 and for each $x\in[a,b]$, consider the matrix :</p>
-<p>[
+<p>$$
 \left[\begin{array}{cccc}
 y_{1}(x) &amp; y_{2}(x) &amp; \ldots &amp; y_{n}(x)\\
 y_{1}&rsquo;(x) &amp; y_{2}&rsquo;(x) &amp; \ldots &amp; y_{n}&rsquo;(x)\\
 \vdots &amp;  &amp; \ddots\\
 y_{1}^{(n-1)}(x) &amp; y_{2}^{(n-1)}(x) &amp; \ldots &amp; y_{n}^{(n-1)}(x)
 \end{array}\right]\quad\tag{37}
-]</p>
+$$</p>
 <p>Then, (37) defines a function on the interval $[a,b]$ whose value
 at $x$ is the indicated matrix, and by forming the determinant of
 the matrix we obtain a real-valued function on $[a,b]$ called the
@@ -1503,8 +1508,7 @@ e^{x} &amp; -e^{-x}
 &amp; =-1-1=2
 \end{aligned}$$</p>
 <p>the functions $e^{x}$ and $e^{-x}$ are linearly independent in $\mathbf{R}$.</p>
-<p>%
-<strong>Example.</strong>
+<p><strong>Example.</strong>
 The functions $x$, $x^{1/2}$, $x^{3/2}$ are linearly independent
 on $\mathcal{C}[a,b]$ for any subinterval $[a,b]$ of the positive
 $x$-axis since:</p>
@@ -1539,11 +1543,11 @@ set of functions which, together with the vanishing of their Wronskian,
 will imply linear dependence. This can in fact be done simply by requiring
 that the functions be solutions of a homogenous linear differential
 equation.</p>
-<p>\begin{thm*}
+<p><strong>Theorem.</strong>
 Let $y_{1},\ldots,y_{n}$ be solutions of a $n$th order homogeonous
 linear differential equation</p>
 <p>$$\begin{aligned}
-Ly=\left<a href="y">a_{n}(x)\frac{d^{n}}{dx^{n}}+\ldots+a_{0}(x)\right</a> &amp; =0\quad\tag{39}
+Ly=\left [ a_{n}(x)\frac{d^{n}}{dx^{n}} +\ldots+a_{0}(x)\right ](y) &amp;= 0\quad\tag{39}
 \end{aligned}$$</p>
 <p>on the interval $I=[a,b]$ and suppose that $W[y_{1},\ldots,y_{n}]$
 is identically zero on $[a,b]$. Then, $y_{1},y_{2},\ldots,y_{n}$
@@ -1551,12 +1555,12 @@ are linearly dependent in $\mathcal{C}[a,b]$.
 \end{thm*}
 \emph{Proof.}</p>
 <p>Let $x_{0}$ be any point in $[a,b]$ and consider the system of equations:</p>
-<p>$\begin{array}{cc}
+<p>$$\begin{array}{cc}
 c_{1}y_{1}(x_{0})+\ldots+c_{n}y_{n}(x_{0}) &amp; =0\\
 c_{1}y_{1}&rsquo;(x_{0})+\ldots+c_{n}y_{n}&rsquo;(x_{0}) &amp; =0\\
 \vdots\\
 c_{1}y_{1}^{(n-1)}(x_{0})+\ldots+c_{n}y_{n}^{(n-1)}(x_{0}) &amp; =0
-\end{array}\quad\tag{40}$</p>
+\end{array}\quad\tag{40}$$</p>
 <p>in the unknowns $c_{1},c_{2},\ldots,c_{n}$. Since the Wronskian of
 $y_{1},\ldots,y_{n}$ vanishes on $[a,b]$, the determinant of (40)
 is zero, and its column vectors are linearly dependent. Consequently,
@@ -1604,9 +1608,9 @@ is solution to the differential equation consisting of (39) since
 $Ly=L\left(\sum_{i=1}^{n}\bar{c_{i}}y_{i}(x)\right)=\sum_{i=1}^{n}\bar{c_{i}}Ly_{i}=0$
 and moreover from (40) it follows that, they satisfy</p>
 <p>the initial conditions:</p>
-<p>[
+<p>$$
 y(x_{0})=0,y&rsquo;(x_{0})=0,\ldots,y^{(n-1)}(x_{0})=0\quad\tag{44}
-]</p>
+$$</p>
 <p>Hence, $y(x)$ is unique. But, the zero function is also a solution
 to the problem and hence $y(x)$ must be equal to zero for all $x$.
 So, the functions $y_{1}(x),\ldots,y_{n}(x)$ are linearly dependent.</p>
@@ -1711,7 +1715,8 @@ W[e^{ax}\sin bx,e^{ax}\cos bx] &amp; =\left|\begin{array}{cc}
 e^{ax}\sin bx &amp; e^{ax}\cos bx\\
 ae^{ax}\sin bx+be^{ax}\cos bx &amp; ae^{ax}\cos bx-be^{ax}\sin bx
 \end{array}\right|\\
-&amp; =e^{ax}\sin bx(ae^{ax}\cos bx-be^{ax}\sin bx)-e^{ax}\cos bx(ae^{ax}\sin bx+be^{ax}\cos bx)\\
+&amp; =e^{ax}\sin bx(ae^{ax}\cos bx-be^{ax}\sin bx) \\
+&amp; -e^{ax}\cos bx(ae^{ax}\sin bx+be^{ax}\cos bx)\\
 &amp; =e^{2ax}[a\sin bx\cos bx-b\sin^{2}bx-a\cos bx\sin bx-b\cos^{2}bx]\\
 &amp; =-be^{2ax}(\sin^{2}bx+\cos^{2}bx)\\
 &amp; =-be^{2ax}
@@ -1958,8 +1963,8 @@ W[f(x),g(x)] &amp; =f(x)g&rsquo;(x)-g(x)f&rsquo;(x)\\
 \end{aligned}$$</p>
 <p>Since $f$ and $g$ are the solutions of the differential equation
 $d(u/v)=0$, and their Wronskian is identically equal to zero, the
-functions $f(x)$ and $g(x)$ are linearly dependent.
-<strong>Exercise.</strong>
+functions $f(x)$ and $g(x)$ are linearly dependent.</p>
+<p><strong>Exercise.</strong>
 (a) Show that:</p>
 <p>$$\begin{aligned}
 W[e^{a_{1}x},\ldots,e^{a_{n}x}] &amp; =e^{(a_{1}+\ldots+a_{n})x}\left|\begin{array}{cccc}
@@ -1986,9 +1991,8 @@ a_{n}(x)\frac{d^{n}y}{dx^{n}}+a_{n-1}(x)\frac{d^{n-1}y}{dx^{n-1}}+\ldots+a_{0}(x
 <p>$$\begin{aligned}
 W[y_{1}(x),\ldots,y_{n}(x)] &amp; =ce^{-\int[a_{n-1}(x)/a_{n}(x)]dx}
 \end{aligned}$$</p>
-<p>This result is known as Abel&rsquo;s formula for the Wronskian.
-\end{thm*}
-\emph{Proof.}</p>
+<p>This result is known as Abel&rsquo;s formula for the Wronskian.</p>
+<p><em>Proof.</em></p>
 <p>In order to avoid using the properties of determinants, we shall prove
 only in the case $n=2$. The general proof is identical, except that
 it uses the formula for the derivative of an $n$th order determinant.
@@ -2005,7 +2009,8 @@ y_{1}&rsquo;(x) &amp; y_{2}&rsquo;(x)
 &amp; =\frac{d}{dx}(y_{1}(x)y_{2}&rsquo;(x)-y_{2}(x)y_{1}&rsquo;(x))\\
 &amp; =y_{1}&rsquo;(x)y_{2}&rsquo;(x)+y_{1}(x)y_{2}&rsquo;&rsquo;(x)-y_{2}&rsquo;(x)y_{1}&rsquo;(x)-y_{2}(x)y_{1}&rsquo;&rsquo;(x)\\
 &amp; =y_{1}(x)y_{2}&rsquo;&rsquo;(x)-y_{2}(x)y_{1}&rsquo;&rsquo;(x)\\
-&amp; =y_{1}(x)\left[-\frac{a_{1}(x)}{a_{2}(x)}y_{2}&rsquo;(x)-\frac{a_{0}(x)}{a_{2}(x)}y_{2}(x)\right]-y_{2}(x)\left[-\frac{a_{1}(x)}{a_{2}(x)}y_{1}&rsquo;(x)-\frac{a_{0}(x)}{a_{2}(x)}y_{1}(x)\right]\\
+&amp; =y_{1}(x)\left[-\frac{a_{1}(x)}{a_{2}(x)}y_{2}&rsquo;(x)-\frac{a_{0}(x)}{a_{2}(x)}y_{2}(x)\right] \\
+&amp;- y_{2}(x)\left[-\frac{a_{1}(x)}{a_{2}(x)}y_{1}&rsquo;(x)-\frac{a_{0}(x)}{a_{2}(x)}y_{1}(x)\right]\\
 &amp; =-\frac{a_{1}(x)}{a_{2}(x)}(y_{1}(x)y_{2}&rsquo;(x)-y_{2}(x)y_{1}&rsquo;(x))\\
 &amp; -\frac{a_{1}(x)}{a_{2}(x)}W[y_{1}(x),y_{2}(x)]
 \end{aligned}$$</p>
