@@ -6,9 +6,20 @@
     <description>Recent content on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Sep 2023 08:06:54 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Sep 2023 12:42:55 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>The Theory of Linear Odes I</title>
+      <title>[ODE-02] Equations with constant coefficients</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/equations-with-const-coeff/</link>
+      <pubDate>Mon, 11 Sep 2023 12:42:55 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/equations-with-const-coeff/</guid>
+      <description>Equations with constant coefficients. Linear differential equations with constant coefficients, that is equations of the form:
+$$\begin{aligned} a_{n}y^{(n)}+a_{n-1}y^{(n-1)}+\ldots+a_{0}y &amp;amp; =h(x)\quad\tag{1} \end{aligned}$$
+in which $a_{0},a_{1},\ldots,a_{n}\neq0$ are real constants, are in many respects the simplest of all differential equations. For one thing, they can be discussed entirely within the context of linear algebra and form the only substantial class of equations with order greater than one that can be explicitly solved. This, plus the fact, that such equations arise in a surprisingly wide variety of physical problems, accounts for a special place they occupy in the theory of linear differential equations.</description>
+    </item>
+    
+    <item>
+      <title>[ODE-01] The Theory of Linear Odes I</title>
       <link>https://quantophile.github.io/mathsummaries/posts/the-theory-of-linear-odes-i/</link>
       <pubDate>Mon, 11 Sep 2023 08:06:54 +0200</pubDate>
       
