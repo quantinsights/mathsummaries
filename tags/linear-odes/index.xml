@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linear-odes on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/tags/linear-odes/</link>
+    <description>Recent content in linear-odes on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Sep 2023 08:06:54 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/linear-odes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Theory of Linear Odes I</title>
+      <link>https://quantophile.github.io/mathsummaries/posts/the-theory-of-linear-odes-i/</link>
+      <pubDate>Mon, 11 Sep 2023 08:06:54 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/posts/the-theory-of-linear-odes-i/</guid>
+      <description>The general theory of linear differential equations. Introduction. Consider the differential operator :
+$$\begin{aligned} D:\mathcal{C}^{1}([a,b]) &amp;amp; \mapsto\mathcal{C}([a,b])\\ y=f(x) &amp;amp; \mapsto\frac{dy}{dx} \end{aligned}$$
+Since $D$ preserves sums and scalar products,
+$$\begin{aligned} \frac{d}{dx}[f(x)+g(x)] &amp;amp; =\frac{df}{dx}+\frac{dg}{dx}\\ \frac{d}{dx}[kf(x)] &amp;amp; =k\frac{df}{dx} \end{aligned}$$
+$D$ is a linear operator.
+The operator $D^{2}[f]$ can be defined as the composition $D(D(f))$. The essential fact about such compositions is that they are always linear. Indeed, if $f$ and $g$ are arbitrary functions in $\mathcal{C}^{2}([a,b])$, we have:</description>
+    </item>
+    
+  </channel>
+</rss>
