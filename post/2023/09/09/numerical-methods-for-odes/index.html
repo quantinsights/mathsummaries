@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>Numerical methods for ODEs | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.118.2">
+<meta name="description" content="A website built through Hugo and blogdown.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/index.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/post/2023/09/09/numerical-methods-for-odes/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+  
+    <nav>
+    
+      <a href="">Home</a>
+    
+      <a href="about/">About</a>
+    
+      <a href="categories/">Categories</a>
+    
+      <a href="tags/">Tags</a>
+    
+      <a href="index.xml">Subscribe</a>
+    
+    </nav>
+  
+</header>
+
+<article>
+  <header>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+    <h1>Numerical methods for ODEs</h1>
+    <time datetime="2023-09-09T11:33:41&#43;02:00">September 09, 2023</time>
+  </header>
+  <h3 id="difference-operators">Difference operators.</h3>
+<p>Difference operators are handy tools for derivation, analysis and practical applications of numerical methods for many problems of interpolation, differentiation and quadrature of a function in terms of its values at equidistant arguments.</p>
+<p>Consider the sequence $(y_n)$. Then, we define the <strong>shift operator</strong> $E$ and the <strong>forward difference operator</strong> $\Delta$ by the relations:</p>
+<p>$$Ey_n = (y_{n+1}), \quad \Delta y_n = (y_{n+1} - y_n)$$</p>
+<p>$E$ and $\Delta$ are thus operators which map one sequence to another sequence. These operators are linear, that is $\alpha$ and $\beta$ are real constants, and $(y_n)$ and $(z_n)$ are two sequences then $E(\alpha y_n + \beta z_n) = \alpha Ey_n + \beta Ez_n$ and similarly for $\Delta$.</p>
+<p>Powers of $E$ and $\Delta$ are defined recursively, that is:</p>
+<p>$$E^{k}(y) = E(E^{k-1}(y)), \quad \Delta^k (y) = \Delta(\Delta^{k-1} y)$$</p>
+<p>By induction, the first equation yields $E^k y_n = y_{n+k}$. We extend the validity of this relation to $k=0$ by setting $E^0 y = y$ and to negative values of $k$. $\Delta^k y$ is called the $k$th difference of the sequence $y$. We make the convention that $\Delta^0 y = 1$. There will be little use of $\Delta^k$ for negative values of $k$, since $\Delta^{-1}$ can be interpreted as the summation operator.</p>
+<p>Note that $\Delta y = Ey - y$ and $Ey = y + \Delta y$ for any sequence $y$. It is therefore convenient to express these equations between the operators:</p>
+<p>$$\Delta = E - 1, \quad E = 1 + \Delta$$</p>
+<p>The identity operator in this context is traditionally denoted by $1$. It can be shown that all formulas derived by the axioms of commutative algebra can be used for these operators. For example, the binomial theorem for positive integral $k$ is:</p>
+<p>$$\Delta^k = (E - 1)^k = \sum_{j=0}^k {k \choose j} (-1)^{k-j} E^j \tag{1a}$$</p>
+<p>$$E^k = (1 + \Delta)^k = \sum_{j=0}^k {k \choose j} \Delta^j \tag{1b}$$</p>
+<p>giving:</p>
+<p>$$\Delta^k y_n = \sum_{j=0}^k {k \choose j} (-1)^{k-j} y_{n+j} \tag{2a}$$</p>
+<p>$$y_{n+k} = \sum_{j=0}^k {k \choose j} \Delta^j y_n \tag{2b}$$</p>
+<p>We abbreviate the notation further and write, for example, $Ey_n = y_{n+1}$ instead of $(Ey)_n = y_{n+1}$. But it is important to remember that these operators <em>operate on sequences</em> and not on elements of sequences.</p>
+<p>A difference scheme consists of a sequence and its difference sequences arranged in the following way.</p>
+<p>$$
+\begin{array}{cccccc}
+y_0 \\
+&amp; \Delta y_0 \\
+y_1 &amp;  &amp; \Delta^2 y_0\\
+&amp; \Delta y_1 &amp; &amp; \Delta^3 y_0 \\
+y_2 &amp;  &amp; \Delta^2 y_1 &amp; &amp; \Delta^4 y_0\\
+&amp; \Delta y_2 &amp; &amp; \Delta^3 y_1 &amp; &amp; \Delta^5 y_0 \\
+y_3 &amp;  &amp; \Delta^2 y_2 &amp; &amp; \Delta^4 y_1 \\
+&amp; \Delta y_3 &amp; &amp; \Delta^3 y_2\\
+y_4 &amp;  &amp; \Delta^2 y_3\\
+&amp; \Delta y_4 \\
+y_5
+\end{array}
+$$</p>
+<p>A difference scheme is best computed by successive subtractions, the formulas in (1a) and (1b) are used mostly in theoretical contexts.</p>
+<p>In many applications the quantities $y_n$ are computed in increasing order $n=0,1,2,\ldots$ and it is natural that a difference scheme is constructed by means of the quantities previously computed. One therefore introduces the <strong>backward difference operator</strong>:</p>
+<p>$$\nabla y_n = y_n - y_{n-1} = (1 - E^{-1})y_n$$</p>
+<p>For this operator, we have:</p>
+<p>$$\nabla^k  = (1 - E^{-1})^k, \quad E^{-k} = (1 - \nabla)^k$$</p>
+<p>Note the reciprocity between the relations $\nabla$ and $E^{-1}$.</p>
+<p><em>Any linear combination of the elements $y_n$, $y_{n-1}$, $\ldots$, $y_{n-k}$ can also be expressed as a linear combination of $y_n$, $\nabla y_n$, $\ldots$, $\nabla^k y_n$ and vice versa</em>. For example,</p>
+<p>$$
+\begin{aligned}
+y_n + y_{n-1} + y_{n-2} &amp;= (1 + E^{-1} + E^{-2}) y_n\\
+&amp;= (1 + (1-\nabla) + (1-\nabla)^2) y_n \\
+&amp;= (1 + 1 - \nabla + 1 - 2\nabla +\nabla^2) y_n \\
+&amp;= (3 - 3\nabla + \nabla^2) y_n \\
+&amp;= 3y_n - 3 \nabla y_n + \nabla^2 y_n
+\end{aligned}
+$$</p>
+<p>In this notation, the backward difference scheme reads:</p>
+<p>$$
+\begin{array}{cccccc}
+y_0 \\
+&amp; \nabla y_1 \\
+y_1 &amp;  &amp; \nabla^2 y_2\\
+&amp; \nabla y_2 &amp; &amp; \nabla^3 y_3 \\
+y_2 &amp;  &amp; \nabla^2 y_3 &amp; &amp; \nabla^4 y_4\\
+&amp; \nabla y_3 &amp; &amp; \nabla^3 y_4 &amp; &amp; \nabla^5 y_5 \\
+y_3 &amp;  &amp; \nabla^2 y_4 &amp; &amp; \nabla^4 y_5 \\
+&amp; \nabla y_4 &amp; &amp; \nabla^3 y_5\\
+y_4 &amp;  &amp; \nabla^2 y_5\\
+&amp; \nabla y_5 \\
+y_5
+\end{array}
+$$</p>
+<p>In the backward difference scheme, the subscripts are constant along the diagonals directed upward (backward) to the right, while in the forward difference scheme subscripts are constant along diagonals directed downward (forward). In a computer, a backward difference scheme is preferably stored as a lower-triangular matrix.</p>
+<p><strong>Example.</strong> Consider the difference scheme for the sequence $y = {\ldots,0,0,0,1,0,0,0,\ldots }$ that is given below.</p>
+<p>$$
+\begin{array}{ccccccccc}
+&amp;&amp;&amp;&amp; 0 \\
+&amp;&amp;&amp; 0 \\
+&amp;&amp; 0 	&amp;&amp;   1\\
+&amp; 0 	&amp;&amp;  1\\
+0 		&amp;&amp; 1	&amp;&amp;   -4\\
+&amp; 1 	&amp;&amp; -3\\
+1 		&amp;&amp; -2	&amp;&amp;   6\\
+&amp; -1 	&amp;&amp; 3\\
+0 		&amp;&amp; 1	&amp;&amp; 	 -4\\
+&amp; 0 	&amp;&amp; -1\\
+&amp;&amp; 0 	&amp;&amp;	 1\\
+&amp;&amp;&amp; 0 \\
+&amp;&amp;&amp;&amp; 0
+\end{array}
+$$</p>
+<p>This example shows the <strong>effect of a disturbance in one element</strong> on the sequence of higher differences. Because the effect broadens out and grows quickly, difference schemes are useful in the investigation and correction of computational errors, so called <strong>difference checks</strong>. Notice that, since the differences are linear functions of the sequence, a <strong>superposition</strong> principle holds.</p>
+<p><strong>Lemma 1.</strong> It holds that :</p>
+<p>$$\Delta^k (a^x) = (a^h - 1)^k a^x , \quad \nabla^k (a^x) = (1 - a^{-h})^k $$</p>
+<p>Solution.</p>
+<p>We have:</p>
+<p>$$
+\begin{aligned}
+\Delta^k (a^x) &amp;= \Delta^{k-1}(\Delta a^x)\\
+&amp;= \Delta^{k-1} (a^{x+h} - a^{x}) \\
+&amp;= (a^h - 1) \Delta^{k-1} (a^x)
+\end{aligned}
+$$</p>
+<p>Applying the above argument repeatedly, it follows that $\Delta^k (a^x) = (a^h - 1)^k a^x$.</p>
+<p>Similarly,</p>
+<p>$$
+\begin{aligned}
+\nabla^k (a^x) &amp;= \nabla^{k-1}(\nabla a^x)\\
+&amp;= \nabla^{k-1} (a^{x} - a^{x-h}) \\
+&amp;= (1-a^{-h}) \nabla^{k-1} (a^x)
+\end{aligned}
+$$</p>
+<p>Applying the above argument repeatedly, it follows that $\nabla^k (a^x) = (1 - a^{-h})^k $.</p>
+<p><strong>Lemma 2.</strong> (Difference of a product).</p>
+<p>$$\Delta (u_n v_n) = u_n \Delta v_n + \Delta u_n v_{n+1}$$</p>
+<p>Solution.</p>
+<p>The left hand side can be written as :</p>
+<p>$$ \Delta (u_n v_n) = u_{n+1} v_{n+1} - u_n v_n$$</p>
+<p>The right hand side can be expressed as:</p>
+<p>$$u_n \Delta v_n + \Delta u_n v_{n+1} = u_n (v_{n+1} - v_n) + (u_{n+1} - u_n) v_{n+1} = u_{n+1} v_{n+1} - u_n v_n$$</p>
+<p>Hence, the identity holds.</p>
+<h3 id="the-calculus-of-operators">The Calculus of Operators.</h3>
+<p>Formal calculations with operators, using the rules of algebra and analysis are often an elegant means of assistance in finding approximation formulas that are exact for all polynomials of degree less than (say) $k$, and they should therefore be useful for functions that can be accurately approximated by such a polynomial. Operator calculations also provide error estimates.</p>
+<p>Just a small a digression about terminology. An <strong>operator</strong> is a linear transformation from a space $V$ into another linear space $W$. $V$ can be the space of functions, a coordinate space or a space of sequences. The dimension of these spaces can be finite or infinite. For example, the differential operator $D$ maps the infinite dimensional space $C^1 [a,b]$ of functions with a continuous derivative defined on an interval $[a,b]$ to the space of $C[a,b]$ of continuous functions.</p>
+<p>$\mathcal{P}_n$ denotes the space of polynomials of degree less than $n$. $\mathcal{P}_n$ is an $n$-dimensional linear space for which ${1,x,x^2,\ldots,x^{n-1}}$ is a basis, called the <em>power basis</em>; the coefficients $(c_1,\ldots,c_n)$ are then the coordinates of the polynomial $p$ defined by $p(x) = \sum{i=1}^n c_i x^{i-1}$. We define the following operators:</p>
+<p>$$
+\begin{aligned}
+E f(x) &amp;= f(x + h)	&amp; \text{Shift operator} \\
+\Delta f(x) &amp;= f(x + h) - f(x) &amp; \text{Forward difference operator } \\
+\nabla f(x) &amp;= f(x) - f(x-h) &amp; \text{Backward difference operator } \\
+Df(x) &amp;= f&rsquo;(x) &amp; \text{Differentiation operator } \\
+\delta f(x) &amp;= f(x + h/2) - f(x - h/2) &amp; \text{Central difference operator}
+\end{aligned}
+$$</p>
+<p>These are all linear operators. They are associative, and they distribute well over addition. In addition, they form a commutative ring. So, their products are commutative.</p>
+<p>Now, we shall go outside of polynomial algebra and consider also the infinite series of operators. The Taylor&rsquo;s series:</p>
+<p>$$f(x + h) = f(x) + h f&rsquo;(x) + \frac{h^2}{2!} f&rsquo;&rsquo;(x) + \frac{h^3}{3!} f&rsquo;&rsquo;&rsquo;(x)+\mathcal{O}(h^4)$$</p>
+<p>can be written symbolically as:</p>
+<p>$$Ef = \left(1 + hD + \frac{(hd)^2}{2!}+ \frac{(hD)^3}{3!} + \right)f$$</p>
+<p><strong>Theorem.</strong> We have:</p>
+<p>$$e^{hD} = E = 1 + \Delta, \quad e^{-hD} = E^{-1} = 1 - \nabla$$</p>
+<p>$$2 \sin \frac{hD}{2} = e^{hD/2} - e^{-hD/2}$$</p>
+<p>$$(1 + \Delta)^{\theta} = (e^{hD})^{\theta} = e^{\theta hD}, \quad \theta \in \mathbf{R}$$</p>
+<p>It is an easy exercise to prove these results.</p>
+<p>It follows from the power-series expansion, that,</p>
+<p>$$(e^{hD})^\theta f(x) = e^{\theta hD} f(x) = f(x + \theta h)$$</p>
+<p>Since, $E = e^{hD}$, it is natural to define:</p>
+<p>$$E^{\theta} f(x) = f(x + \theta h)$$</p>
+<h3 id="adam-moultons-implicit-and-adam-bashforths-explicit-formula">Adam-Moulton&rsquo;s implicit and Adam-Bashforth&rsquo;s explicit formula.</h3>
+<p>The above ideas can be used to compute the coefficients of the following relations due to John Adams, which are of great interest in the numerical integration of differential equations of the form $y&rsquo; = f(t,y)$.</p>
+<p>(a) <strong>Adam-Moulton&rsquo;s implicit formula</strong>:</p>
+<p>$$y_{n+1} - y_n = h(a_0 y_{n+1}&rsquo; + a_1 \nabla y_{n+1}&rsquo; + a_2 \nabla^2 y_{n+1}&rsquo; + \ldots )$$</p>
+<p>We can show that $\nabla = - \log (1 - \nabla) \sum a_i \nabla^ i $, and find a recurrence relation for the coefficients.</p>
+<p>Solution.</p>
+<p>We have:</p>
+<p>$$
+\begin{aligned}
+\nabla y_{n+1}  &amp;= h(a_0 D + a_1 h \nabla D + a_2 \nabla^2 D + \ldots ) y_{n+1} \\
+&amp;= hD (a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots ) y_{n+1} \\
+&amp; \{ \text{ Multiplication is commutative } \} \\
+&amp;= -\log (1 - \nabla) (a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots ) y_{n+1}
+\end{aligned}
+$$</p>
+<p>Equating both sides, we get:</p>
+<p>$$\nabla = \left( \nabla + \frac{\nabla^2}{2} + \frac{\nabla^3}{3} + \frac{\nabla^4}{4} + \ldots \right) (a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots )$$</p>
+<p>Collecting the cofficients of $\nabla$, $\nabla^2$, $\nabla^3$, $\nabla^4$, $\ldots$, we have:</p>
+<p>$$a_0 = 1$$</p>
+<p>$$\frac{a_0}{2} + a_1 = 0$$</p>
+<p>$$\frac{a_0}{3} + \frac{a_1}{2} + a_2 = 0$$</p>
+<p>In general, we solve the recurrence relation:</p>
+<p>$$a_m = -\left(\frac{a_{m-1}}{2} + \frac{a_{m-2}}{3} + \frac{a_{m-3}}{4} + \ldots + \frac{a_{1}}{m-1} + \frac{a_0}{m}\right)$$</p>
+<p>for AM($m$).</p>
+<p>(b) <strong>Adam-Bashforth&rsquo;s explicit formula</strong>:</p>
+<p>$$y_{n+1} - y_n = h(b_0 y_{n}&rsquo; + b_1 \nabla y_{n}&rsquo; + b_2 \nabla^2 y_{n}&rsquo; + \ldots )$$</p>
+<p>We can show that $\sum b_i \nabla^i E^{-1} = \sum a_i \nabla ^i $ and that $b_n - b_{n-1} = a_n$.</p>
+<p>Solution.</p>
+<p>From the previous derivation, it follows that:</p>
+<p>$$y_{n+1} - y_n = hD (a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots ) y_{n+1} = hD (b_0 + b_1 \nabla + b_2 \nabla^2 + \ldots ) E^{-1} y_{n+1}$$</p>
+<p>Consequently,</p>
+<p>$$(a_0 + a_1 \nabla + a_2 \nabla^2 + \ldots ) = (b_0 + b_1 \nabla + b_2 \nabla^2 + \ldots ) E^{-1}$$</p>
+<p>Or,</p>
+<p>$$
+\begin{aligned}
+\sum a_i \nabla^i &amp;= \sum b_i \nabla^i E^{-1} \\
+&amp;= \sum b_i \nabla^i (1 - \nabla) \\
+&amp;= b_0 (1 - \nabla) + b_1 (\nabla - \nabla^2) + b_2 (\nabla^2 - \nabla^3) + \ldots \\
+&amp;= b_0 + (b_1 - b_0) \nabla + (b_2 - b_1) \nabla^2 + (b_3 - b_2) \nabla^3 + \ldots\\
+\sum a_i \nabla^i &amp;= \sum (b_i - b_{i-1}) \nabla_i
+\end{aligned}
+$$</p>
+<p>Consequently, $b_0 = a_0 = 1$, $b_i - b_{i-1} = a_i$.</p>
+<h3 id="implementation">Implementation.</h3>
+<p>I coded a few numerical methods from first principles for solving a scalar IVP. The objective is to properly map algorithms to code.</p>
+<p>We are interested to solve the scalar IVP:</p>
+<p>$$x&rsquo;(t) = (1 - 2t)x, \quad x(0) = 1, \quad t \in [0,1]$$</p>
+<p>The analytic solution to this ODE by separation of variables is:</p>
+<p>$$x(t) = e^{t - t^2}$$</p>
+<h3 id="adams-bashforth2-method">Adams-Bashforth(2) method.</h3>
+<p>In the AB(2) method, $$x_{n+1} = x_n + \frac{h}{2}(3f_n - f_{n-1})$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib <span style="color:#f92672">import</span> style
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>use(<span style="color:#e6db74">&#39;seaborn-bright&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Adam&#39;s Bashforth 2-step</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">adamsBashforth2</span>(funct, x_0, startTime, endTime, h, epsilon):
+</span></span><span style="display:flex;"><span>    N <span style="color:#f92672">=</span> int((endTime <span style="color:#f92672">-</span> startTime)<span style="color:#f92672">/</span>h)
+</span></span><span style="display:flex;"><span>    f <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(N<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) ; x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(N<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>); t<span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(start<span style="color:#f92672">=</span>startTime,stop<span style="color:#f92672">=</span>endTime,num<span style="color:#f92672">=</span>N<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> x_0;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Euler&#39;s method to compute x_1</span>
+</span></span><span style="display:flex;"><span>    f[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> funct(startTime, x[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> h <span style="color:#f92672">*</span> f[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    f[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> funct(t[<span style="color:#ae81ff">1</span>], x[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,N):
+</span></span><span style="display:flex;"><span>        x[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> x[i] <span style="color:#f92672">+</span> (h<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>f[i] <span style="color:#f92672">-</span> f[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>        f[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> funct(t[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>],x[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> t, x, f
+</span></span></code></pre></div><p><img src="../adams-bashforth2.png" alt="Adams-Bashforth"></p>
+
+</article>
+
+
+
+</html>

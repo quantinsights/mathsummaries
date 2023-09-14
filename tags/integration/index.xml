@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 29 Mar 2022 19:23:36 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/integration/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Real Analysis</title>
-      <link>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</link>
+      <link>https://quantophile.github.io/mathsummaries/post/2022/03/29/real-analysis/</link>
       <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</guid>
+      <guid>https://quantophile.github.io/mathsummaries/post/2022/03/29/real-analysis/</guid>
       <description>Real Analysis. These are unofficial solutions to the undergrad text, Understanding Analysis by Stephen Abbott. I started writing these solutions, when I was self-studying and taking a first course in real analysis, and felt that I might as well give the problems an effort by writing out solutions.
 TeX PDF
 Why should I read this? While the official solutions may be more accurate, they may be terse and sometimes hard to understand, so a different perspective may help.</description>

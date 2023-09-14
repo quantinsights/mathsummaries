@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 11 Sep 2023 12:42:55 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/differential-equations/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[ODE-02] Equations with constant coefficients</title>
-      <link>https://quantophile.github.io/mathsummaries/posts/equations-with-const-coeff/</link>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/09/11/ode-02-equations-with-constant-coefficients/</link>
       <pubDate>Mon, 11 Sep 2023 12:42:55 +0200</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/posts/equations-with-const-coeff/</guid>
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/09/11/ode-02-equations-with-constant-coefficients/</guid>
       <description>Equations with constant coefficients. Linear differential equations with constant coefficients, that is equations of the form:
 $$\begin{aligned} a_{n}y^{(n)}+a_{n-1}y^{(n-1)}+\ldots+a_{0}y &amp;amp; =h(x)\quad\tag{1} \end{aligned}$$
 in which $a_{0},a_{1},\ldots,a_{n}\neq0$ are real constants, are in many respects the simplest of all differential equations. For one thing, they can be discussed entirely within the context of linear algebra and form the only substantial class of equations with order greater than one that can be explicitly solved. This, plus the fact, that such equations arise in a surprisingly wide variety of physical problems, accounts for a special place they occupy in the theory of linear differential equations.</description>
@@ -20,10 +20,10 @@ in which $a_{0},a_{1},\ldots,a_{n}\neq0$ are real constants, are in many respect
     
     <item>
       <title>[ODE-01] The Theory of Linear Odes I</title>
-      <link>https://quantophile.github.io/mathsummaries/posts/the-theory-of-linear-odes-i/</link>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/09/11/ode-01-the-theory-of-linear-odes-i/</link>
       <pubDate>Mon, 11 Sep 2023 08:06:54 +0200</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/posts/the-theory-of-linear-odes-i/</guid>
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/09/11/ode-01-the-theory-of-linear-odes-i/</guid>
       <description>The general theory of linear differential equations. Introduction. Consider the differential operator :
 $$\begin{aligned} D:\mathcal{C}^{1}([a,b]) &amp;amp; \mapsto\mathcal{C}([a,b])\\ y=f(x) &amp;amp; \mapsto\frac{dy}{dx} \end{aligned}$$
 Since $D$ preserves sums and scalar products,
@@ -34,10 +34,10 @@ The operator $D^{2}[f]$ can be defined as the composition $D(D(f))$. The essenti
     
     <item>
       <title>Numerical methods for ODEs</title>
-      <link>https://quantophile.github.io/mathsummaries/posts/differential-equations/</link>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/09/09/numerical-methods-for-odes/</link>
       <pubDate>Sat, 09 Sep 2023 11:33:41 +0200</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/posts/differential-equations/</guid>
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/09/09/numerical-methods-for-odes/</guid>
       <description>Difference operators. Difference operators are handy tools for derivation, analysis and practical applications of numerical methods for many problems of interpolation, differentiation and quadrature of a function in terms of its values at equidistant arguments.
 Consider the sequence $(y_n)$. Then, we define the shift operator $E$ and the forward difference operator $\Delta$ by the relations:
 $$Ey_n = (y_{n+1}), \quad \Delta y_n = (y_{n+1} - y_n)$$

@@ -6,7 +6,16 @@
     <description>Recent content in Categories on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Sep 2023 12:42:55 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Sep 2023 13:17:07 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quant Puzzles</title>
+      <link>https://quantophile.github.io/mathsummaries/categories/quant-puzzles/</link>
+      <pubDate>Thu, 14 Sep 2023 13:17:07 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/categories/quant-puzzles/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Differential Equations</title>
       <link>https://quantophile.github.io/mathsummaries/categories/differential-equations/</link>

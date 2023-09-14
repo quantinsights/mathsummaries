@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Quant Puzzles on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/categories/quant-puzzles/</link>
+    <description>Recent content in Quant Puzzles on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Sep 2023 13:17:07 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/quant-puzzles/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Quant Interviews] probability puzzles</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/09/14/quant-interviews-probability-puzzles/</link>
+      <pubDate>Thu, 14 Sep 2023 13:17:07 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/09/14/quant-interviews-probability-puzzles/</guid>
+      <description>Probability puzzles. Problem. Two bullets are loaded into a gun&amp;rsquo;s round barrel consecutively. The barrel has a capacity of 6. The gun is fired once, but no bullet is shot. Does rolling the barrel (shuffling) before next shot increase the probability of firing a bullet?
+https://brainstellar.com/puzzles/easy/1
+Solution.
+Let the holes in the barrel be $1,2,3,4,5,6$ labelled clockwise. WLOG, suppose the firing pin was on hole $1$. Also, suppose the barrel rotates clockwise.</description>
+    </item>
+    
+  </channel>
+</rss>

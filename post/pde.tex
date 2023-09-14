@@ -1,0 +1,671 @@
+%% LyX 2.3.0 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{fontspec}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{color}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=true]
+ {hyperref}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{equation}{section}
+\theoremstyle{definition}
+\newtheorem{defn}{\protect\definitionname}[section]
+\theoremstyle{definition}
+\newtheorem{example}{\protect\examplename}[section]
+\theoremstyle{remark}
+\newtheorem*{rem*}{\protect\remarkname}
+\theoremstyle{plain}
+\newtheorem{thm}{\protect\theoremname}[section]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{qtree}
+\usepackage[many]{tcolorbox}
+\tcbuselibrary{listings}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{matrix}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{3d}
+\usepackage{fontspec}
+\setmainfont[BoldFont={GARABD.ttf},ItalicFont=GARAIT.ttf]{GARA.ttf}
+\hypersetup{urlcolor=blue}
+
+\makeatother
+
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=american]{english}
+\providecommand{\definitionname}{Definition}
+\providecommand{\examplename}{Example}
+\providecommand{\remarkname}{Remark}
+\providecommand{\theoremname}{Theorem}
+
+\begin{document}
+
+\title{Partial Differential Equations}
+
+\author{Quasar Chunawala}
+\maketitle
+\begin{abstract}
+The most important results and ideas in classical PDEs.
+\end{abstract}
+
+\section{Vector Calculus.}
+
+\subsection{Vector Fields.}
+\begin{defn}
+A vector field on $\mathbf{R}^{n}$ is a mapping 
+
+\begin{equation}
+\mathbf{F}:X\subseteq\mathbf{R}^{n}\to\mathbf{R}^{n}
+\end{equation}
+\end{defn}
+We usually study vector fields on $\mathbf{R}^{2}$ or $\mathbf{R}^{3}$.
+In such cases, we can think of a vector field as a function that assigns
+to each point $\mathbf{x}\in X$, a vector $\mathbf{F}(\mathbf{x})$
+in $\mathbf{R}^{n}$, represented by a geometric arrow, whose tail
+is at the point $\mathbf{x}$. This allows us to visualize vector
+fields in a reasonable way. 
+\begin{example}
+Suppose $\mathbf{F}:\mathbf{R}^{2}\to\mathbf{R}^{2}$ is defined by
+$\mathbf{F}(\mathbf{x})=\mathbf{a}$ where $\mathbf{a}$ is a constant
+vector. Then, $\mathbf{F}$ assigns $\mathbf{a}$ to each point of
+$\mathbf{R}^{2}$. So, we can picture $\mathbf{F}$ by drawing the
+same vector (parallel, translated of course) emanating from each point
+in the plane, as in the figure below. 
+\end{example}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xmin = -4, xmax = 4,
+    ymin = -4, ymax = 4,
+    zmin = 0, zmax = 1,
+    axis equal image,
+    xtick distance = 1,
+    ytick distance = 1,
+    view = {0}{90},
+    scale = 1.25,
+    title = {\bf Vector Field $F = [1,1]$},
+    height=7cm,
+    xlabel = {$x$},
+    ylabel = {$y$},
+    colormap/viridis,
+]
+ 
+\addplot3[
+    quiver = {
+        u = 1,
+        v = 1,
+        scale arrows = 0.25,
+    },
+    quiver/colored = {mapped color},
+    -stealth,
+    domain = -4:4,
+    domain y = -4:4,
+] {0};
+ 
+\end{axis}
+ 
+\end{tikzpicture}
+\end{center}
+\begin{example}
+Let's depict $\mathbf{G}:\mathbf{R}^{2}\to\mathbf{R}^{2}$, $\mathbf{G}(x,y)=y\mathbf{i}-x\mathbf{j}$.
+To understand $\mathbf{G}$ better, we need to play around a bit.
+Note that:
+
+\begin{align*}
+\left\Vert \mathbf{G}(x,y)\right\Vert  & =\sqrt{y^{2}+x^{2}}=\left\Vert \mathbf{r}\right\Vert 
+\end{align*}
+\end{example}
+where $\mathbf{r}=x\mathbf{i}+y\mathbf{j}$, the position vector of
+the point $(x,y)$. From this observation, it follows that $\mathbf{G}$
+has a constant length $a$ on the circle $x^{2}+y^{2}=a^{2}$. In
+addition, we have:
+
+\begin{align*}
+\mathbf{r}\cdot\mathbf{G}(x,y) & =(x\mathbf{i}+y\mathbf{j})\cdot(y\mathbf{j}-x\mathbf{i})=0
+\end{align*}
+
+Hence, $\mathbf{G}(x,y)$ is always perpendicular to the position
+vector of the point $(x,y)$. These facts, together with a table like
+the preceding one, make it possible to see that $\mathbf{G}$ looks
+like below. 
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xmin = -4, xmax = 4,
+    ymin = -4, ymax = 4,
+    zmin = 0, zmax = 1,
+    axis equal image,
+    xtick distance = 1,
+    ytick distance = 1,
+    view = {0}{90},
+    scale = 1.25,
+    title = {\bf Vector Field $F = [-y,x]$},
+    height=7cm,
+    xlabel = {$x$},
+    ylabel = {$y$},
+    colormap/viridis,
+]
+ 
+\addplot3[
+	point meta = {sqrt(x^2 + y^2)},
+    quiver = {
+        u = {-y/sqrt(x^2 + y^2)},
+        v = {x/sqrt(x^2 + y^2)},
+        scale arrows = 0.25,
+    },
+    quiver/colored = {mapped color},
+    -stealth,
+    domain = -4:4,
+    domain y = -4:4,
+] {0};
+ 
+\end{axis}
+ 
+\end{tikzpicture}
+\end{center}
+
+Sometimes the scalar-valued function $f:X\subseteq\mathbf{R}^{n}\to\mathbf{R}$
+is called a scalar field. One thinks of a vector field on $\mathbf{R}^{n}$
+as attaching vector information (such as wind velocity) to each point
+and a scalar field as attaching real number information (such as temperature
+and pressure). We'll use the term scalar field only ocassionally,
+but we don't want to shock you, when we do. 
+\begin{example}
+Let $\mathbf{r}=x\mathbf{i}+y\mathbf{j}+z\mathbf{k}$. The so-called
+\textbf{inverse square }vector field in $\mathbf{R}^{3}$is a function
+$\mathbf{F}:\mathbf{R}^{3}-\{0\}\to\mathbf{R}^{3}$ given by:
+
+\begin{align*}
+\mathbf{F}(x,y,z) & =\frac{c}{\left\Vert \mathbf{r}\right\Vert ^{3}}\mathbf{r}
+\end{align*}
+
+where $c$ is any non-zero constant. If the term “inverse square”
+seems inappropriate for you, we'll try to convince you otherwise.
+Set $\mathbf{u}=\frac{\mathbf{r}}{\left\Vert \mathbf{r}\right\Vert }$
+so that $\mathbf{r}=\left\Vert \mathbf{r}\right\Vert \mathbf{u}$.
+Then, $\mathbf{F}$ is given by:
+
+\begin{align*}
+\mathbf{F}(x,y,z) & =\frac{c}{\left\Vert \mathbf{r}\right\Vert ^{3}}\mathbf{r}=\frac{c}{\left\Vert \mathbf{r}\right\Vert ^{2}}\mathbf{u}
+\end{align*}
+Thus, $\mathbf{F}$ is a vector field whose direction at the point
+$P(x,y,z)\neq(0,0,0)$ is parallel to the vector from the origin to
+$P$ and whose magnitude is inversely proportional to the square of
+the distance from the origin to $P$. Note, that $\mathbf{F}$ points
+away from the origin if $c$ is positive and towards the origin if
+$c$ is negative. 
+
+We have seen an example of an inverse square field - namely, the Newtonian
+gravitational field between two bodies. If one of the bodies is at
+the origin and the other at the point $(x,y,z)$, then we have:
+
+\begin{align*}
+\mathbf{F} & =-\frac{GMm}{\left\Vert \mathbf{r}\right\Vert ^{2}}\mathbf{u}
+\end{align*}
+
+In this case, the proportionality constant $c$ is $-GMm$, which
+is negative. This means that the gravitational force is attractive.
+This vector field is drawn in the figure below. 
+\end{example}
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    domain=-1:1,
+    samples=10,
+    xmin=-1,xmax=1,
+    ymin=-1,ymax=1,
+    zmin=-1,zmax=1,
+    ]
+    \pgfplotsinvokeforeach{-1,-.5,0,.5,1}{
+      \addplot3[cyan,quiver,-stealth,
+      point meta={sqrt((x)^2+(y)^2+(z)^2)},
+      quiver={
+        u={x/sqrt((x)^2+(y)^2+(z)^2)},
+        v={y/sqrt((x)^2+(y)^2+(z)^2)},
+        w={z/sqrt((x)^2+(y)^2+(z)^2)},
+        colored,scale arrows=.1}]
+      (x,y,#1);
+    }
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection{Gradient fields and Potentials.}
+
+Inverse square fields are interesting not only for their origin in
+physics, but also because they are examples of gradient fields. 
+\begin{defn}
+(\textbf{Gradient Field}) A gradient field on $\mathbf{R}^{n}$ is
+a vector field $\mathbf{F}:X\subseteq\mathbf{R}^{n}\to\mathbf{R}^{n}$
+such that $\mathbf{F}$ is the gradient of some differentiable scalar-valued
+function $f:X\to\mathbf{R}$. That is:
+
+\begin{align*}
+\mathbf{F}(\mathbf{x}) & =\nabla f(\mathbf{x})
+\end{align*}
+
+at all $\mathbf{x}$ in $X$. The function $f$ is called a (scalar)
+\textbf{potential function }for the vector field $\mathbf{F}$. To
+see what this means in the case of the inverse square field, we write
+out the components of $\mathbf{F}$ explicitly:
+
+\begin{align*}
+\mathbf{F} & =\frac{c}{\left\Vert \mathbf{r}\right\Vert ^{2}}\mathbf{u}=\frac{c}{(x^{2}+y^{2}+z^{2})}\cdot\frac{x\mathbf{i}+y\mathbf{j}+z\mathbf{k}}{\sqrt{x^{2}+y^{2}+z^{2}}}
+\end{align*}
+
+since the position vector $\mathbf{r}=x\mathbf{i}+y\mathbf{j}+z\mathbf{k}$
+and $\mathbf{u}=\mathbf{r}/\left\Vert \mathbf{r}\right\Vert $.
+
+Let 
+
+\begin{align*}
+f(x,y,z) & =-\frac{c}{\sqrt{x^{2}+y^{2}+z^{2}}}=-\frac{c}{\left\Vert \mathbf{r}\right\Vert }
+\end{align*}
+
+The gradient vector for the function $f$ is:
+
+\begin{align*}
+\nabla f(x,y,z) & =\left[\begin{array}{ccc}
+\frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} & \frac{\partial f}{\partial z}\end{array}\right]\\
+ & =-c\left[\begin{array}{ccc}
+-\frac{1}{2}\cdot\frac{2x}{(x^{2}+y^{2}+z^{2})^{3/2}} & -\frac{1}{2}\cdot\frac{2y}{(x^{2}+y^{2}+z^{2})^{3/2}} & -\frac{1}{2}\cdot\frac{2z}{(x^{2}+y^{2}+z^{2})^{3/2}}\end{array}\right]\\
+ & =\frac{c}{(x^{2}+y^{2}+z^{2})^{3/2}}(x\mathbf{i}+y\mathbf{j}+z\mathbf{k})\\
+ & =\mathbf{F}(\mathbf{x})
+\end{align*}
+
+Hence, $f(x,y,z)$ is the potential function for the field $\mathbf{F}$.
+\end{defn}
+\begin{rem*}
+In Physics and Engineering, a negative sign is often introduced in
+the definition of a potential function (so that a potential function
+$g$ for a vector field $\mathbf{F}$ is one such that $\mathbf{F}=-\nabla g$).
+The motivation behind such a convention is that in physical applications,
+it is desirable to have the potential function represent potential
+energy in some sense. For example, in the case of the gravitational
+field $\mathbf{F}=-(GMm/\left\Vert \mathbf{r}\right\Vert ^{2})\mathbf{u}$,
+a physicist would take the potential function to be $U(\mathbf{x})=-GMm/\left\Vert \mathbf{r}\right\Vert $.
+The advantage to the physicist in doing so is that the physicist's
+potential function increases with increasing $\left\Vert \mathbf{r}\right\Vert $.
+This corresponds to the notion that the greater the distance between
+the two bodies, the greater should be stored gravitational potential
+energy.
+\end{rem*}
+
+\subsubsection{Gradient vector and the Level Sets.}
+\begin{thm}
+Let $X\subseteq\mathbf{R}^{n}$ be an open set and $f:X\to\mathbf{R}$
+be a function(surface) of class $C^{1}$. If $\mathbf{x}_{0}$ is
+any point on the level set $S=\{\mathbf{x}|f(\mathbf{x})=c\}$, then
+the gradient vector $\nabla f(\mathbf{x})$ is perpendicular to the
+level set $S$ at the point $\mathbf{x}_{0}$.
+\end{thm}
+%
+\begin{proof}
+We need to establish the following : if $\mathbf{v}$is any vector
+tangent to $S$ at the point $\mathbf{x}_{0}$, then $\nabla f(\mathbf{x}_{0})$
+is orthogonal to $\mathbf{v}$. 
+
+By a tangent vector to $S$ at $\mathbf{x}_{0}$, we mean that $\mathbf{v}$
+is the velocity vector of a curve $C$ that lies in $S$ and passes
+through $\mathbf{x}_{0}$. Imagine that $f:X\subseteq\mathbf{R}^{3}\to\mathbf{R}$
+is defined as $w=f(x,y,z)$. Thus, the graph(plot) of $f$ lives in
+$\mathbf{R}^{4}$. The set $S=\{\mathbf{x}|f(\mathbf{x})=c\}$ is
+a level surface of $f$ that lives in $\mathbf{R}^{3}$. The situation
+is pictured below:
+
+\begin{center}
+\begin{tikzpicture}
+	\filldraw [thick,fill=yellow!20!white] (0,0) .. controls (0,2.0) .. (1,4.0) .. controls (3.5,4.2) and (6,4) .. (8,3.0) .. controls (7,0) .. (7,-1) .. controls (6,-0.2) and (3,1) .. (0,0);
+	\filldraw (1.0,1.0) circle(0.03cm);
+	\draw (1.0,1.0) .. controls (2.0,1.5) and (3.0,2.3) .. (4,2.0) .. controls (5.0,1.7) and (6.0,1.2) .. (7.0,3.0);
+	\filldraw (3.9,2.05) circle(0.03cm) node [below] {$\mathbf{x}_0$};
+	\draw [->,blue,thick] (3.9,2.05) -- (5.0,2.05) node [below] {$\mathbf{v}$};
+	\draw [->,blue,thick] (3.9,2.05) -- (3.9,3) node [right] {$\nabla f(\mathbf{x}_0)$};
+	\draw (3.9,2.2) -- (4.1,2.2) -- (4.1,2.05);
+	\filldraw (7.0,3.0) circle(0.03cm) node [below] {$C$};
+\end{tikzpicture}
+\end{center}
+
+Thus, let the curve $C$ be given parametrically by $\mathbf{x}(t)=(x_{1}(t),x_{2}(t),\ldots,x_{n}(t))$,
+where $a<t<b$ and $\mathbf{x}(t_{0})=\mathbf{x}_{0}$. Since the
+curve $C$ is contained in $S$, we have: 
+
+\begin{align*}
+f(\mathbf{x}(t)) & =f(x_{1}(t),x_{2}(t),\ldots,x_{n}(t))=c
+\end{align*}
+
+Hence, 
+
+\begin{equation}
+\frac{d}{dt}[f(\mathbf{x}(t))]=\frac{d}{dt}[c]=0
+\end{equation}
+
+On the other hand, the chain rule applied to the composite function
+$f(\mathbf{x}(t)):[a,b]\to\mathbf{R}$ tells us:
+
+\begin{equation}
+\frac{d}{dt}[f(\mathbf{x}(t))]=\nabla f(\mathbf{x})\cdot\mathbf{x}'(t)
+\end{equation}
+
+At $t=t_{0}$, we have:
+
+\begin{align*}
+\nabla f(\mathbf{x}_{0})\cdot\mathbf{x}'(t_{0}) & =\nabla f(\mathbf{x}_{0})\cdot\mathbf{v}=0
+\end{align*}
+
+But, the velocity vector $\mathbf{v}$ of the curve $C$ at $\mathbf{x}_{0}$
+is always parallel to $C$. This closes the proof.
+\end{proof}
+It follows that, if $\mathbf{F}$ is a gradient vector field on $\mathbf{R}^{n}$,
+$\mathbf{F}(\mathbf{x})$ must be perpendicular to the level sets
+of the potential function of $\mathbf{F}$ containing the point $\mathbf{x}$.
+If $f$ is such a potential function, the level set $\{\mathbf{x}:f(\mathbf{x})=c\}$
+is called an \textbf{equipotential set }(or an equipotential surface)
+of the vector field $\mathbf{F}$. Everytime we look at weather-maps,
+the curves of constant barometric pressure (called isobars) or constant
+temperature (isotherms) are drawn. Perpendicular to the equipotential
+lines are associated gradient vector fields that point in the direction
+of the most rapid increase of pressure or temperature.
+
+The gravitational pull of the earth is a force field. Its equipotential
+surface is a sphere. 
+
+\subsubsection{Flow-lines of vector fields.}
+
+When we draw a sketch of a vector field in $\mathbf{R}^{2}$ or $\mathbf{R}^{3}$,
+it is easy to imagine that the arrows represent the velocity of some
+fluid moving in space. It's natural to let the arrows blend into complete
+curves. What you're doing analytically, is drawing paths whose velocity
+vectors coincide with those of the vector field. 
+\begin{defn}
+A \textbf{flow-line} of a vector field $\mathbf{F}:X\subseteq\mathbf{R}^{n}\to\mathbf{R}^{n}$
+is a differentiable path $\mathbf{x}:I\to\mathbf{R}^{n}$ such that:
+
+\begin{align*}
+\mathbf{x}'(t) & =\mathbf{F}(\mathbf{x}(t))
+\end{align*}
+
+That is, the velocity vector of $\mathbf{x}$ at time $t$ is given
+by the value of the vector field $\mathbf{F}$ at the point on $\mathbf{x}$
+at time $t$.
+\end{defn}
+\begin{example}
+We calculate the flow lines of the constant vector field $\mathbf{F}(x,y,z)=2\mathbf{i}-3\mathbf{j}+\mathbf{k}$.
+
+A picture of this vector field below makes it easy to believe that
+the flow lines are indeed straight line paths. Indeed, if $\mathbf{x}(t)=(x(t),y(t),z(t))$
+is a flow-line, then by definition, we must have:
+
+\begin{align*}
+\mathbf{x}'(t)=(x'(t),y'(t),z'(t)) & =(2,-3,1)=\mathbf{F}(\mathbf{x}(t))
+\end{align*}
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    domain=-1:1,
+    samples=10,
+    xmin=-1,xmax=1,
+    ymin=-1,ymax=1,
+    zmin=-1,zmax=1,
+    ]
+    \pgfplotsinvokeforeach{-1,-.5,0,.5,1}{
+      \addplot3[cyan,quiver,-stealth,
+      point meta={sqrt((2)^2+(3)^2+(1)^2)},
+      quiver={
+        u={2},
+        v={-3},
+        w={1},
+        colored,scale arrows=.1}]
+      (x,y,#1);
+    }
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Equating the components, we see that:
+
+\begin{align*}
+x'(t) & =2\\
+y'(t) & =-3\\
+z'(t) & =1
+\end{align*}
+
+These differential equations are readily solved by integration; we
+obtain:
+
+\begin{align*}
+x(t) & =2t+x_{0}\\
+y(t) & =-3t+y_{0}\\
+z(t) & =t+z_{0}
+\end{align*}
+
+where $x_{0},y_{0},z_{0}$ are arbitrary constants. Hence, as expected,
+we obtain the parametric equations for a straight line path passing
+through an arbitrary point $(x_{0},y_{0},z_{0})$ with the velocity
+vector $(2,-3,1)$.
+\end{example}
+%
+
+\subsection{Gradient, Divergence, Curl and the Del Operator.}
+
+\subsubsection{The Del Operator.}
+
+The del operator, denoted $\nabla$ is an odd creature. It leads a
+double life as both a differential operator and a vector. In Cartesian
+coordinates on $\mathbf{R}^{3}$, del is defined by the curious expression:
+
+\begin{equation}
+\nabla=\mathbf{i}\frac{\partial}{\partial x}+\mathbf{j}\frac{\partial}{\partial y}+\mathbf{k}\frac{\partial}{\partial z}
+\end{equation}
+
+The empty partial derivatives are the components of a vector that
+awaits suitable scalar and vector fields on which to act. 
+
+For example, if $f:X\subseteq\mathbf{R}^{3}\to\mathbf{R}$ is a differentiable
+function (scalar field), the gradient of $f$ may be considered to
+be the result of multiplying the vector $\nabla$ by the scalar $f$,
+except that when we \emph{multiply} each component of $\nabla$ by
+$f$, we actually compute the appropriate partial derivative:
+
+\begin{align*}
+\nabla f(x,y,z) & =\left(\mathbf{i}\frac{\partial}{\partial x}+\mathbf{j}\frac{\partial}{\partial y}+\mathbf{k}\frac{\partial}{\partial z}\right)f(x,y,z)=\frac{\partial f}{\partial x}\mathbf{i}+\frac{\partial f}{\partial y}\mathbf{j}+\frac{\partial f}{\partial z}\mathbf{k}
+\end{align*}
+
+The del operator can also be defined in $\mathbf{R}^{n}$ for arbitrary
+$n$. If we take $x_{1},x_{2},\ldots,x_{n}$ to be the coordinates
+for $\mathbf{R}^{n}$, then del is simply:
+
+\begin{align*}
+\nabla & =\frac{\partial}{\partial x_{1}}\mathbf{e}_{1}+\frac{\partial}{\partial x_{2}}\mathbf{e}_{2}+\ldots+\frac{\partial}{\partial x_{n}}\mathbf{e}_{n}
+\end{align*}
+
+
+\subsubsection{The divergence of a vector field.}
+
+Whereas taking the gradient of a scalar field yields a vector field,
+the process of taking the divergence does just the opposite: it turns
+a vector field into a scalar field. 
+\begin{defn}
+\label{def:divergence-of-a-vector-field}Let $\mathbf{F}:X\subseteq\mathbf{R}^{n}\to\mathbf{R}^{n}$
+be a differentiable vector field. Then, the \textbf{divergence} of
+$\mathbf{F}$, denoted $\text{div}\mathbf{F}$or $\nabla\cdot\mathbf{F}$
+(del dot $\mathbf{F}$) is the scalar field:
+
+\begin{equation}
+\text{div}\mathbf{F}=\nabla\cdot\mathbf{F}=\frac{\partial F_{1}}{\partial x_{1}}+\frac{\partial F_{2}}{\partial x_{2}}+\ldots+\frac{\partial F_{n}}{\partial x_{n}}
+\end{equation}
+
+where $x_{1},x_{2},\ldots,x_{n}$ are Cartesian coordinates for $\mathbf{R}^{n}$
+and $F_{1},F_{2},\ldots,F_{n}$ are the component functions of $\mathbf{F}$.
+
+It is essential that Cartesian coordinates be used in the formula
+of the definition (\ref{def:divergence-of-a-vector-field}). 
+\end{defn}
+\begin{example}
+If $\mathbf{F}=x^{2}y\mathbf{i}+xz\mathbf{j}+xyz\mathbf{k}$, then:
+
+\begin{align*}
+\text{div}\mathbf{F} & =\frac{\partial}{\partial x}(x^{2}y)+\frac{\partial}{\partial y}(xz)+\frac{\partial}{\partial z}(xyz)\\
+ & =2xy+xy\\
+ & =3xy
+\end{align*}
+
+The notation for the divergence involving the dot product and the
+del operator is especially apt: if we write:
+
+\begin{align*}
+\mathbf{F} & =F_{1}\mathbf{e}_{1}+F_{2}\mathbf{e}_{2}+\ldots+F_{n}\mathbf{e}_{n}
+\end{align*}
+
+then,
+
+\begin{align*}
+\nabla\cdot\mathbf{F} & =\left(\mathbf{e}_{1}\frac{\partial}{\partial x_{1}}+\ldots+\mathbf{e}_{n}\frac{\partial}{\partial x_{n}}\right)\cdot(F_{1},\ldots,F_{n})\\
+ & =\frac{\partial F_{1}}{\partial x_{1}}+\ldots+\frac{\partial F_{n}}{\partial x_{n}}
+\end{align*}
+
+Intuitively, the value of the divergence of a vector field at a particular
+point gives a measure of the \emph{net mass flow} or \emph{flux density}
+of the vector field in to or out of that point. To understand what
+such a statement means, imagine that the vector field $\mathbf{F}$
+represents the velocity of a fluid. If $\nabla\cdot\mathbf{F}$ is
+zero at a point, then the rate at which fluid is flowing into that
+point is equal to the rate at which fluid is flowing out. Positive
+divergence at a point signifies more fluid flowing out than in, while
+negative divergence signifies just the opposite. We will make these
+assertions more precise, even prove them, when we will have some integral
+vector calculus at our disposal. For now, we can remark, that a vector
+field $\mathbf{F}$ such that $\text{div \ensuremath{\mathbf{F}}=}\nabla\cdot\mathbf{F}=0$
+everywhere is called \textbf{incompressible }or \textbf{solenoidal}. 
+\end{example}
+%
+\begin{example}
+The vector field $\mathbf{F}=x\mathbf{i}+y\mathbf{j}$ has:
+
+\begin{align*}
+\text{div}\mathbf{F} & =\nabla\cdot\mathbf{F}\\
+ & =\frac{\partial}{\partial x}(x)+\frac{\partial}{\partial y}(y)\\
+ & =2
+\end{align*}
+\end{example}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xmin = -4, xmax = 4,
+    ymin = -4, ymax = 4,
+    zmin = 0, zmax = 1,
+    axis equal image,
+    xtick distance = 1,
+    ytick distance = 1,
+    view = {0}{90},
+    scale = 1.25,
+    title = {\bf Vector Field $\mathbf{F} = [x,y]$},
+    height=7cm,
+    xlabel = {$x$},
+    ylabel = {$y$},
+    colormap/viridis,
+	samples = 8,
+]
+ 
+\addplot3[
+	point meta = {sqrt(x^2 + y^2)},
+    quiver = {
+        u = {x},
+        v = {y},
+        scale arrows = 0.25,
+    },
+    quiver/colored = {mapped color},
+    -stealth,
+    domain = -4:4,
+    domain y = -4:4,
+] {0};
+ 
+\end{axis}
+ 
+\end{tikzpicture}
+\end{center}
+
+At any point in $\mathbf{R}^{2}$, the arrow whose tail is at that
+point is longer than the arrow who head is there (indicated by the
+color in the above plot). Hence, there is a greater flow \emph{away}
+from each point, than into it; that is \emph{diverging} at each point.
+
+The vector field $\mathbf{G}=-x\mathbf{i}-y\mathbf{j}$ points in
+the direction opposite to the vector field $\mathbf{F}$, and it should
+be clear how $\mathbf{G}$'s divergence of $-2$ is reflected in the
+below plot.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xmin = -4, xmax = 4,
+    ymin = -4, ymax = 4,
+    zmin = 0, zmax = 1,
+    axis equal image,
+    xtick distance = 1,
+    ytick distance = 1,
+    view = {0}{90},
+    scale = 1.25,
+    title = {\bf Vector Field $\mathbf{G} = [-x,-y]$},
+    height=7cm,
+    xlabel = {$x$},
+    ylabel = {$y$},
+    colormap/viridis,
+	samples = 8,
+]
+ 
+\addplot3[
+	point meta = {sqrt(x^2 + y^2)},
+    quiver = {
+        u = {-x},
+        v = {-y},
+        scale arrows = 0.25,
+    },
+    quiver/colored = {mapped color},
+    -stealth,
+    domain = -4:4,
+    domain y = -4:4,
+] {0};
+ 
+\end{axis}
+ 
+\end{tikzpicture}
+\end{center}
+\begin{example}
+The constant vector field $\mathbf{F}(x,y,z)=\mathbf{a}$ is incompressible,
+since if $\mathbf{a}=(a_{x},a_{y},a_{z})$, we have:
+
+\begin{align*}
+\nabla\cdot\mathbf{F} & =\frac{\partial}{\partial x}(a_{x})+\frac{\partial}{\partial x}(a_{y})+\frac{\partial}{\partial z}(a_{z})\\
+ & =0
+\end{align*}
+
+\end{example}
+
+\end{document}

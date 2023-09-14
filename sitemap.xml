@@ -2,10 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/equations-with-const-coeff/</loc>
-    <lastmod>2023-09-11T12:42:55+02:00</lastmod>
+    <loc>https://quantophile.github.io/mathsummaries/</loc>
+    <lastmod>2023-09-14T13:17:07+02:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/post/2023/09/14/quant-interviews-probability-puzzles/</loc>
+    <lastmod>2023-09-14T13:17:07+02:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/categories/</loc>
+    <lastmod>2023-09-14T13:17:07+02:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/post/</loc>
+    <lastmod>2023-09-14T13:17:07+02:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/probability/</loc>
+    <lastmod>2023-09-14T13:17:07+02:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/categories/quant-puzzles/</loc>
+    <lastmod>2023-09-14T13:17:07+02:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/tags/</loc>
+    <lastmod>2023-09-14T13:17:07+02:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/post/2023/09/11/ode-02-equations-with-constant-coefficients/</loc>
     <lastmod>2023-09-11T12:42:55+02:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/categories/differential-equations/</loc>
@@ -14,25 +32,16 @@
     <loc>https://quantophile.github.io/mathsummaries/tags/linear-odes/</loc>
     <lastmod>2023-09-11T12:42:55+02:00</lastmod>
   </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/</loc>
-    <lastmod>2023-09-11T12:42:55+02:00</lastmod>
-  </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/</loc>
-    <lastmod>2023-09-11T12:42:55+02:00</lastmod>
-  </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/tags/</loc>
-    <lastmod>2023-09-11T12:42:55+02:00</lastmod>
-  </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/the-theory-of-linear-odes-i/</loc>
+    <loc>https://quantophile.github.io/mathsummaries/post/2023/09/11/ode-01-the-theory-of-linear-odes-i/</loc>
     <lastmod>2023-09-11T08:06:54+02:00</lastmod>
   </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/differential-equations/</loc>
+    <loc>https://quantophile.github.io/mathsummaries/post/2023/09/09/numerical-methods-for-odes/</loc>
     <lastmod>2023-09-09T11:33:41+02:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/categories/partial-differential-equations/</loc>
     <lastmod>2023-07-02T20:51:12+02:00</lastmod>
   </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/pde/</loc>
+    <loc>https://quantophile.github.io/mathsummaries/post/2023/07/02/partial-differential-equations/</loc>
     <lastmod>2023-07-02T20:51:12+02:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/pde/</loc>
@@ -53,7 +62,7 @@
     <loc>https://quantophile.github.io/mathsummaries/categories/real-analysis/</loc>
     <lastmod>2022-03-29T19:23:36+02:00</lastmod>
   </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/real_analysis_review/</loc>
+    <loc>https://quantophile.github.io/mathsummaries/post/2022/03/29/real-analysis/</loc>
     <lastmod>2022-03-29T19:23:36+02:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/sequences/</loc>
@@ -65,7 +74,7 @@
     <loc>https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/</loc>
     <lastmod>2022-03-29T19:23:36+02:00</lastmod>
   </url><url>
-    <loc>https://quantophile.github.io/mathsummaries/posts/stochastic-calculus/</loc>
+    <loc>https://quantophile.github.io/mathsummaries/post/2022/03/29/stochastic-calculus/</loc>
     <lastmod>2022-03-29T19:23:36+02:00</lastmod>
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/stochastic-calculus/</loc>
@@ -73,5 +82,7 @@
   </url><url>
     <loc>https://quantophile.github.io/mathsummaries/tags/uniform-convergence/</loc>
     <lastmod>2022-03-29T19:23:36+02:00</lastmod>
+  </url><url>
+    <loc>https://quantophile.github.io/mathsummaries/about/</loc>
   </url>
 </urlset>

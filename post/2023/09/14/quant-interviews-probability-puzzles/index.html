@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>[Quant Interviews] probability puzzles | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.118.2">
+<meta name="description" content="A website built through Hugo and blogdown.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/index.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/post/2023/09/14/quant-interviews-probability-puzzles/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+  
+    <nav>
+    
+      <a href="">Home</a>
+    
+      <a href="about/">About</a>
+    
+      <a href="categories/">Categories</a>
+    
+      <a href="tags/">Tags</a>
+    
+      <a href="index.xml">Subscribe</a>
+    
+    </nav>
+  
+</header>
+
+<article>
+  <header>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+    <h1>[Quant Interviews] probability puzzles</h1>
+    <time datetime="2023-09-14T13:17:07&#43;02:00">September 14, 2023</time>
+  </header>
+  <h1 id="probability-puzzles." class="unnumbered">Probability puzzles.</h1>
+<p><strong>Problem.</strong> Two bullets are loaded into a gun&rsquo;s round barrel consecutively.
+The barrel has a capacity of 6. The gun is fired once, but no bullet is
+shot. Does rolling the barrel (shuffling) before next shot increase the
+probability of firing a bullet?</p>
+<p><a href="https://brainstellar.com/puzzles/easy/1">https://brainstellar.com/puzzles/easy/1</a></p>
+<p><em>Solution.</em></p>
+<p>Let the holes in the barrel be $1,2,3,4,5,6$ labelled clockwise. WLOG,
+suppose the firing pin was on hole $1$. Also, suppose the barrel rotates
+clockwise. It&rsquo;s given that the gun is fired once, but no bullet was
+shot. It implies that the bullets must have been loaded in $(2,3)$,
+$(3,4),(4,5)$ or $(5,6)$. There&rsquo;s a $1/4=25$ percent chance of firing a
+bullet, on the next shot; that is, if the bullets were loaded in
+$(5,6)$.</p>
+<p>On the other hand, if the barrel is shuffled, there are $6$ holes the
+firing pin could point to; out of which $2$ are favorable. That&rsquo;s a
+$2/6\approx 33$ percent chance of firing the bullet.</p>
+<p>So, shuffling the barrel increases the chances of firing a bullet from
+$25$ percent to $33$ percent.</p>
+
+</article>
+
+
+
+</html>
