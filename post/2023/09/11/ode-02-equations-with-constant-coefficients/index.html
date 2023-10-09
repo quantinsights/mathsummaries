@@ -49,6 +49,10 @@
         });
     });
 </script>
+
+<link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+<script src="https://tikzjax.com/v1/tikzjax.js"></script>
+
     <h1>[ODE-02] Equations with constant coefficients</h1>
     <time datetime="2023-09-11T12:42:55&#43;02:00">September 11, 2023</time>
   </header>
@@ -99,11 +103,10 @@ coefficient linear differential equations depends on the commutativity
 of the operator multiplication involved. To make this dependence
 explicit, and at the same time phrase it in the form best suited to our
 immediate needs, we begin by establishing :</p>
-<p>::: lem*
+<p>lem*
 ** 1**. <em>If $L_{1},\ldots,L_{n}$ are constant coefficient linear
 differential operators, then the null space of each of them is contained
-in the null space of their product.</em>
-:::</p>
+in the null space of their product.</em></p>
 <p><em>Proof.</em></p>
 <p>To prove this assertion we must show that $(L_{1}L_{2}\ldots L_{n})y=0$
 whenever $L_{i}y=0$. But this is a triviality, since:</p>
@@ -113,8 +116,7 @@ whenever $L_{i}y=0$. But this is a triviality, since:</p>
 &amp; =L_{1}L_{2}\ldots L_{i-1}L_{i+1}\ldots L_{n}(0)\\
 &amp; =0
 \end{aligned}$$</p>
-<p>::: example*
-** 1**. The second order equation</p>
+<p><strong>Example. 1</strong>. The second order equation</p>
 <p>$$\begin{aligned}
 (D^{2}-4)y &amp; =0\quad\tag{4}
 \end{aligned}$$</p>
@@ -129,8 +131,7 @@ $\mathcal{C}(-\infty,\infty)$ and therefore it follows that the general
 solution of (4) is :</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{2x}+c_{2}e^{-2x}
-\end{aligned}$$
-:::</p>
+\end{aligned}$$</p>
 <p>This example suggests that we attempt to solve the general second-order
 equation</p>
 <p>$$\begin{aligned}
@@ -249,7 +250,7 @@ practical purposes may be obtained as follows. Write the equality:</p>
 <p>$$\begin{aligned}
 c_{1}\cos\beta x+c_{2}\sin\beta x &amp; =\sqrt{c_{1}^{2}+c_{2}^{2}}\left(\frac{c_{1}}{\sqrt{c_{1}^{2}+c_{2}^{2}}}\cos\beta x+\frac{c_{2}}{\sqrt{c_{1}^{2}+c_{2}^{2}}}\sin\beta x\right)\quad\tag{23}
 \end{aligned}$$</p>
-<p><img src="../img01.svg" alt="image"></p>
+<p><img src="img01" alt="image"></p>
 <p>From the above figure, we see that</p>
 <p>$$\begin{aligned}
 \sin\delta &amp; =\frac{c_{1}}{\sqrt{c_{1}^{2}+c_{2}^{2}}},\quad\cos\delta=\frac{c_{2}}{\sqrt{c_{1}^{2}+c_{2}^{2}}}\quad\tag{24}
@@ -274,12 +275,10 @@ y &amp; =ce^{\alpha x}\sin(\beta x+\delta)\quad\tag{27}
 <p>$$\begin{aligned}
 y &amp; =ce^{\alpha x}\cos(\beta x-\delta)\quad\tag{28}
 \end{aligned}$$</p>
-<p>::: example*
-** 2**. Find the general solution of</p>
+<p><strong>Example. 2</strong>. Find the general solution of</p>
 <p>$$\begin{aligned}
 y&rsquo;&rsquo;-2y&rsquo;+2y &amp; =0\quad\tag{29}
-\end{aligned}$$
-:::</p>
+\end{aligned}$$</p>
 <p><em>Solution.</em></p>
 <p>The roots of the characteristic equation of (29) are given by:</p>
 <p>$$\begin{aligned}
@@ -311,12 +310,10 @@ y &amp; =e^{\alpha x}[(c_{1}+c_{2}x)e^{i\beta x}+(c_{3}+c_{4}x)e^{-i\beta x}]\\
 &amp; =e^{\alpha x}(c_{1}\sin(\beta x+\delta_{1})+c_{2}x\sin(\beta x+\delta_{2}))\\
 &amp; =e^{\alpha x}(c_{1}\cos(\beta x-\delta_{1})+c_{2}x\cos(\beta x-\delta_{2}))
 \end{aligned}$$</p>
-<p>::: example*
-** 3**. Find the general solution of:</p>
+<p><strong>Example. 3</strong>. Find the general solution of:</p>
 <p>$$\begin{aligned}
 y^{(4)}+2y&rsquo;&rsquo;+1 &amp; =0
-\end{aligned}$$
-:::</p>
+\end{aligned}$$</p>
 <p><em>Solution.</em></p>
 <p>The roots of the characteristic equation are:</p>
 <p>$$\begin{aligned}
@@ -330,8 +327,7 @@ equation is:</p>
 y &amp; =(c_{1}+c_{2}x)\cos x+(c_{3}+c_{4}x)\sin x
 \end{aligned}$$</p>
 <p>Find the general solutions of each of the following equations.</p>
-<p><strong>Exercise. 1</strong>. $y&rsquo;&rsquo;+y&rsquo;-2y=0$.
-:::</p>
+<p><strong>Exercise. 1</strong>. $y&rsquo;&rsquo;+y&rsquo;-2y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -345,8 +341,7 @@ Hence, the general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{x}+c_{2}e^{-2x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 2</strong>. $3y&rsquo;&rsquo;-5y&rsquo;+2y=0$.
-:::</p>
+<p><strong>Exercise. 2</strong>. $3y&rsquo;&rsquo;-5y&rsquo;+2y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -360,8 +355,7 @@ Hence, the general solution of the differential equation is given by:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{\frac{2x}{3}}+c_{2}e^{x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 3</strong>. $8y&rsquo;&rsquo;+14y&rsquo;-15y=0$.
-:::</p>
+<p><strong>Exercise. 3</strong>. $8y&rsquo;&rsquo;+14y&rsquo;-15y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -376,8 +370,7 @@ differential equation is given by:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{\frac{3x}{4}}+c_{2}e^{-\frac{2x}{5}}
 \end{aligned}$$</p>
-<p><strong>Exercise. 4</strong>. $y&rsquo;&rsquo;-2y&rsquo;=0$.
-:::</p>
+<p><strong>Exercise. 4</strong>. $y&rsquo;&rsquo;-2y&rsquo;=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -389,8 +382,7 @@ the general solution of the differential equation is given by:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}+c_{2}e^{2x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 5</strong>. $y&rsquo;&rsquo;+4y=0$.
-:::</p>
+<p><strong>Exercise. 5</strong>. $y&rsquo;&rsquo;+4y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -402,8 +394,7 @@ is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}\cos2x+c_{2}\sin2x
 \end{aligned}$$</p>
-<p><strong>Exercise. 6</strong>. $3y&rsquo;&rsquo;+2y=0$.
-:::</p>
+<p><strong>Exercise. 6</strong>. $3y&rsquo;&rsquo;+2y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -416,8 +407,7 @@ solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}\cos\frac{2}{3}x+c_{2}\sin\frac{2}{3}x
 \end{aligned}$$</p>
-<p><strong>Exercise. 7</strong>. $y&rsquo;&rsquo;+4y&rsquo;+8y=0$.
-:::</p>
+<p><strong>Exercise. 7</strong>. $y&rsquo;&rsquo;+4y&rsquo;+8y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -430,8 +420,7 @@ differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =e^{-2x}(c_{1}\cos2x+c_{2}\sin2x)
 \end{aligned}$$</p>
-<p><strong>Exercise. 8</strong>. $4y&rsquo;&rsquo;-4y&rsquo;+3y=0$.
-:::</p>
+<p><strong>Exercise. 8</strong>. $4y&rsquo;&rsquo;-4y&rsquo;+3y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -446,8 +435,7 @@ differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =e^{x}(c_{1}\cos\sqrt{2}x+c_{2}\sin\sqrt{2}x)
 \end{aligned}$$</p>
-<p><strong>Exercise. 9</strong>. $y&rsquo;&rsquo;-2y&rsquo;+2y=0$.
-:::</p>
+<p><strong>Exercise. 9</strong>. $y&rsquo;&rsquo;-2y&rsquo;+2y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -462,8 +450,7 @@ differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =e^{x}(c_{1}\cos x+c_{2}\sin x)
 \end{aligned}$$</p>
-<p><strong>Exercise. 10</strong>. $9y&rsquo;&rsquo;-12y+4y=0$.
-:::</p>
+<p><strong>Exercise. 10</strong>. $9y&rsquo;&rsquo;-12y+4y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -475,8 +462,7 @@ $2$. Hence, the general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =(c_{1}+c_{2}x)e^{\frac{2x}{3}}
 \end{aligned}$$</p>
-<p><strong>Exercise. 11</strong>. $y&rsquo;&rsquo;+2y&rsquo;+4y=0$.
-:::</p>
+<p><strong>Exercise. 11</strong>. $y&rsquo;&rsquo;+2y&rsquo;+4y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -490,8 +476,7 @@ $-1-\sqrt{3}i$. Hence, the solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =e^{-x}(c_{1}\cos\sqrt{3}x+c_{2}\sin\sqrt{3}x)
 \end{aligned}$$</p>
-<p><strong>Exercise. 12</strong>. $2y&rsquo;&rsquo;-2\sqrt{2}y&rsquo;+y=0$.
-:::</p>
+<p><strong>Exercise. 12</strong>. $2y&rsquo;&rsquo;-2\sqrt{2}y&rsquo;+y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -503,8 +488,7 @@ multiplicity $2$. Hence, the solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =(c_{1}+c_{2}x)e^{\frac{x}{\sqrt{2}}}
 \end{aligned}$$</p>
-<p><strong>Exercise. 13</strong>. $2y&rsquo;&rsquo;-5\sqrt{3}y&rsquo;+6y=0$.
-:::</p>
+<p><strong>Exercise. 13</strong>. $2y&rsquo;&rsquo;-5\sqrt{3}y&rsquo;+6y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -521,8 +505,7 @@ x &amp; =\frac{-b\pm\sqrt{b^{2}-4ac}}{2a}\\
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{2\sqrt{3}x}+c_{2}e^{\frac{\sqrt{3}}{2}x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 14</strong>. $9y&rsquo;&rsquo;+6y&rsquo;+y=0$.
-:::</p>
+<p><strong>Exercise. 14</strong>. $9y&rsquo;&rsquo;+6y&rsquo;+y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equationis:</p>
 <p>$$\begin{aligned}
@@ -534,8 +517,7 @@ $2$. Hence, the general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =(c_{1}+c_{2}x)e^{-\frac{x}{3}}
 \end{aligned}$$</p>
-<p><strong>Exercise. 15</strong>. $64y&rsquo;&rsquo;-48y&rsquo;+17y=0$.
-:::</p>
+<p><strong>Exercise. 15</strong>. $64y&rsquo;&rsquo;-48y&rsquo;+17y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -551,8 +533,7 @@ the general solution of the differential equation is:</p>
 y &amp; =e^{3x}(c_{1}\cos2\sqrt{2}x+c_{2}\sin2\sqrt{2}x)
 \end{aligned}$$</p>
 <p>Find the solutions of the initial value problems.</p>
-<p><strong>Exercise. 16</strong>. $2y&rsquo;&rsquo;-y&rsquo;-3y=0$; $y(0)=2$, $y&rsquo;(0)=-\frac{7}{2}$.
-:::</p>
+<p><strong>Exercise. 16</strong>. $2y&rsquo;&rsquo;-y&rsquo;-3y=0$; $y(0)=2$, $y&rsquo;(0)=-\frac{7}{2}$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -593,8 +574,7 @@ given IVP is:</p>
 <p>$$\begin{aligned}
 y &amp; =\frac{13}{5}e^{-x}-\frac{3}{5}e^{\frac{3x}{2}}
 \end{aligned}$$</p>
-<p><strong>Exercise. 17</strong>. $y&rsquo;&rsquo;-8y&rsquo;+16y=0$, $y(0)=\frac{1}{2}$, $y&rsquo;(0)=-\frac{1}{3}$.
-:::</p>
+<p><strong>Exercise. 17</strong>. $y&rsquo;&rsquo;-8y&rsquo;+16y=0$, $y(0)=\frac{1}{2}$, $y&rsquo;(0)=-\frac{1}{3}$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -622,8 +602,7 @@ c_{1} &amp; =\frac{1}{2},\quad4c_{1}+c_{2}=-\frac{1}{3}
 <p>$$\begin{aligned}
 y &amp; =\left(\frac{1}{2}-\frac{7x}{3}\right)e^{4x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 18</strong>. $4y&rsquo;&rsquo;-12y&rsquo;+9y=0$, $y(0)=1$ $y&rsquo;(0)=\frac{7}{2}$.
-:::</p>
+<p><strong>Exercise. 18</strong>. $4y&rsquo;&rsquo;-12y&rsquo;+9y=0$, $y(0)=1$ $y&rsquo;(0)=\frac{7}{2}$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -649,8 +628,7 @@ c_{1} &amp; =1\\
 <p>$$\begin{aligned}
 y &amp; =(1+2x)e^{\frac{3x}{2}}
 \end{aligned}$$</p>
-<p><strong>Exercise. 19</strong>. $y&rsquo;&rsquo;+2y=0$, $y(0)=2$, $y&rsquo;(0)=2\sqrt{2}$.
-:::</p>
+<p><strong>Exercise. 19</strong>. $y&rsquo;&rsquo;+2y=0$, $y(0)=2$, $y&rsquo;(0)=2\sqrt{2}$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -677,8 +655,7 @@ c_{1}+c_{2} &amp; =2\\
 <p>$$\begin{aligned}
 y= &amp; (1-\sqrt{2})\cos\sqrt{2}x+(1+\sqrt{2})\sin\sqrt{2}x
 \end{aligned}$$</p>
-<p><strong>Exercise. 20</strong>. $4y&rsquo;&rsquo;-4y&rsquo;+5y=0$, $y(0)=\frac{1}{2}$, $y&rsquo;(0)=1$.
-:::</p>
+<p><strong>Exercise. 20</strong>. $4y&rsquo;&rsquo;-4y&rsquo;+5y=0$, $y(0)=\frac{1}{2}$, $y&rsquo;(0)=1$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -707,8 +684,7 @@ IVP is:</p>
 <p>$$\begin{aligned}
 y &amp; =e^{x}\left[\frac{1}{2}\cos\sqrt{2}x+\frac{1}{2\sqrt{2}}\sin\sqrt{2}x\right]
 \end{aligned}$$</p>
-<p><strong>Exercise. 21</strong>. $y&rsquo;&rsquo;+4y&rsquo;+13y=0$, $y(0)=0$ and $y&rsquo;(0)=-2$.
-:::</p>
+<p><strong>Exercise. 21</strong>. $y&rsquo;&rsquo;+4y&rsquo;+13y=0$, $y(0)=0$ and $y&rsquo;(0)=-2$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -736,8 +712,7 @@ c_{1} &amp; =0\\
 <p>$$\begin{aligned}
 y= &amp; -\frac{2}{3}e^{-2x}\sin3x
 \end{aligned}$$</p>
-<p><strong>Exercise. 22</strong>. $9y&rsquo;&rsquo;-3y&rsquo;-2y=0$, $y(0)=3$, $y&rsquo;(0)=-2$.
-:::</p>
+<p><strong>Exercise. 22</strong>. $9y&rsquo;&rsquo;-3y&rsquo;-2y=0$, $y(0)=3$, $y&rsquo;(0)=-2$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -770,8 +745,7 @@ y &amp; =-e^{2x/3}+4e^{-x/3}
 <p><strong>Exercise. 23</strong>. Find the general solution of</p>
 <p>$$\begin{aligned}
 (D^{3}+1)y &amp; =0
-\end{aligned}$$
-:::</p>
+\end{aligned}$$</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -789,8 +763,7 @@ y &amp; =c_{1}e^{-x}+e^{\frac{x}{2}}(c_{1}\cos\frac{\sqrt{3}}{2}x+c_{2}\sin\frac
 <p><strong>Exercise. 24</strong>. Solve</p>
 <p>$$\begin{aligned}
 y^{(7)}-2y^{(5)}+y^{(3)} &amp; =0
-\end{aligned}$$
-:::</p>
+\end{aligned}$$</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -803,8 +776,7 @@ multiplicity $2$. The general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}+c_{2}x+c_{3}x^{2}+(c_{4}+c_{5}x)e^{x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 25</strong>. $y&rsquo;&rsquo;&rsquo;+3y&rsquo;&rsquo;-y&rsquo;-3y=0$.
-:::</p>
+<p><strong>Exercise. 25</strong>. $y&rsquo;&rsquo;&rsquo;+3y&rsquo;&rsquo;-y&rsquo;-3y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -818,8 +790,7 @@ general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{x}+c_{2}e^{-x}+c_{3}e^{-3x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 26</strong>. $y&rsquo;&rsquo;&rsquo;+5y&rsquo;&rsquo;-8y&rsquo;-12y=0$.
-:::</p>
+<p><strong>Exercise. 26</strong>. $y&rsquo;&rsquo;&rsquo;+5y&rsquo;&rsquo;-8y&rsquo;-12y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -834,8 +805,7 @@ general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{-x}+c_{2}e^{-6x}+c_{3}e^{x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 27</strong>. $4y&rsquo;&rsquo;&rsquo;+12y&rsquo;&rsquo;+9y&rsquo;=0$.
-:::</p>
+<p><strong>Exercise. 27</strong>. $4y&rsquo;&rsquo;&rsquo;+12y&rsquo;&rsquo;+9y&rsquo;=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -847,8 +817,7 @@ multiplicity $2$. The general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}+(c_{2}+c_{3}x)e^{-3x/2}
 \end{aligned}$$</p>
-<p><strong>Exercise. 28</strong>. $y&rsquo;&rsquo;&rsquo;+6y&rsquo;&rsquo;+13y&rsquo;=0$.
-:::</p>
+<p><strong>Exercise. 28</strong>. $y&rsquo;&rsquo;&rsquo;+6y&rsquo;&rsquo;+13y&rsquo;=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -862,8 +831,7 @@ $-3-\sqrt{2}i$. The general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}+e^{-3x}(c_{2}\cos\sqrt{2}x+c_{3}\sin\sqrt{2}x)
 \end{aligned}$$</p>
-<p><strong>Exercise. 29</strong>. $2y&rsquo;&rsquo;&rsquo;+y&rsquo;&rsquo;-8y&rsquo;-4y=0$
-:::</p>
+<p><strong>Exercise. 29</strong>. $2y&rsquo;&rsquo;&rsquo;+y&rsquo;&rsquo;-8y&rsquo;-4y=0$</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -878,8 +846,7 @@ solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{-2x}+c_{2}e^{-x/2}+c_{3}e^{2x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 30</strong>. $y&rsquo;&rsquo;&rsquo;+3y&rsquo;&rsquo;+y&rsquo;+3y=0$.
-:::</p>
+<p><strong>Exercise. 30</strong>. $y&rsquo;&rsquo;&rsquo;+3y&rsquo;&rsquo;+y&rsquo;+3y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -891,8 +858,7 @@ of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}e^{-3x}+(c_{2}\cos x+c_{3}\sin x)
 \end{aligned}$$</p>
-<p><strong>Exercise. 31</strong>. $y^{(4)}+y^{(2)}=0$.
-:::</p>
+<p><strong>Exercise. 31</strong>. $y^{(4)}+y^{(2)}=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -905,8 +871,7 @@ differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}+c_{2}x+c_{3}\cos x+c_{4}\sin x
 \end{aligned}$$</p>
-<p><strong>Exercise. 32</strong>. $y^{(4)}-8y^{(2)}+16y=0$.
-:::</p>
+<p><strong>Exercise. 32</strong>. $y^{(4)}-8y^{(2)}+16y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -920,8 +885,7 @@ is:</p>
 <p>$$\begin{aligned}
 y &amp; =(c_{1}+c_{2}x)e^{-2x}+(c_{3}+c_{4}x)e^{2x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 33</strong>. $y^{(4)}+18y&rsquo;&rsquo;+81y=0$.
-:::</p>
+<p><strong>Exercise. 33</strong>. $y^{(4)}+18y&rsquo;&rsquo;+81y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -935,8 +899,7 @@ differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =(c_{1}+c_{2}x)\cos3x+(c_{3}+c_{4}x)\sin3x
 \end{aligned}$$</p>
-<p><strong>Exercise. 34</strong>. $4y^{(4)}-8y&rsquo;&rsquo;&rsquo;-y&rsquo;&rsquo;+2y&rsquo;=0$.
-:::</p>
+<p><strong>Exercise. 34</strong>. $4y^{(4)}-8y&rsquo;&rsquo;&rsquo;-y&rsquo;&rsquo;+2y&rsquo;=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -951,8 +914,7 @@ $2$. The general solution is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}+c_{2}e^{-x/2}+c_{3}e^{x/2}+c_{4}e^{2x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 35</strong>. $y^{(4)}+y&rsquo;&rsquo;&rsquo;+y&rsquo;&rsquo;=0$.
-:::</p>
+<p><strong>Exercise. 35</strong>. $y^{(4)}+y&rsquo;&rsquo;&rsquo;+y&rsquo;&rsquo;=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -966,8 +928,7 @@ The general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}+c_{2}x+e^{-x/2}(c_{3}\cos\frac{\sqrt{3}}{2}x+c_{4}\sin\frac{\sqrt{3}}{2}x)
 \end{aligned}$$</p>
-<p><strong>Exercise. 36</strong>. $y^{(4)}=0$.
-:::</p>
+<p><strong>Exercise. 36</strong>. $y^{(4)}=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -978,8 +939,7 @@ general solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =c_{1}+c_{2}x+c_{3}x^{2}+c_{4}x^{3}
 \end{aligned}$$</p>
-<p><strong>Exercise. 37</strong>. $y^{(4)}-4y&rsquo;&rsquo;&rsquo;+6y&rsquo;&rsquo;-4y&rsquo;+y=0$.
-:::</p>
+<p><strong>Exercise. 37</strong>. $y^{(4)}-4y&rsquo;&rsquo;&rsquo;+6y&rsquo;&rsquo;-4y&rsquo;+y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -990,8 +950,7 @@ solution of the differential equation is:</p>
 <p>$$\begin{aligned}
 y &amp; =(c_{1}+c_{2}x+c_{3}x^{2}+c_{4}x^{3})e^{x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 38</strong>. Find the general solution of $(D^{4}+1)y=0$.
-:::</p>
+<p><strong>Exercise. 38</strong>. Find the general solution of $(D^{4}+1)y=0$.</p>
 <p><em>Solution.</em></p>
 <p>The characteristic equation is:</p>
 <p>$$\begin{aligned}
@@ -1018,8 +977,7 @@ equation is:</p>
 y &amp; =e^{x/\sqrt{2}}(c_{1}\cos\frac{x}{\sqrt{2}}+c_{2}\sin\frac{x}{\sqrt{2}})+e^{-x/\sqrt{2}}(c_{3}\cos\frac{x}{\sqrt{2}}+c_{4}\sin\frac{x}{\sqrt{2}})
 \end{aligned}$$</p>
 <p><strong>Exercise. 39</strong>. Find the constant coefficient linear differential equation
-which has $e^{2x}$ and $xe^{-3x}$ among its solutions.
-:::</p>
+which has $e^{2x}$ and $xe^{-3x}$ among its solutions.</p>
 <p><em>Solution.</em></p>
 <p>In this case, we must find a constant coefficient linear differential
 operator $L$ with the property that $Le^{2x}=0$ and $Le^{-3x}=0$ (In
@@ -1038,8 +996,7 @@ which, when applied to the equation</p>
 <p>produces the homogenous equation</p>
 <p>$$\begin{aligned}
 L(D^{2}+1)(D-1)y &amp; =0
-\end{aligned}$$
-:::</p>
+\end{aligned}$$</p>
 <p><em>Solution.</em></p>
 <p>Since $L$ must annihilate the functions $e^{x}$, $2$ and $x\sin x$, it
 must contain the factors $(D-1)$, $D$ and $(D^{2}+1)^{2}$. Therefore, we
@@ -1074,8 +1031,7 @@ L_{1}Ly &amp; =0\quad\tag{34}
 <p>Thus, we can obtain a particular solution for (33) by appropriately
 determining the constants in the general solution of (34). A few
 examples will suffice to demonstrate this technique.</p>
-<p>::: example*
-** 4**. Since $D^{3}$ annihilates the right-hand side of the equation</p>
+<p><strong>Example. 4</strong>. Since $D^{3}$ annihilates the right-hand side of the equation</p>
 <p>$$\begin{aligned}
 (D^{2}+1)y &amp; =3x^{2}+4\quad\tag{35}
 \end{aligned}$$</p>
@@ -1109,10 +1065,8 @@ c_{3}x^{2}+c_{2}x+(c_{1}+2c_{3}) &amp; =3x^{2}+4
 solution of (35) is:</p>
 <p>$$\begin{aligned}
 y_{p} &amp; =3x^{2}-2
-\end{aligned}$$
-:::</p>
-<p>::: example*
-** 5**. We are interested to find a particular solution of :</p>
+\end{aligned}$$</p>
+<p><strong>Example. 5</strong>. We are interested to find a particular solution of :</p>
 <p>$$\begin{aligned}
 (D^{2}-4D+4)y &amp; =2e^{2x}+\cos x\quad\tag{39}
 \end{aligned}$$</p>
@@ -1148,12 +1102,10 @@ y_{p}&rsquo;&rsquo;-4y_{p}&rsquo;+4 &amp; =2c_{3}e^{2x}+8c_{3}xe^{2x}+4c_{3}x^{2
 So, the desired particular solution to (39) is:</p>
 <p>$$\begin{aligned}
 y_{p} &amp; =x^{2}e^{2x}+\frac{3}{25}\cos x-\frac{4}{25}\sin x
-\end{aligned}$$
-:::</p>
+\end{aligned}$$</p>
 <p>Use the method of undetermined coefficients to find a particular
 solution for each of the following differential equations.</p>
-<p><strong>Exercise. 41</strong>. $D(D+1)y=2x+3e^{x}$.
-:::</p>
+<p><strong>Exercise. 41</strong>. $D(D+1)y=2x+3e^{x}$.</p>
 <p><em>Solution.</em></p>
 <p>We apply the operator $D^{2}(D-1)$ to the given differential equation
 and obtain:</p>
@@ -1185,8 +1137,7 @@ Consequently, $c_{2}=-2$, $c_{3}=1$ and $c_{5}=\frac{3}{2}$.</p>
 <p>$$\begin{aligned}
 y_{p} &amp; =-2x+x^{2}+\frac{3}{2}e^{x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 42</strong>. $D(D+1)y=2+e^{-x}$.
-:::</p>
+<p><strong>Exercise. 42</strong>. $D(D+1)y=2+e^{-x}$.</p>
 <p><em>Solution.</em></p>
 <p>We apply the operator $D^{2}(D+1)$ to the given differential equation
 and obtain:</p>
@@ -1218,8 +1169,7 @@ to the nonhomogenous ODE is:</p>
 <p>$$\begin{aligned}
 y_{p} &amp; =2x-xe^{-x}
 \end{aligned}$$</p>
-<p><strong>Exercise. 43</strong>. $D(D-1)y=\sin x$.
-:::</p>
+<p><strong>Exercise. 43</strong>. $D(D-1)y=\sin x$.</p>
 <p><em>Solution.</em></p>
 <p>We apply the operator $(D^{2}+1)$ to the given differential equation and
 obtain:</p>
@@ -1255,8 +1205,7 @@ particular solution is:</p>
 <p>$$\begin{aligned}
 y_{p} &amp; =\frac{1}{2}\cos x-\frac{1}{2}\sin x
 \end{aligned}$$</p>
-<p><strong>Exercise. 44</strong>. $(D^{2}+1)y=3\cos x$.
-:::</p>
+<p><strong>Exercise. 44</strong>. $(D^{2}+1)y=3\cos x$.</p>
 <p><em>Solution.</em></p>
 <p>We apply the operator $(D^{2}+1)$ to the given differential equation and
 obtain:</p>
@@ -1284,8 +1233,7 @@ $c_{4}=\frac{3}{2}$. The desired particular solution is:</p>
 <p>$$\begin{aligned}
 y_{p} &amp; =\frac{3x}{2}\sin x
 \end{aligned}$$</p>
-<p><strong>Exercise. 45</strong>. $(D^{2}+4D+2)y=xe^{-2x}$
-:::</p>
+<p><strong>Exercise. 45</strong>. $(D^{2}+4D+2)y=xe^{-2x}$</p>
 <p><em>Soution.</em></p>
 <p>We apply the operator $(D+2)^{2}$ to the given differential equation to
 obtain:</p>
@@ -1369,7 +1317,7 @@ y_{p}&rsquo;(x_{0}) &amp; =0\quad\tag{45}
 \end{aligned}$$</p>
 <p>where $x_{0}$ is a fixed but otherwise arbitrary point in $[a,b]$.</p>
 <p>The construction of $y_{p}$ is begun by making the unjustified but
-unreasonable assumption that any particular solution of (43) ought to be
+reasonable assumption that any particular solution of (43) ought to be
 related to the expression for $y_{h}$, and therefore we attempt to alter
 $y_{h}$ in such a way that it becomes the solution of the given
 equation. One way of doing this is to allow the parameters $c_{1}$ and
@@ -1389,12 +1337,13 @@ supressing mention of the variable $x$, we obtain:</p>
 <p>$$\begin{aligned}
 y_{p}&rsquo;&rsquo;+a_{1}y_{p}&rsquo;+a_{0}y_{p} &amp; =h
 \end{aligned}$$</p>
+<p>Substituting $y_{p}&rsquo;&rsquo;$ and $y_{p}&rsquo;$ in the above expression, we have:</p>
 <p>$$\begin{aligned}
 c_{1}&lsquo;&lsquo;y_{1}+2c_{1}&lsquo;y_{1}&rsquo;+c_{1}y_{1}&rsquo;&rsquo;+c_{2}&lsquo;&lsquo;y_{2}+2c_{2}&lsquo;y_{2}&rsquo;+c_{2}y_{2}&rsquo;&rsquo;\\
 +a_{1}(c_{1}&lsquo;y_{1}+c_{1}y_{1}&rsquo;+c_{2}&lsquo;y_{2}+c_{2}y_{2}&rsquo;)\\
 +a_{2}(c_{1}y_{1}+c_{2}y_{2}) &amp; =h
 \end{aligned}$$</p>
-<p>We can re-group the above terms as follows:</p>
+<p>Grouping the above terms:</p>
 <p>$$\begin{aligned}
 c_{1}(y_{1}&rsquo;&rsquo;+a_{1}y_{1}&rsquo;+a_{2}y_{1})+c_{2}(y_{2}&rsquo;&rsquo;+a_{1}y_{2}&rsquo;+a_{2}y_{2})\\
 +c_{1}&lsquo;&lsquo;y_{1}+c_{1}&lsquo;y_{1}&rsquo;+c_{2}&lsquo;&lsquo;y_{2}+c_{2}&lsquo;y_{2}&rsquo;\\
@@ -1481,7 +1430,542 @@ K(x,t) &amp; =\frac{y_{2}(x)y_{1}(t)-y_{1}(x)y_{2}(t)}{W[y_{1}(t),y_{2}(t)]}\qua
 \end{aligned}$$</p>
 <p>then $G$ maps $\mathcal{C}[a,b]$ to $\mathcal{C}^{2}[a,b]$ acting as the
 right inverse for $L$ and has the further property that $G(h)$ satisfies
-the initial conditions $G(h)$</p>
+the initial conditions $G(h)(x_{0})=G(h)&rsquo;(x_{0})=0$. It should be
+pointed out that the function $K(x,t)$ defined by (55) is independent of
+the particular choice of $x_{0}$ in the interval $[a,b]$ and is
+completely determined by the operator $L$. As such it is referred to as
+the Green&rsquo;s function for initial value problems or simply as the Green&rsquo;s
+function for $L$.</p>
+<p><strong>Example. 6</strong>. Find the general solution of the second-order equation</p>
+<p>$$\begin{aligned}
+y&rsquo;&rsquo;+y &amp; =\tan x\quad\tag{56}
+\end{aligned}$$</p>
+<p><em>Solution.</em></p>
+<p>In this case the associated homogenous equation has:</p>
+<p>$$\begin{aligned}
+y_{h} &amp; =c_{1}\cos x+c_{2}\sin x
+\end{aligned}$$</p>
+<p>as its general solution. Thus we seek a particular solution of (56) of
+the form</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =c_{1}(x)\cos x+c_{2}(x)\sin(x)
+\end{aligned}$$</p>
+<p>where $c_{1}(x)$ and $c_{2}(x)$ are determined by the equations:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo;\cos x &amp; +c_{2}&rsquo;\sin x=0\\
+-c_{1}&rsquo;\sin x &amp; +c_{2}&rsquo;\cos x=\tan x
+\end{aligned}$$</p>
+<p>The Wronskian $W[y_{1}(x),y_{2}(x)]$ is:</p>
+<p>$$\begin{aligned}
+W[y_{1}(x),y_{2}(x)] &amp; =\left|\begin{array}{cc}
+\cos x &amp; \sin x\\
+-\sin x &amp; \cos x
+\end{array}\right|=1
+\end{aligned}$$</p>
+<p>Solving for $c_{1}&rsquo;$ and $c_{2}&rsquo;$, we have:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo; &amp; =\left|\begin{array}{cc}
+0 &amp; \sin x\\
+\tan x &amp; \cos x
+\end{array}\right|=-\sin x\cdot\tan x
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}&rsquo; &amp; =\left|\begin{array}{cc}
+\cos x &amp; 0\\
+-\sin x &amp; \tan x
+\end{array}\right|=\sin x
+\end{aligned}$$</p>
+<p>So:</p>
+<p>$$\begin{aligned}
+c_{1}(x) &amp; =-\int\frac{\sin^{2}x}{\cos x}dx\\
+&amp; =\int(\cos x-\sec x)dx\\
+&amp; =\sin x-\ln(\sec x+\tan x)\\
+&amp; =\sin x-\ln(\sec x+\tan x)
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}(x) &amp; =\int\sin x\cdot dx\\
+&amp; =-\cos x
+\end{aligned}$$</p>
+<p>The desired particular solution is:</p>
+<p>$$\begin{aligned}
+y_{p}(x) &amp; =(\sin x-\ln(\sec x+\tan x))\cos x+(-\cos x)\sin x\\
+&amp; =-\ln(\sec x+\tan x)\cos x
+\end{aligned}$$</p>
+<p>An alternate method of solving (56) depends upon relies upon determining
+the Green&rsquo;s function $K(x,t)$ for the operator $L=D^{2}+1$. We have:</p>
+<p>$$\begin{aligned}
+K(x,t) &amp; =\frac{y_{2}(x)y_{1}(t)-y_{1}(x)y_{2}(t)}{W[y_{1}(t),y_{2}(t)]}\\
+&amp; =\sin x\cdot\cos t-\cos x\cdot\sin t\\
+&amp; =\sin(x-t)
+\end{aligned}$$</p>
+<p>Hence, applying the Green&rsquo;s operator to $h(t)$, we have:</p>
+<p>$$\begin{aligned}
+G(h(x)) &amp; =\int_{0}^{x}K(x,t)h(t)dt\\
+&amp; =\int_{0}^{x}\sin(x-t)\tan t\cdot dt\\
+&amp; =\int_{0}^{x}(\sin x\cos t-\cos x\sin t)\tan t\cdot dt\\
+&amp; =\sin x\int_{0}^{x}\sin t\cdot dt-\cos x\int_{0}^{x}\frac{\sin^{2}t}{\cos t}dt\\
+&amp; =\sin x(1-\cos x)-\cos x\int_{0}^{x}(\sec t-\cos t)dt\\
+&amp; =\sin x(1-\cos x)-\cos x\int_{0}^{x}\sec t+\cos x\int_{0}^{x}\cos t\cdot dt\\
+&amp; =\sin x(1-\cos x)-\cos x\ln(\sec x+\tan x)+\sin x\cos x\\
+&amp; =\sin x-\cos x\ln(\sec x+\tan x)
+\end{aligned}$$</p>
+<p>Find the general solution of each of the following differential
+equations.</p>
+<p><strong>Exercise. 46</strong>. $(D^{2}+1)y=\frac{1}{\cos x}$.</p>
+<p><em>Solution.</em></p>
+<p>The associated homogenous equation has the general solution:</p>
+<p>$$\begin{aligned}
+y_{h} &amp; =c_{1}\cos x+c_{2}\sin x
+\end{aligned}$$</p>
+<p>Thus, we seek a particular solution of the form:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =c_{1}(x)\cos x+c_{2}(x)\sin x
+\end{aligned}$$</p>
+<p>where $c_{1}(x)$, $c_{2}(x)$ are determined by the equations:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo;\cos x+c_{2}&rsquo;\sin x &amp; =0\\
+-c_{1}&rsquo;\sin x+c_{2}&rsquo;\cos x &amp; =\frac{1}{\cos x}
+\end{aligned}$$</p>
+<p>The Wronskian $W[y_{1}(x),y_{2}(x)]=1$. So:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo;(x) &amp; =\left|\begin{array}{cc}
+0 &amp; \sin x\\
+\frac{1}{\cos x} &amp; \cos x
+\end{array}\right|=-\tan x
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}&rsquo;(x) &amp; =\left|\begin{array}{cc}
+\cos x &amp; 0\\
+-\sin x &amp; \frac{1}{\cos x}
+\end{array}\right|=1
+\end{aligned}$$</p>
+<p>Hence,</p>
+<p>$$\begin{aligned}
+c_{1}(x) &amp; =-\int\tan xdx\\
+&amp; =-\int\frac{\sin x}{\cos x}dx\\
+&amp; =\ln\cos x
+\end{aligned}$$</p>
+<p>and</p>
+<p>$$\begin{aligned}
+c_{2}(x) &amp; =x
+\end{aligned}$$</p>
+<p>The desired particular solution is:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =(\ln\cos x)\cos x+x\sin x
+\end{aligned}$$</p>
+<p>The general solution to the given ODE is:</p>
+<p>$$\begin{aligned}
+y &amp; =(c_{1}+\ln\cos x)\cos x+(c_{2}+x)\sin x
+\end{aligned}$$</p>
+<p><strong>Exercise. 47</strong>. $(D^{2}-D-2)y=e^{-x}\sin x$.</p>
+<p><em>Solution.</em></p>
+<p>The associated homogenous equation has the characteristic equation:</p>
+<p>$$\begin{aligned}
+m^{2}-m-2 &amp; =0\\
+m^{2}-2m+m-2 &amp; =0\\
+m(m-2)+1(m-2) &amp; =0\\
+(m+1)(m-2) &amp; =0
+\end{aligned}$$</p>
+<p>The roots of the characteristic equation are $\alpha_{1}=-1$,
+$\alpha_{2}=2$. So, the general solution is:</p>
+<p>$$\begin{aligned}
+y_{h} &amp; =c_{1}e^{-x}+c_{2}e^{2x}
+\end{aligned}$$</p>
+<p>We seek a particular solution of the form:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =c_{1}(x)e^{-x}+c_{2}(x)e^{2x}
+\end{aligned}$$</p>
+<p>where $c_{1}(x)$, $c_{2}(x)$ are determined by the equations:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo;e^{-x}+c_{2}&rsquo;e^{2x} &amp; =0\\
+-c_{1}&rsquo;e^{-x}+2c_{2}&rsquo;e^{2x} &amp; =e^{-x}\sin x
+\end{aligned}$$</p>
+<p>The Wronskian $W[y_{1}(x),y_{2}(x)]$ is:</p>
+<p>$$\begin{aligned}
+W[y_{1}(x),y_{2}(x)] &amp; =\left|\begin{array}{cc}
+e^{-x} &amp; e^{2x}\\
+-e^{-x} &amp; 2e^{2x}
+\end{array}\right|\\
+&amp; =2e^{x}+e^{x}=3e^{x}
+\end{aligned}$$</p>
+<p>So:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo; &amp; =\left|\begin{array}{cc}
+0 &amp; e^{2x}\\
+e^{-x}\sin x &amp; 2e^{2x}
+\end{array}\right|\times\frac{1}{3e^{x}}\\
+&amp; =-\frac{1}{3}\sin x
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}&rsquo; &amp; =\left|\begin{array}{cc}
+e^{-x} &amp; 0\\
+-e^{-x} &amp; e^{-x}\sin x
+\end{array}\right|\times\frac{1}{3e^{x}}\\
+&amp; =\frac{1}{3}e^{-3x}\sin x
+\end{aligned}$$</p>
+<p>Hence,</p>
+<p>$$\begin{aligned}
+c_{1}(x) &amp; =-\frac{1}{3}\int\sin xdx\\
+&amp; =\frac{1}{3}\cos x
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}(x) &amp; =\frac{1}{3}\int e^{-3x}\sin xdx
+\end{aligned}$$</p>
+<p>Let $u=\sin x$ and $dv=e^{-3x}\cdot dx$. Integrating $I=\int udv$ by
+parts, we have:</p>
+<p>$$\begin{array}{c|c}
+u &amp; dv\\
+\hline \sin x &amp; e^{-3x}\\
+\cos x &amp; \frac{e^{-3x}}{-3}\\
+-\sin x &amp; \frac{e^{-3x}}{9}
+\end{array}$$</p>
+<p>$$\begin{aligned}
+I &amp; =-\frac{e^{-3x}\sin x}{3}-\frac{e^{-3x}\cos x}{9}-\frac{I}{9}\\
+\frac{10}{9}I &amp; =-\frac{e^{-3x}\sin x}{3}-\frac{e^{-3x}\cos x}{9}\\
+10I &amp; =e^{-3x}\left(-3\sin x-\cos x\right)\\
+I &amp; =-\frac{3}{10}e^{-3x}\sin x-\frac{1}{10}e^{-3x}\cos x
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}(x) &amp; =-\frac{1}{10}e^{-3x}\sin x-\frac{1}{30}e^{-3x}\cos x
+\end{aligned}$$</p>
+<p>The desired particular solution is:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =\frac{1}{3}e^{-x}\cos x-\frac{1}{10}e^{-x}\sin x-\frac{1}{30}e^{-x}\cos x\\
+&amp; =\frac{3}{10}e^{-x}\cos x-\frac{1}{10}e^{-x}\sin x
+\end{aligned}$$</p>
+<p>The general solution to the ODE is:</p>
+<p>$$\begin{aligned}
+y &amp; =\left(c_{1}+\frac{3}{10}\cos x-\frac{1}{10}\sin x\right)e^{-x}+c_{2}e^{2x}
+\end{aligned}$$</p>
+<p><strong>Exercise. 48</strong>. $(D^{2}+4D+4)y=xe^{2x}$.</p>
+<p><em>Solution.</em></p>
+<p>The associated homogenous equation has the characteristic equation:</p>
+<p>$$\begin{aligned}
+(m+2)^{2} &amp; =0
+\end{aligned}$$</p>
+<p>The roots of the characteristic equation are $m=-2$ with multiplicity
+$2$. Hence, the general solution of the homogenous ODE is:</p>
+<p>$$\begin{aligned}
+y_{h} &amp; =c_{1}e^{-2x}+c_{2}xe^{-2x}
+\end{aligned}$$</p>
+<p>We seek a particular solution of the form:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =c_{1}(x)e^{-2x}+c_{2}(x)xe^{-2x}
+\end{aligned}$$</p>
+<p>where $c_{1}(x),c_{2}(x)$ are determined by the equations:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo;e^{-2x}+c_{2}&lsquo;xe^{-2x} &amp; =0\\
+c_{1}&rsquo;(-2e^{-2x})+c_{2}&rsquo;(e^{-2x}-2xe^{-2x}) &amp; =xe^{2x}
+\end{aligned}$$</p>
+<p>The Wronskian $W[y_{1}(x),y_{2}(x)]$ is:</p>
+<p>$$\begin{aligned}
+W[y_{1}(x),y_{2}(x)] &amp; =\left|\begin{array}{cc}
+e^{-2x} &amp; xe^{-2x}\\
+-2e^{-2x} &amp; e^{-2x}(1-2x)
+\end{array}\right|\\
+&amp; =e^{-4x}\left|\begin{array}{cc}
+1 &amp; x\\
+-2 &amp; (1-2x)
+\end{array}\right|\\
+&amp; =e^{-4x}(1-2x+2x)\\
+&amp; =e^{-4x}
+\end{aligned}$$</p>
+<p>So:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo; &amp; =\left|\begin{array}{cc}
+0 &amp; xe^{-2x}\\
+xe^{2x} &amp; e^{-2x}(1-2x)
+\end{array}\right|\times e^{4x}\\
+&amp; =-x^{2}e^{4x}
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}&rsquo; &amp; =\left|\begin{array}{cc}
+e^{-2x} &amp; 0\\
+-2e^{-2x} &amp; xe^{2x}
+\end{array}\right|\times e^{4x}\\
+&amp; =xe^{4x}
+\end{aligned}$$</p>
+<p>And integrating by parts, we have:</p>
+<p>$$\begin{array}{c|c}
+u &amp; dv\\
+\hline x &amp; e^{4x}\\
+1 &amp; \frac{e^{4x}}{4}
+\end{array}$$</p>
+<p>Therefore,</p>
+<p>$$\begin{aligned}
+c_{2} &amp; =\frac{1}{4}xe^{4x}-\frac{1}{4}\int e^{4x}\\
+&amp; =\frac{1}{4}xe^{4x}-\frac{1}{16}e^{4x}
+\end{aligned}$$</p>
+<p>$$\begin{array}{c|c}
+u &amp; dv\\
+\hline x^{2} &amp; e^{4x}\\
+2x &amp; \frac{e^{4x}}{4}\\
+2 &amp; \frac{e^{4x}}{16}
+\end{array}$$</p>
+<p>Therefore,</p>
+<p>$$\begin{aligned}
+c_{1} &amp; =-\left[\frac{1}{4}x^{2}e^{4x}-\frac{1}{8}xe^{4x}+\frac{1}{8}\int e^{4x}\right]\\
+&amp; =-\frac{1}{4}x^{2}e^{4x}+\frac{1}{8}xe^{4x}-\frac{1}{32}e^{4x}
+\end{aligned}$$</p>
+<p>The desired particular solution is:</p>
+<p>$$\begin{aligned}
+y_{p}(x) &amp; =-\frac{1}{4}x^{2}e^{2x}+\frac{1}{8}xe^{2x}-\frac{1}{32}e^{2x}+\frac{1}{4}x^{2}e^{4x}-\frac{1}{16}xe^{2x}\\
+&amp; =e^{2x}\left(\frac{1}{16}x-\frac{1}{32}\right)
+\end{aligned}$$</p>
+<p>The general solution to the ODE is:</p>
+<p>$$\begin{aligned}
+y &amp; =e^{2x}\left(\frac{1}{16}x-\frac{1}{32}\right)+(c_{1}+c_{2}x)e^{-2x}
+\end{aligned}$$</p>
+<p><strong>Exercise. 49</strong>. $(D^{2}+3D-4)y=x^{2}e^{x}$</p>
+<p><em>Solution.</em></p>
+<p>The characteristic equation of the associated homogenous differential
+equation is:</p>
+<p>$$\begin{aligned}
+m^{2}+3m-4 &amp; =0\\
+m^{2}+4m-m-4 &amp; =0\\
+m(m+4)-1(m+4) &amp; =0\\
+(m-1)(m+4) &amp; =0
+\end{aligned}$$</p>
+<p>The general solution of the associated homogenous ODE is:</p>
+<p>$$\begin{aligned}
+y_{h} &amp; =c_{1}e^{x}+c_{2}e^{-4x}
+\end{aligned}$$</p>
+<p>We seek a particular solution of the form:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =c_{1}(x)e^{x}+c_{2}(x)e^{-4x}
+\end{aligned}$$</p>
+<p>where $c_{1}(x)$, $c_{2}(x)$ are determined by the equations:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo;e^{x}+c_{2}&rsquo;e^{-4x} &amp; =0\\
+c_{1}&rsquo;e^{x}+c_{2}&rsquo;(-4e^{-4x}) &amp; =x^{2}e^{x}
+\end{aligned}$$</p>
+<p>The Wronskian $W[y_{1}(x),y_{2}(x)]$ is given by:</p>
+<p>$$\begin{aligned}
+W[y_{1}(x),y_{2}(x)] &amp; =\left|\begin{array}{cc}
+e^{x} &amp; e^{-4x}\\
+e^{x} &amp; -4e^{-4x}
+\end{array}\right|\\
+&amp; =e^{-3x}\left|\begin{array}{cc}
+1 &amp; 1\\
+1 &amp; -4
+\end{array}\right|\\
+&amp; =-5e^{-3x}
+\end{aligned}$$</p>
+<p>So:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo; &amp; =\left|\begin{array}{cc}
+0 &amp; e^{-4x}\\
+x^{2}e^{x} &amp; -4e^{-4x}
+\end{array}\right|\times-\frac{1}{5}e^{3x}\\
+&amp; =-x^{2}e^{-3x}\times-\frac{1}{5}e^{3x}\\
+&amp; =\frac{x^{2}}{5}
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}&rsquo; &amp; =\left|\begin{array}{cc}
+e^{x} &amp; 0\\
+e^{x} &amp; x^{2}e^{x}
+\end{array}\right|\times-\frac{1}{5}e^{3x}\\
+&amp; =x^{2}e^{2x}\times-\frac{1}{5}e^{3x}\\
+&amp; =-\frac{1}{5}x^{2}e^{5x}
+\end{aligned}$$</p>
+<p>Therefore, $c_{1}(x)=\frac{x^{3}}{15}$. And using integration by parts,
+$\int x^{2}e^{5x}dx$ is:</p>
+<p>$$\begin{array}{c|c}
+u &amp; dv\\
+\hline x^{2} &amp; e^{5x}\\
+2x &amp; \frac{e^{5x}}{5}\\
+2 &amp; \frac{e^{5x}}{25}
+\end{array}$$</p>
+<p>$$\begin{aligned}
+I &amp; =\frac{1}{5}x^{2}e^{5x}-\frac{2x}{25}e^{5x}+\frac{2}{25}\int e^{5x}dx\\
+&amp; =\frac{1}{5}x^{2}e^{5x}-\frac{2x}{25}e^{5x}+\frac{2}{625}e^{5x}
+\end{aligned}$$</p>
+<p>Thus,</p>
+<p>$$\begin{aligned}
+c_{2}(x) &amp; =-\frac{1}{25}x^{2}e^{5x}+\frac{2x}{625}e^{5x}-\frac{2}{3125}e^{5x}
+\end{aligned}$$</p>
+<p>The desired particular solution is:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =\left(\frac{1}{15}x^{3}-\frac{1}{25}x^{2}+\frac{2}{625}x-\frac{2}{3125}\right)e^{x}
+\end{aligned}$$</p>
+<p>The general solution to the non-homogenous ODE is:</p>
+<p>$$\begin{aligned}
+y &amp; =\left(\frac{1}{15}x^{3}-\frac{1}{25}x^{2}+\frac{2}{625}x-\frac{2}{3125}\right)e^{x}+c_{1}e^{x}+c_{2}e^{-4x}
+\end{aligned}$$</p>
+<p><strong>Exercise. 50</strong>. $(4D^{2}+4D+1)y=xe^{-x/2}\sin x$.</p>
+<p><em>Solution.</em></p>
+<p>The characteristic equation of the associated homogenous equation is:</p>
+<p>$$\begin{aligned}
+4m^{2}+4m+1 &amp; =0\\
+(2m+1)^{2} &amp; =0
+\end{aligned}$$</p>
+<p>The general solution of the associated homogenous ODE is:</p>
+<p>$$\begin{aligned}
+y_{h} &amp; =c_{1}e^{-x/2}+c_{2}xe^{-x/2}
+\end{aligned}$$</p>
+<p>We are seeking a particular solution of the form:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =c_{1}(x)e^{-x/2}+c_{2}(x)xe^{-x/2}
+\end{aligned}$$</p>
+<p>where $c_{1}(x),c_{2}(x)$ are determined by the equations:</p>
+<p>$$\begin{aligned}
+\left[\begin{array}{cc}
+e^{-x/2} &amp; xe^{-x/2}\\
+-\frac{1}{2}e^{-x/2} &amp; e^{-x/2}-\frac{1}{2}xe^{-x/2}
+\end{array}\right]\left[\begin{array}{c}
+c_{1}&rsquo;\\
+c_{2}&rsquo;
+\end{array}\right] &amp; =\left[\begin{array}{c}
+0\\
+\frac{1}{4}xe^{-x/2}\sin x
+\end{array}\right]
+\end{aligned}$$</p>
+<p>The Wronskian $W[y_{1}(x),y_{2}(x)]$ is:</p>
+<p>$$\begin{aligned}
+W[y_{1}(x),y_{2}(x)] &amp; =\left|\begin{array}{cc}
+e^{-x/2} &amp; xe^{-x/2}\\
+-\frac{1}{2}e^{-x/2} &amp; e^{-x/2}-\frac{1}{2}xe^{-x/2}
+\end{array}\right|\\
+&amp; =e^{-x}\left|\begin{array}{cc}
+1 &amp; x\\
+-\frac{1}{2} &amp; 1-\frac{x}{2}
+\end{array}\right|\\
+&amp; =e^{-x}
+\end{aligned}$$</p>
+<p>So:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo; &amp; =\left|\begin{array}{cc}
+0 &amp; xe^{-x/2}\\
+(1/4)xe^{-x/2}\sin x &amp; (1-\frac{x}{2})e^{-x/2}
+\end{array}\right|\times e^{x}\\
+&amp; =-(1/4)x^{2}\sin x\cdot e^{-x}\times e^{x}\\
+&amp; =-(1/4)x^{2}\sin x
+\end{aligned}$$</p>
+<p>Applying integration by parts, we have:</p>
+<p>$$\begin{array}{c|c}
+u &amp; dv\\
+\hline -x^{2} &amp; \sin x\\
+-2x &amp; -\cos x\\
+-2 &amp; -\sin x
+\end{array}$$</p>
+<p>$$\begin{aligned}
+I &amp; =x^{2}\cos x-2x\sin x+\int2\sin xdx\\
+&amp; =x^{2}\cos x-2x\sin x-2\cos x
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{1}(x) &amp; =\frac{1}{4}(x^{2}\cos x-2x\sin x-2\cos x)
+\end{aligned}$$</p>
+<p>When it comes to $c_{2}(x)$, we have:</p>
+<p>$$\begin{aligned}
+c_{2}&rsquo; &amp; =\left|\begin{array}{cc}
+e^{-x/2} &amp; 0\\
+-\frac{1}{2}e^{-x/2} &amp; (1/4)xe^{-x/2}\sin x
+\end{array}\right|\times e^{x}\\
+&amp; =(1/4)xe^{-x}\sin x\times e^{x}\\
+&amp; =(1/4)x\sin x
+\end{aligned}$$</p>
+<p>Applying integration by parts, we have:</p>
+<p>$$\begin{aligned}
+c_{2}(x) &amp; =(1/4)\int x\sin x\cdot dx\\
+&amp; =\frac{1}{4}(-x\cos x-(\int(-\cos x)dx))\\
+&amp; =\frac{1}{4}(-x\cos x+\int\cos xdx)\\
+&amp; =\frac{1}{4}(-x\cos x+\sin x)
+\end{aligned}$$</p>
+<p>The desired particular solution is:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =\frac{1}{4}[(x^{2}\cos x-2x\sin x-2\cos x)e^{-x/2}+(-x\cos x+\sin x)xe^{-x/2}]\\
+&amp; =\frac{1}{4}[(x^{2}\cos x-2x\sin x-2\cos x-x^{2}\cos x+x\sin x)e^{-x/2}]\\
+&amp; =\frac{1}{4}(-x\sin x-2\cos x)e^{-x/2}
+\end{aligned}$$</p>
+<p>The general solution to the given ODE is:</p>
+<p>$$\begin{aligned}
+y &amp; =\frac{1}{4}(-x\sin x-2\cos x)e^{-x/2}+(c_{1}+c_{2}x)e^{-x/2}
+\end{aligned}$$</p>
+<p><strong>Exercise. 51</strong>. $(D^{2}+4)y=e^{2x}/2$.</p>
+<p><em>Solution.</em></p>
+<p>The general solution of the associated homogenous equation is:</p>
+<p>$$\begin{aligned}
+y_{h} &amp; =c_{1}\cos2x+c_{2}\sin2x
+\end{aligned}$$</p>
+<p>We are seeking a particular solution of the form:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =c_{1}(x)\cos(2x)+c_{2}(x)\sin2x
+\end{aligned}$$</p>
+<p>where $c_{1}(x)$, $c_{2}(x)$ are determined by the equations:</p>
+<p>$$\begin{aligned}
+\left[\begin{array}{cc}
+\cos2x &amp; \sin2x\\
+-2\sin2x &amp; 2\cos2x
+\end{array}\right]\left[\begin{array}{c}
+c_{1}&rsquo;\\
+c_{2}&rsquo;
+\end{array}\right] &amp; =\left[\begin{array}{c}
+0\\
+e^{2x}/2
+\end{array}\right]
+\end{aligned}$$</p>
+<p>The Wronskian $W[y_{1}(x),y_{2}(x)]=2$. So:</p>
+<p>$$\begin{aligned}
+c_{1}&rsquo; &amp; =\left|\begin{array}{cc}
+0 &amp; \sin2x\\
+e^{2x}/2 &amp; 2\cos2x
+\end{array}\right|\times\frac{1}{2}\\
+&amp; =-\frac{1}{4}e^{2x}\sin2x
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+c_{2}&rsquo; &amp; =\left|\begin{array}{cc}
+\cos2x &amp; 0\\
+-2\sin2x &amp; e^{2x}/2
+\end{array}\right|\times\frac{1}{2}\\
+&amp; =\frac{1}{4}e^{2x}\cos2x
+\end{aligned}$$</p>
+<p>Applying integration by parts, we have:</p>
+<p>$$\begin{array}{c|c}
+u &amp; dv\\
+\hline e^{2x} &amp; \sin2x\\
+2e^{2x} &amp; -\frac{1}{2}\cos2x\\
+4e^{2x} &amp; -\frac{1}{4}\sin2x
+\end{array}$$</p>
+<p>Thus:</p>
+<p>$$\begin{aligned}
+I &amp; =-\frac{1}{2}e^{2x}\cos2x+\frac{1}{2}e^{2x}\sin2x-I\\
+2I &amp; =-\frac{1}{2}e^{2x}\cos2x+\frac{1}{2}e^{2x}\sin2x\\
+I &amp; =-\frac{1}{4}e^{2x}\cos2x+\frac{1}{4}e^{2x}\sin2x
+\end{aligned}$$</p>
+<p>And</p>
+<p>$$\begin{aligned}
+c_{1}(x) &amp; =\frac{1}{16}e^{2x}\cos2x-\frac{1}{16}e^{2x}\sin2x
+\end{aligned}$$</p>
+<p>Also,</p>
+<p>$$\begin{array}{c|c}
+u &amp; dv\\
+\hline e^{2x} &amp; \cos2x\\
+2e^{2x} &amp; \frac{1}{2}\sin2x\\
+4e^{2x} &amp; -\frac{1}{4}\cos2x
+\end{array}$$</p>
+<p>Thus:</p>
+<p>$$\begin{aligned}
+I &amp; =\frac{1}{2}e^{2x}\sin2x+\frac{1}{2}e^{2x}\cos2x-I\\
+2I &amp; =\frac{1}{2}e^{2x}\sin2x+\frac{1}{2}e^{2x}\cos2x\\
+I &amp; =\frac{1}{4}e^{2x}\sin2x+\frac{1}{4}e^{2x}\cos2x
+\end{aligned}$$</p>
+<p>And</p>
+<p>$$\begin{aligned}
+c_{2}(x) &amp; =\frac{1}{16}e^{2x}\sin2x+\frac{1}{16}e^{2x}\cos2x
+\end{aligned}$$</p>
+<p>The desired particular solution is:</p>
+<p>$$\begin{aligned}
+y_{p} &amp; =e^{2x}(\frac{1}{16}\cos^{2}2x-\frac{1}{16}\sin2x\cos2x+\frac{1}{16}\sin^{2}2x+\frac{1}{16}\sin2x\cos2x)\\
+&amp; =\frac{1}{16}e^{2x}
+\end{aligned}$$</p>
+<p>The general solution to the given ODE is:</p>
+<p>$$\begin{aligned}
+y &amp; =\frac{1}{16}e^{2x}+(c_{1}\cos2x+c_{2}\sin2x)
+\end{aligned}$$</p>
+<p><strong>Exercise. 52</strong>. $(D^{2}+10D-12)y=\frac{(e^{2x}+1)^{2}}{e^{2x}}$</p>
+<p><em>Solution.</em></p>
+<p>The characteristic equation of the associated homogenous differential
+equation is:</p>
 
 </article>
 
