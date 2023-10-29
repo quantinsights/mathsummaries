@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>financial-mathematics on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/tags/financial-mathematics/</link>
+    <description>Recent content in financial-mathematics on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Oct 2023 09:38:36 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/financial-mathematics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A_short_note_on_black_scholes</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/10/29/a_short_note_on_black_scholes/</link>
+      <pubDate>Sun, 29 Oct 2023 09:38:36 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/10/29/a_short_note_on_black_scholes/</guid>
+      <description>A short note on classical Black-Scholes, and the construction of a locally risk-less portfolio, that does not have a driving $dW$ term (aka dynamic hedging).
+[A short note on Black-Scholes](./../../../../A short note on Black Scholes.pdf)</description>
+    </item>
+    
+  </channel>
+</rss>
