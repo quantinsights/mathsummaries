@@ -8,13 +8,13 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 29 Oct 2023 09:38:36 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/financial-mathematics/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>A_short_note_on_black_scholes</title>
-      <link>https://quantophile.github.io/mathsummaries/post/2023/10/29/a_short_note_on_black_scholes/</link>
+      <title>A short note on Black Scholes</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/10/29/a-short-note-on-black-scholes/</link>
       <pubDate>Sun, 29 Oct 2023 09:38:36 +0100</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/post/2023/10/29/a_short_note_on_black_scholes/</guid>
-      <description>A short note on classical Black-Scholes, and the construction of a locally risk-less portfolio, that does not have a driving $dW$ term (aka dynamic hedging).
-[A short note on Black-Scholes](./../../../../A short note on Black Scholes.pdf)</description>
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/10/29/a-short-note-on-black-scholes/</guid>
+      <description>This is a short note on classical Black-Scholes, and the idea of dynamic hedging, that is, constructing a portfolio continuously in time, such that it does not have a driving $dW$ term, that is, it is locally risk-free.
+A short note on Black-Scholes</description>
     </item>
     
   </channel>
