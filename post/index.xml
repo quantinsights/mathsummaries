@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 Oct 2023 09:38:36 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Nov 2023 22:01:14 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vasicek Model</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/11/01/vasicek-model/</link>
+      <pubDate>Wed, 01 Nov 2023 22:01:14 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/11/01/vasicek-model/</guid>
+      <description>This note derives the Vasicek short rate model, the bond price and term structure dynamics from first principles.
+Vasicek Model</description>
+    </item>
+    
     <item>
       <title>A short note on Black Scholes</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/10/29/a-short-note-on-black-scholes/</link>
