@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>The Black-Scholes PDE | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.118.2">
+<meta name="description" content="I present here some quantitative finance projects that I have done or have been working on. Hope they can be of any help to you.&#34;&#34;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/minimal.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/post/2023/10/29/the-black-scholes-pde/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/katex/katex.min.css">
+<script defer src="https://quantophile.github.io/mathsummaries/katex/katex.min.js"></script>
+<script defer src="https://quantophile.github.io/mathsummaries/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+    <nav>
+    
+      <a href="">Home</a>
+    
+      <a href="about/">About</a>
+    
+      <a href="categories/">Categories</a>
+    
+      <a href="tags/">Tags</a>
+    
+      <a href="index.xml">Subscribe</a>
+    
+    </nav>
+  
+</header>
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+    integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"
+    integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: true},
+      ],
+    });
+  });
+</script>
+
+<article>
+  <header>
+    <h1>The Black-Scholes PDE</h1>
+    <time datetime="2023-10-29T09:38:36&#43;01:00">October 29, 2023</time>
+  </header>
+  <h1 id="deriving-the-black-scholes-pde">Deriving the Black-Scholes PDE</h1>
+<h2 id="risk-free-asset">Risk-Free Asset</h2>
+<p>The price process $(B(t),t\geq 0)$ is the price of a risk-free asset, if it has the dynamics:</p>
+<p>$$dB(t) = r(t)B(t)dt$$</p>
+<p>The definining property of a risk-free asset is thus, that it has no driving $dW$-term. Using the separation of variables method, we can also write the $B$-dynamics as:</p>
+<p>$$\frac{dB(t)}{B(t)} = r(t)dt$$</p>
+<p>We can integrate this like an ordinary ODE.</p>
+<p>$$B(t) = B(0)e^{-\int_{0}^{t}r(s)ds}$$</p>
+<p>and as notational convention, we put $B(0) = 1$.</p>
+<p>The natural interpretation of a risk-free asset is that it corresponds to a bank account with (possibly stochastic) short interest rate $r$. Note that, the bank-account is <strong>locally risk-free</strong>, in the sense that, even if the short rate is a random process, the return $r(t)$ over an infinitesimal time-period $dt$ is risk-free (that is deterministic, given the information available at time $t$). However, the return of $B(t)$ over a <strong>longer interval</strong> such as $[t,T]$ is typically stochastic.</p>
+<h2 id="derivation-of-the-pde-by-a-hedging-argument">Derivation of the PDE by a hedging argument</h2>
+<p>The Black-Scholes model consists of two assets with dynamics given by:</p>
+<p>$$
+\begin{align}
+dB(t) &amp;= r(t)B(t)dt\
+dS(t) &amp;= \mu S(t)dt+ \sigma S(t)dW(t)
+\end{align}
+$$</p>
+<p>We setup a self-financing portfolio $\Pi$ that is comprised of one option and an amount $\Delta(t)$ of the underlying stock.</p>
+<p>Hence, the value of the portfolio at time $t$ is:</p>
+<p>$$\Pi(t) = V(t) + \Delta(t)S(t)$$</p>
+<p>Since the portfolio is self-financing:</p>
+<p>$$d\Pi(t) = dV(t) + \Delta(t)dS(t)$$</p>
+<p>The price of the derivative contract at time $t$ is a function of the time $t$, and the position of the underlying $S(t)$. So, $V(t)=f(t,S(t))$. Applying Ito&rsquo;s lemma to $f(t,x)$, we have:</p>
+<p>$$
+\begin{align*}
+df(t,x) &amp;= \frac{\partial V}{\partial t}dt + \frac{\partial V}{\partial x}dS(t) + \frac{1}{2} \frac{\partial^2 V}{\partial x^2}d&lt;S,S&gt;_t \
+&amp;=  \frac{\partial V}{\partial t}dt + \frac{\partial V}{\partial x}(\mu S(t) dt + \sigma S(t)dW(t)) + \frac{1}{2} \frac{\partial^2 V}{\partial x^2}\sigma^2 S_t^2 dt \
+&amp;=  \left(\frac{\partial V}{\partial t} + \mu S(t)\frac{\partial V}{\partial x} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right)dt + \sigma S(t) \frac{\partial V}{\partial x} dW(t)
+\end{align*}
+$$</p>
+<p>Hence:</p>
+<p>$$
+\begin{align*}
+d\Pi(t) &amp;= \left(\frac{\partial V}{\partial t} + \mu S(t)\frac{\partial V}{\partial x} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right)dt + \sigma S(t) \frac{\partial V}{\partial x} dW(t) + \Delta(t)(\mu S(t) dt + \sigma S(t) dW(t))\
+&amp;=\left[\frac{\partial V}{\partial t} + \mu S(t)\left(\frac{\partial V}{\partial x} + \Delta(t)\right) + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right]dt + \sigma S(t) \left(\frac{\partial V}{\partial x} + \Delta(t)\right) dW(t)
+\end{align*}
+$$</p>
+<p>We set $\Delta(t) = \frac{\partial V}{\partial x}$, thereby eliminating the randomness, the $dW$-term. We are left with:</p>
+<p>$$
+\begin{align*}
+d\Pi(t)
+&amp;=\left[\frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right]dt<br>
+\end{align*}
+$$</p>
+<p>Such a portfolio must earn the risk-free rate. Hence,</p>
+<p>$$d\Pi = r(t)\Pi(t)dt$$</p>
+<p>Putting it together, we have:</p>
+<p>$$
+\begin{align*}
+r(t)\Pi(t)dt &amp;= \left[\frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right]dt\
+r(t)( V(t) + \Delta(t)S(t)) &amp;= \frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\
+r(t)( V(t) + \frac{\partial V}{\partial x}S(t)) &amp;= \frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\
+rV(t) &amp;= \frac{\partial V}{\partial t} -r(t)S(t) \frac {\partial V}{\partial x} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}
+\end{align*}
+$$</p>
+
+</article>
+
+
+
+</html>

@@ -18,13 +18,18 @@ Vasicek Model</description>
     </item>
     
     <item>
-      <title>A short note on Black Scholes</title>
-      <link>https://quantophile.github.io/mathsummaries/post/2023/10/29/a-short-note-on-black-scholes/</link>
+      <title>The Black-Scholes PDE</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/10/29/the-black-scholes-pde/</link>
       <pubDate>Sun, 29 Oct 2023 09:38:36 +0100</pubDate>
       
-      <guid>https://quantophile.github.io/mathsummaries/post/2023/10/29/a-short-note-on-black-scholes/</guid>
-      <description>This is a short note on classical Black-Scholes, and the idea of dynamic hedging, that is, constructing a portfolio continuously in time, such that it does not have a driving $dW$ term, that is, it is locally risk-free.
-A short note on Black-Scholes</description>
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/10/29/the-black-scholes-pde/</guid>
+      <description>Deriving the Black-Scholes PDE Risk-Free Asset The price process $(B(t),t\geq 0)$ is the price of a risk-free asset, if it has the dynamics:
+$$dB(t) = r(t)B(t)dt$$
+The definining property of a risk-free asset is thus, that it has no driving $dW$-term. Using the separation of variables method, we can also write the $B$-dynamics as:
+$$\frac{dB(t)}{B(t)} = r(t)dt$$
+We can integrate this like an ordinary ODE.
+$$B(t) = B(0)e^{-\int_{0}^{t}r(s)ds}$$
+and as notational convention, we put $B(0) = 1$.</description>
     </item>
     
   </channel>
