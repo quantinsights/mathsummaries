@@ -1,15 +1,16 @@
 @font-face {
-  font-family: "PT Sans";
-  src: local("PT Sans"), local("PTSans-Regular"), url("../fonts/PTSans-Regular.woff") format("woff");
+  font-family: "Montserrat";
+  src: local("Montserrat"), local("Montserrat-Medium"), url("../fonts/AnyConv.com__Montserrat-Medium.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "PT Sans";
-  src: local("PT Sans Bold"), local("PTSans-Bold"), url("../fonts/PTSans-Bold.woff") format("woff");
+  font-family: "Montserrat";
+  src: local("Open Sans Bold"), local("Open-Bold"), url("../fonts/OpenSans-Bold.ttf") format("ttf");
   font-weight: bold;
   font-style: normal;
 }
+
 
 html {
   font-size: 16px;
@@ -19,7 +20,7 @@ html {
 body {
   background: #ffffff;
   color: #212228;
-  font-family: "PT Sans", -apple-system, "Helvetica Neue", "Segoe UI", "Roboto", sans-serif;
+  font-family: "Montserrat";
   font-weight: 400;
   line-height: 1.6;
   margin: 0;
