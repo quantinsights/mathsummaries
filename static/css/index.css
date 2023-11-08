@@ -6,7 +6,7 @@
 }
 @font-face {
   font-family: "Montserrat";
-  src: local("Open Sans Bold"), local("Open-Bold"), url("../fonts/OpenSans-Bold.ttf") format("ttf");
+  src: local("Monteserrat Bold"), local("Montserrat-Bold"), url("../fonts/AnyConv.com__Montserrat-SemiBold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
