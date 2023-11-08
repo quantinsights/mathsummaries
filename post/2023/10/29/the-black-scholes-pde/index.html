@@ -88,7 +88,7 @@
 <p>The Black-Scholes model consists of two assets with dynamics given by:</p>
 <p>$$
 \begin{align}
-dB(t) &amp;= r(t)B(t)dt\
+dB(t) &amp;= r(t)B(t)dt\\
 dS(t) &amp;= \mu S(t)dt+ \sigma S(t)dW(t)
 \end{align}
 $$</p>
@@ -100,15 +100,15 @@ $$</p>
 <p>The price of the derivative contract at time $t$ is a function of the time $t$, and the position of the underlying $S(t)$. So, $V(t)=f(t,S(t))$. Applying Ito&rsquo;s lemma to $f(t,x)$, we have:</p>
 <p>$$
 \begin{align*}
-df(t,x) &amp;= \frac{\partial V}{\partial t}dt + \frac{\partial V}{\partial x}dS(t) + \frac{1}{2} \frac{\partial^2 V}{\partial x^2}d&lt;S,S&gt;_t \
-&amp;=  \frac{\partial V}{\partial t}dt + \frac{\partial V}{\partial x}(\mu S(t) dt + \sigma S(t)dW(t)) + \frac{1}{2} \frac{\partial^2 V}{\partial x^2}\sigma^2 S_t^2 dt \
+df(t,x) &amp;= \frac{\partial V}{\partial t}dt + \frac{\partial V}{\partial x}dS(t) + \frac{1}{2} \frac{\partial^2 V}{\partial x^2}d&lt;S,S&gt;_t \\
+&amp;=  \frac{\partial V}{\partial t}dt + \frac{\partial V}{\partial x}(\mu S(t) dt + \sigma S(t)dW(t)) + \frac{1}{2} \frac{\partial^2 V}{\partial x^2}\sigma^2 S_t^2 dt \\
 &amp;=  \left(\frac{\partial V}{\partial t} + \mu S(t)\frac{\partial V}{\partial x} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right)dt + \sigma S(t) \frac{\partial V}{\partial x} dW(t)
 \end{align*}
 $$</p>
 <p>Hence:</p>
 <p>$$
 \begin{align*}
-d\Pi(t) &amp;= \left(\frac{\partial V}{\partial t} + \mu S(t)\frac{\partial V}{\partial x} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right)dt + \sigma S(t) \frac{\partial V}{\partial x} dW(t) + \Delta(t)(\mu S(t) dt + \sigma S(t) dW(t))\
+d\Pi(t) &amp;= \left(\frac{\partial V}{\partial t} + \mu S(t)\frac{\partial V}{\partial x} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right)dt + \sigma S(t) \frac{\partial V}{\partial x} dW(t) + \Delta(t)(\mu S(t) dt + \sigma S(t) dW(t))\\
 &amp;=\left[\frac{\partial V}{\partial t} + \mu S(t)\left(\frac{\partial V}{\partial x} + \Delta(t)\right) + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right]dt + \sigma S(t) \left(\frac{\partial V}{\partial x} + \Delta(t)\right) dW(t)
 \end{align*}
 $$</p>
@@ -124,9 +124,9 @@ $$</p>
 <p>Putting it together, we have:</p>
 <p>$$
 \begin{align*}
-r(t)\Pi(t)dt &amp;= \left[\frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right]dt\
-r(t)( V(t) + \Delta(t)S(t)) &amp;= \frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\
-r(t)( V(t) + \frac{\partial V}{\partial x}S(t)) &amp;= \frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\
+r(t)\Pi(t)dt &amp;= \left[\frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\right]dt\\
+r(t)( V(t) + \Delta(t)S(t)) &amp;= \frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\\
+r(t)( V(t) + \frac{\partial V}{\partial x}S(t)) &amp;= \frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}\\
 rV(t) &amp;= \frac{\partial V}{\partial t} -r(t)S(t) \frac {\partial V}{\partial x} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 V}{\partial x^2}
 \end{align*}
 $$</p>
