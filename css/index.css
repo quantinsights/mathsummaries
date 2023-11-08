@@ -11,20 +11,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: "Open Sans";
-  src: local("Open Sans"), local("OpenSans-Regular"), url("../fonts/OpenSans-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("../fonts/OpenSans-Bold.woff") format("woff");
-  font-weight: bold;
-  font-style: normal;
-}
-
 html {
   background: #d3d4db;
   font-size: 16px;
@@ -34,11 +20,13 @@ html {
 
 body {
   background: #ffffff;
-  color: black;
-  font-family: "Open Sans", "Segoe UI", "Roboto",  "Helvetica Neue", sans-serif, -apple-system  ;
+  color: #212228;
+  font-family: "PT Sans", -apple-system, "Helvetica Neue", "Segoe UI", "Roboto", sans-serif;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   margin: 0;
+  min-height: 100vh;
+  box-shadow: 0 0 0.3em #c5c7cf;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -221,11 +209,4 @@ nav a {
 .katex {
   overflow-x: auto;
   overflow-y: hidden;
-}
-
-code.has-jax {
-    -webkit-font-smoothing: antialiased;
-    background: inherit !important;
-    border: none !important;
-    font-size: 100%;
 }
