@@ -67,6 +67,15 @@ $E$ and $\Delta$ are thus operators which map one sequence to another sequence.<
     </item>
     
     <item>
+      <title>Stochastic Calculus</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/04/29/stochastic-calculus/</link>
+      <pubDate>Sat, 29 Apr 2023 19:23:36 +0200</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/04/29/stochastic-calculus/</guid>
+      <description>Stochastic Calculus. I have been continuously expanding my notes on stochastic calculus. Its a summary of the most important and basic results in financial mathematics.</description>
+    </item>
+    
+    <item>
       <title>Real Analysis</title>
       <link>https://quantophile.github.io/mathsummaries/post/2022/03/29/real-analysis/</link>
       <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
@@ -75,15 +84,6 @@ $E$ and $\Delta$ are thus operators which map one sequence to another sequence.<
       <description>Real Analysis. These are unofficial solutions to the undergrad text, Understanding Analysis by Stephen Abbott. I started writing these solutions, when I was self-studying and taking a first course in real analysis, and felt that I might as well give the problems an effort by writing out solutions.
 TeX PDF
 Why should I read this? While the official solutions may be more accurate, they may be terse and sometimes hard to understand, so a different perspective may help.</description>
-    </item>
-    
-    <item>
-      <title>Stochastic Calculus</title>
-      <link>https://quantophile.github.io/mathsummaries/post/2022/03/29/stochastic-calculus/</link>
-      <pubDate>Tue, 29 Mar 2022 19:23:36 +0200</pubDate>
-      
-      <guid>https://quantophile.github.io/mathsummaries/post/2022/03/29/stochastic-calculus/</guid>
-      <description>Stochastic Calculus. I have been continuously expanding my notes on stochastic calculus. Its a summary of the most important and basic results in financial mathematics.</description>
     </item>
     
     <item>
