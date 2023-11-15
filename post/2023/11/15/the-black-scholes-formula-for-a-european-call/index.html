@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>The Black Scholes Formula for a European Call | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.118.2">
+<meta name="description" content="I present here some quantitative finance projects that I have done or have been working on. Hope they can be of any help to you.&#34;&#34;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/minimal.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/post/2023/11/15/the-black-scholes-formula-for-a-european-call/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/katex/katex.min.css">
+<script defer src="https://quantophile.github.io/mathsummaries/katex/katex.min.js"></script>
+<script defer src="https://quantophile.github.io/mathsummaries/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+    <nav>
+    
+      <a href="">Home</a>
+    
+      <a href="about/">About</a>
+    
+      <a href="categories/">Categories</a>
+    
+      <a href="tags/">Tags</a>
+    
+      <a href="index.xml">Subscribe</a>
+    
+    </nav>
+  
+</header>
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+    integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"
+    integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: true},
+      ],
+    });
+  });
+</script>
+
+<article>
+  <header>
+    <h1>The Black Scholes Formula for a European Call</h1>
+    <time datetime="2023-11-15T07:40:15&#43;01:00">November 15, 2023</time>
+  </header>
+  <h1 id="the-black-scholes-formula-for-a-european-call">The Black-Scholes formula for a European Call</h1>
+<p>The mean rate of grownth of all assets under the risk-neutral measure $\mathbb{Q}$ is risk-free rate $r$.</p>
+<p>The stock price process has the $\mathbb{Q}$-dynamics:</p>
+<p>$$dS_t = r S_t dt + \sigma S_t dW^{\mathbb{Q}}(t) \tag{1}$$</p>
+<p>The solution to this SDE is:</p>
+<p>$$S(t) = S(0)\exp \left[ \left(r - \frac{\sigma^2}{2}\right)t + \sigma W^{\mathbb{Q}}(t)\right]\tag{2}$$</p>
+<p>Consider a call option with maturity time $T$. Then, the stock price at $T$ is:</p>
+<p>$$S(T) = S(0)\exp \left[ \left(r - \frac{\sigma^2}{2}\right)T + \sigma W^{\mathbb{Q}}(T)\right]\tag{3}$$</p>
+<p>Denoting $\tau = T - t$, we have:</p>
+<p>$$S(T) = S(t)\exp \left[ \left(r - \frac{\sigma^2}{2}\right)\tau + \sigma (W^{\mathbb{Q}}(T)-W^{\mathbb{Q}}(t))\right]\tag{4}$$</p>
+<p>Since, $W^{\mathbb{Q}}(T)-W^{\mathbb{Q}}(t)$ is a gaussian random variable with mean $0$ and variance $\tau = T-t$, we can write $-(W^{\mathbb{Q}}(T)-W^{\mathbb{Q}}(t)) = \sqrt{\tau}Z$, where $Z$ is a standard normal random variable. Thus,</p>
+<p>$$S(T) = S(t)\exp \left[ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}Z\right]\tag{5}$$</p>
+<p>By the risk-neutral pricing formula, the time-$t$ price of the European call option is:</p>
+<p>$$
+\begin{align*}
+V(t) &amp;= \mathbb{E}^{\mathbb{Q}}\left[e^{-r(T-t)}\max(S(T) - K,0)|\mathcal{F}_t\right] \\
+&amp;= e^{-r(T-t)}\mathbb{E}^{\mathbb{Q}}\left[\left(S(t)\exp \left\{ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}Z\right\} - K\right)\cdot 1_{S(T)&gt;K}|\mathcal{F}_t\right]\\
+&amp;= e^{-r(T-t)}\mathbb{E}^{\mathbb{Q}}\left[\left(S(t)\exp \left\{ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}Z\right\} - K\right)\cdot 1_{S_t e^{(r-\sigma^2/2) - \sigma\tau Z}&gt;K}\right]
+\end{align*}
+$$</p>
+<p>In the last-but-one step, everything is $\mathcal{F}_t$-measurable.</p>
+<p>The domain of integration is all $z$ satisfying:</p>
+<p>$$
+\begin{align*}
+S(t)\exp \left[ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}Z\right] &amp;&gt; \log K\\\\
+\log S(t) + \left[ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}Z\right] &amp;&gt; \log K \\\\
+\log \frac{S(t)}{K} +(r-\sigma^2/2)\tau &amp;&gt; \sigma \sqrt{\tau}Z \\\\
+\frac{\log \frac{S(t)}{K} +(r-\sigma^2/2)\tau}{\sigma\sqrt{\tau}} &amp;&gt; Z
+\end{align*}
+$$</p>
+<p>Define $d_{-} = \frac{\log \frac{S(t)}{K} +(r-\sigma^2/2)\tau}{\sigma\sqrt{\tau}}$.</p>
+<p>Then, the region $D$ is:</p>
+<p>$$Z &lt; d_{-}$$</p>
+<p>So, we can expand the expectation in (6) as:</p>
+<p>$$
+\begin{align*}
+V(t) &amp;=  \int_{-\infty}^{d_{-}} e^{-r\tau}\left(S(t)\exp \left\{ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}z\right\} - K\right) d\mathbb{Q} \\
+&amp;=\int_{-\infty}^{d_{-}} e^{-r\tau}\left(S(t)\exp \left\{ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}z\right\} - K\right) f_Z^{\mathbb{Q}}(z) dz \\
+&amp;=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{d_{-}}e^{-r\tau} \left(S(t)\exp \left\{ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}z\right\} - K\right) e^{-\frac{z^2}{2}} dz \\
+&amp;=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{d_{-}} e^{-r\tau}S(t)\exp \left\{ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}z\right\}e^{-\frac{z^2}{2}} dz \\&amp;- Ke^{-r\tau}\cdot \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{d_{-}} e^{-\frac{z^2}{2}} dz \\
+&amp;=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{d_{-}} e^{-r\tau}S(t)\exp \left\{ \left(r - \frac{\sigma^2}{2}\right)\tau - \sigma \sqrt{\tau}z\right\}e^{-\frac{z^2}{2}} dz - Ke^{-r\tau}\Phi(d_{-})\tag{7}
+\end{align*}
+$$</p>
+<p>We have:</p>
+<p>$$
+\begin{align*}
+&amp;\exp \left[-\frac{\sigma^2}{2}\tau - \sigma\sqrt{\tau} z - \frac{z^2}{2}\right]\\\\
+=&amp;\exp\left[-\frac{\sigma^2 \tau + 2\sigma \sqrt{\tau}z + z^2}{2}\right]\\\\
+=&amp;\exp\left[-\frac{(z+\sigma\sqrt{\tau})^2}{2}\right] \tag{8}
+\end{align*}
+$$</p>
+<p>Substituting (8) into (7), we get:</p>
+<p>$$
+\begin{align*}
+V(t) &amp;=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{d_{-}} S(t)\exp\left[-\frac{(z+\sigma\sqrt{\tau})^2}{2}\right] dz - Ke^{-r\tau}\Phi(d_{-}) \tag{9}
+\end{align*}
+$$</p>
+<p>Put $u = z + \sigma \sqrt{\tau}$. Then, $dz = du$. The upper limit of integration is $d_{+} = d_{-} + \sigma \sqrt{\tau}$, which is:</p>
+<p>$$
+\begin{align*}
+d_{+} &amp;=\frac{\log \frac{S(t)}{K} + (r-\sigma^2/2)\tau}{\sigma \sqrt{\tau}} + \sigma \sqrt{\tau}\\\\
+&amp;= \frac{\log \frac{S(t)}{K} + (r+\sigma^2/2)\tau}{\sigma \sqrt{\tau}}
+\end{align*}
+$$</p>
+<p>So, the equation (9) can be written as:</p>
+<p>$$
+\begin{align*}
+V(t) &amp;=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{d_{+}} S(t)e^{-\frac{u^2}{2}} du - Ke^{-r\tau}\Phi(d_{-}) \\\\
+&amp;= S(t)\Phi(d_{+}) - Ke^{-r\tau} \Phi(d_{-})
+\end{align*}
+$$</p>
+<h2 id="appendix">Appendix</h2>
+<p><em><strong>Lemma</strong></em>. The discounted stock-price process $(D(t)S(t),t\geq 0)$ is a $\mathbb{Q}$-martingale.</p>
+<p>Suppose we have a risk-free money-market account with the dynamics:</p>
+<p>$$dM(t) = rM(t)dt$$</p>
+<p>and the dynamics of the stock-price process is:</p>
+<p>$$dS(t) = \mu S(t) dt + \sigma S(t) dW^\mathbb{P}(t)$$</p>
+<p>Thus, the discounting process is:</p>
+<p>$$dD(t) = -rD(t)dt$$</p>
+<p>where the instantaneous interest rate $r$ is a constant.</p>
+<p>By Ito&rsquo;s product rule:</p>
+<p>$$
+\begin{align*}
+d(D(t)S(t)) &amp;= dD(t) S(t) + D(t)dS(t)\\\\
+&amp;= -rD(t)S(t)dt + D(t)(\mu S(t) dt + \sigma S(t)dW^\mathbb{P}(t))\\\\
+&amp;= D(t)S(t)((\mu - r)dt + \sigma dW^\mathbb{P}(t))\\\\
+\end{align*}
+$$</p>
+<p>We are interested to write:</p>
+<p>$$
+\begin{align*}
+d(D(t)S(t)) &amp;= D(t)S(t)\sigma dW^\mathbb{Q}(t)
+\end{align*}
+$$</p>
+<p>Comparing the right hand sides, we have:
+$$
+\begin{align*}
+\sigma dW^\mathbb{Q}(t) &amp;= (\mu - r)dt + \sigma dW^\mathbb{P}(t)
+\end{align*}
+$$</p>
+<p>Let&rsquo;s define:</p>
+<p>$$dW^\mathbb{Q}(t) = \theta dt + dW^\mathbb{P}(t)$$</p>
+<p>where $\theta = (\mu - r)/\sigma$ and the Radon-Nikodym derivative $Z$ as:</p>
+<p>$$Z = \exp\left[-\int_0^T \theta dW^\mathbb{P}(u) - \frac{1}{2}\int_0^T \theta^2 du \right]$$</p>
+<p>By the Girsanov theorem, $W^\mathbb{Q}(t)$ is a $\mathbb{Q}$-standard brownian motion. Hence, we can write:</p>
+<p>$$
+\begin{align*}
+d(D(t)S(t)) &amp;= D(t)S(t)\sigma dW^\mathbb{Q}(t)
+\end{align*}
+$$</p>
+<p>Since the Ito integral is a martingale, $D(t)S(t)$ is a $\mathbb{Q}$-martingale. This closes the proof.</p>
+<p><em><strong>Claim.</strong></em> The $\mathbb{Q}$-dynamics of $S_t$ satisfy :</p>
+<p>$$dS(t) = rS(t) dt + \sigma S(t) dW^{\mathbb{Q}}(t)$$</p>
+<p><em>Proof.</em></p>
+<p>We have:</p>
+<p>$$
+\begin{align*}dS(t) &amp;= d(S(t)D(t)M(t))\\\\
+&amp;= d(S(t)D(t))M(t) + S(t)D(t)dM(t)\\\\
+&amp;= D(t)M(t) S(t)\sigma dW^\mathbb{Q}(t) + S(t)D(t)r M(t)dt\\\\
+&amp;= S(t)(rdt + \sigma dW^\mathbb{Q}(t))
+\end{align*}
+$$</p>
+<p>We can easily solve this linear SDE; its solution is:</p>
+<p>$$S(t) = S(0)\exp\left[\left(\mu - \frac{\sigma^2}{2}\right)dt + \sigma W^\mathbb{Q}(t)\right]$$</p>
+
+</article>
+
+
+
+</html>

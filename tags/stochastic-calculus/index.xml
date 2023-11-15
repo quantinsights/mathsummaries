@@ -6,7 +6,21 @@
     <description>Recent content in stochastic-calculus on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 29 Apr 2023 19:23:36 +0200</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/stochastic-calculus/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Nov 2023 07:40:15 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/stochastic-calculus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Black Scholes Formula for a European Call</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/11/15/the-black-scholes-formula-for-a-european-call/</link>
+      <pubDate>Wed, 15 Nov 2023 07:40:15 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/11/15/the-black-scholes-formula-for-a-european-call/</guid>
+      <description>The Black-Scholes formula for a European Call The mean rate of grownth of all assets under the risk-neutral measure $\mathbb{Q}$ is risk-free rate $r$.
+The stock price process has the $\mathbb{Q}$-dynamics:
+$$dS_t = r S_t dt + \sigma S_t dW^{\mathbb{Q}}(t) \tag{1}$$
+The solution to this SDE is:
+$$S(t) = S(0)\exp \left[ \left(r - \frac{\sigma^2}{2}\right)t + \sigma W^{\mathbb{Q}}(t)\right]\tag{2}$$
+Consider a call option with maturity time $T$. Then, the stock price at $T$ is:</description>
+    </item>
+    
     <item>
       <title>Stochastic Calculus</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/04/29/stochastic-calculus/</link>
