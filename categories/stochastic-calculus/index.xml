@@ -6,7 +6,24 @@
     <description>Recent content in Stochastic Calculus on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Nov 2023 07:40:15 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Nov 2023 20:42:24 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pricing a Quanto</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/11/16/pricing-a-quanto/</link>
+      <pubDate>Thu, 16 Nov 2023 20:42:24 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/11/16/pricing-a-quanto/</guid>
+      <description>The infamous currency triangle. We know that the cross
+$$XAUUSD = \frac{XAUEUR}{USDEUR}$$
+The continuously compounded returns on the pair $XAUUSD$ are the log of the price relative. So,
+$$r^{XAUUSD} = \log\left(\frac{XAUUSD_{t}}{XAUUSD_{t-1}}\right)$$
+Thus:
+$$ \begin{align*} r^{XAUUSD} &amp;amp;= \log\left(\frac{\frac{XAUEUR_{t}}{USDEUR_t}}{\frac{XAUEUR_{t-1}}{USDEUR_{t-1}}}\right)\\ &amp;amp;= \log\left(\frac{XAUEUR_{t}}{XAUEUR_{t-1}}\right) - \log \left(\frac{USDEUR_t}{USDEUR_{t-1}}\right)\\ &amp;amp;= r^{XAUEUR} - r^{USDEUR} \end{align*} $$
+Since these returns are random variables, we have:
+$$ \begin{align*} \sigma_{XAUUSD}^2 &amp;amp;= \sigma_{XAUEUR}^2 + \sigma_{USDEUR}^2 - 2\sigma_{XAUEUR}\cdot \sigma_{USDEUR}\cdot \rho_{XAUEUR,USDEUR} \end{align*} $$
+This looks very familiar to the cosine rule and we can visualize this calculation using elementary geometry.</description>
+    </item>
+    
     <item>
       <title>The Black Scholes Formula for a European Call</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/11/15/the-black-scholes-formula-for-a-european-call/</link>

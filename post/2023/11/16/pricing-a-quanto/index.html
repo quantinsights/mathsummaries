@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>Pricing a Quanto | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.118.2">
+<meta name="description" content="I present here some quantitative finance projects that I have done or have been working on. Hope they can be of any help to you.&#34;&#34;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/minimal.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/post/2023/11/16/pricing-a-quanto/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/katex/katex.min.css">
+<script defer src="https://quantophile.github.io/mathsummaries/katex/katex.min.js"></script>
+<script defer src="https://quantophile.github.io/mathsummaries/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+    <nav>
+    
+      <a href="">Home</a>
+    
+      <a href="about/">About</a>
+    
+      <a href="categories/">Categories</a>
+    
+      <a href="tags/">Tags</a>
+    
+      <a href="index.xml">Subscribe</a>
+    
+    </nav>
+  
+</header>
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+    integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"
+    integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: true},
+      ],
+    });
+  });
+</script>
+
+<article>
+  <header>
+    <h1>Pricing a Quanto</h1>
+    <time datetime="2023-11-16T20:42:24&#43;01:00">November 16, 2023</time>
+  </header>
+  <h2 id="the-infamous-currency-triangle">The infamous currency triangle.</h2>
+<p>We know that the cross</p>
+<p>$$XAUUSD = \frac{XAUEUR}{USDEUR}$$</p>
+<p>The continuously compounded returns on the pair $XAUUSD$ are the log of the price relative. So,</p>
+<p>$$r^{XAUUSD} = \log\left(\frac{XAUUSD_{t}}{XAUUSD_{t-1}}\right)$$</p>
+<p>Thus:</p>
+<p>$$
+\begin{align*}
+r^{XAUUSD} &amp;= \log\left(\frac{\frac{XAUEUR_{t}}{USDEUR_t}}{\frac{XAUEUR_{t-1}}{USDEUR_{t-1}}}\right)\\
+&amp;= \log\left(\frac{XAUEUR_{t}}{XAUEUR_{t-1}}\right) - \log \left(\frac{USDEUR_t}{USDEUR_{t-1}}\right)\\
+&amp;= r^{XAUEUR} - r^{USDEUR}
+\end{align*}
+$$</p>
+<p>Since these returns are random variables, we have:</p>
+<p>$$
+\begin{align*}
+\sigma_{XAUUSD}^2 &amp;= \sigma_{XAUEUR}^2 + \sigma_{USDEUR}^2 - 2\sigma_{XAUEUR}\cdot \sigma_{USDEUR}\cdot \rho_{XAUEUR,USDEUR}
+\end{align*}
+$$</p>
+<p>This looks very familiar to the cosine rule and we can visualize this calculation using elementary geometry. Label the corners of the triangle $XAU$, $EUR$, and $USD$, the vectors of the edges $\overrightarrow{\sigma}_1$ from $XAU$ to $USD$, $\overrightarrow{\sigma}_2$ from $XAU$ to $EUR$, and $\overrightarrow{\sigma}_3$ from $USD$ to $EUR$. The edge lengths can be viewed as volatilities and the cosines of the angles as correlations.</p>
+<p><img src="../../../../currency_triangle.jpg" alt="Currency triangle"></p>
+<p>So, in the FX market, the correlation structure can be computed explicitly in terms of the known volatilities using the interdependence of exchange rates.</p>
+<h2 id="what-if-the-two-currency-pairs-dont-have-a-common-currency">What if the two currency pairs don&rsquo;t have a common currency?</h2>
+<p>You must read this excellent <a href="https://www.mathfinance.com/wp-content/uploads/2020/09/rainbow.pdf">note</a> by Wystup. For example, to compute the correlation between GBPJPY and EURUSD, you inflate the market of these two currency pairs to include  following ${4 \choose 2} = 6$ pairs, for example: GBPJPY, GBPEUR, GBPUSD, EURJPY, USDJPY and EURUSD. Geomtrically, we introduce a tetrahedron with triangular sides whose corners are the four currencies and each of the ${6 \choose 2}=15$ correlations can be implied.</p>
+<h2 id="quanto-drift-adjustment">Quanto-drift adjustment.</h2>
+<p>A quanto option is any cash-settled option, whose payoff is converted into a third currency at maturity at a pre-specified rate, called the <em>quanto factor</em>.</p>
+<p>Consider the example of a Gold contract with underlying XAU/USD in XAU-USD quotation quantoed in EUR. Since the payoff is in EUR, we let EUR be the numeraire or domestic currency.</p>
+<p>Consider the Black-Scholes model with $\mathbb{Q}$-dynamics:</p>
+<p>$$
+\begin{align*}
+\text{XAU-EUR : } dS_t^{(3)} &amp;= S_t^{(3)}((r_{EUR} - r_{XAU})dt + \sigma_3 dW_t^{(3)}) \\
+\text{USD-EUR : } dS_t^{(2)} &amp;= S_t^{(2)}((r_{EUR} - r_{USD})dt + \sigma_2 dW_t^{(2)}) \\
+dW_t^{(3)}dW_t^{(2)} &amp;= \rho_{23} dt
+\end{align*}
+$$</p>
+<p>The actual underlying is $S_t^{(1)} = XAUUSD$. And</p>
+<p>$$S_t^{(1)} = \frac{S_t^{(3)}}{S_t^{(2)}}$$</p>
+<p>By Ito&rsquo;s formula, we have:</p>
+<p>$$
+\begin{align*}
+d\frac{1}{S_t^{(2)}} &amp;= -\frac{1}{(S_t^{(2)})^2} dS_t^{(2)} + \frac{1}{2}\cdot\frac{2}{(S_t^{(2)})^3}dS_t^{(2)}\cdot dS_t^{(2)}\\
+&amp;= -\frac{1}{S_t^{(2)}}((r_{EUR} - r_{USD})dt + \sigma_2 dW_t^{(2)})+\frac{1}{S_t^{(2)}}\sigma_2^2 dt\\
+&amp;= \frac{1}{S_t^{(2)}}(r_{USD} - r_{EUR} + \sigma_2^2)dt - \frac{1}{S_t^{(2)}}\sigma_2 dW_t^{(2)})
+\end{align*}
+$$</p>
+<p>So, I can write:</p>
+<p>$$
+\begin{align*}
+dS_t^{(1)} &amp;= \frac{1}{S_t^{(2)}}dS_t^{(3)} + S_t^{(3)}d\frac{1}{S_t^{(2)}} + d\frac{1}{S_t^{(2)}}\cdot dS_t^{(3)}\\
+&amp;= S_t^{(1)}((r_{EUR} - r_{XAU})dt + \sigma_3 dW_t^{(3)}) \\
+&amp;+ S_t^{(1)}((r_{USD} - r_{EUR} + \sigma_2^2)dt- \sigma_2 dW_t^{(2)})) \\
+&amp;- S_t^{(1)}\sigma_2 \sigma_3 \rho_{23}dt \\
+&amp;= S_t^{(1)}((r_{USD}- r_{XAU}+ \sigma_2^2 -\sigma_2 \sigma_3 \rho_{23})dt \\
+&amp;+ S_t^{(1)}(\sigma_3  dW_t^{(3)} - \sigma_2 dW_t^{(2)})
+\end{align*}
+$$</p>
+<p>We can introduce another process:</p>
+<p>$$dW_t^{(1)} = \frac{\sigma_3  dW_t^{(3)} - \sigma_2 dW_t^{(2)}}{\sigma_1}$$</p>
+<p>Integrating on both sides, we find that $W_t^{(1)}$ is a martingale. Further:</p>
+<p>$$
+\begin{align*}
+dW_t^{(1)} \cdot dW_t^{(1)} &amp;= \frac{(\sigma_3  dW_t^{(3)} - \sigma_2 dW_t^{(2)})^2}{\sigma_1^2} \\
+&amp;=\frac{\sigma_3^2 + \sigma_2^2 - 2\sigma_2 \sigma_3 \rho_{23}}{\sigma_1^2}\cdot dt \\
+&amp;= dt
+\end{align*}
+$$</p>
+<p>Thus, it has quadratic variation $t$. So, by the levy characterization theorem, $W_t^{(3)}$ is a standard brownian motion. And we can write:</p>
+<p>$$dS_t^{(1)} = S_t^{(1)}((r_{USD}- r_{XAU}+ \sigma_2^2 -\sigma_2 \sigma_3 \rho_{23})dt + \sigma_1 S_t^{(1)}dW_t^{(1)}$$</p>
+<p>The law of cosines implies that:</p>
+<p>$$
+\begin{align*}
+\sigma_3^2 &amp;= \sigma_1^2 + \sigma_2^2 - 2\sigma_1 \sigma_2 \rho_{12}\\
+\sigma_1^2 &amp;= \sigma_3^2 + \sigma_2^2 - 2\sigma_2 \sigma_3 \rho_{23}
+\end{align*}
+$$</p>
+<p>which yields</p>
+<p>$$
+\begin{align*}
+\sigma_2^2 -  \sigma_2 \sigma_3 \rho_{23}  &amp;= \sigma_1 \sigma_2 \rho_{12}
+\end{align*}
+$$</p>
+<p>Inserting this into the equation for the dynamics of $S_t^{(1)}$, we have:</p>
+<p>$$dS_t^{(1)} = S_t^{(1)}((r_{USD}- r_{XAU}+ \sigma_1 \sigma_2 \rho_{12})dt + \sigma_1 S_t^{(1)}dW_t^{(1)}$$</p>
+<h2 id="quanto-vanilla">Quanto Vanilla</h2>
+<p>Common among FX options is a quanto plain vanilla paying</p>
+<p>$$V_T = Q[(S_T - K)^{+}]$$</p>
+<p>where $S_T$ is the underlying for the FOR-DOM quotation.</p>
+<p>We can write the $\mathbb{Q}$-dynamics of the FOR-DOM pair as:</p>
+<p>$$dS_t^{(1)} = S_t^{(1)}((r_{DOM}- r_{FOR}+ \sigma_{1} \sigma_{2} \rho_{12})dt + \sigma_1 S_t^{(1)}dW_t^{(1)})$$</p>
+<p>where $\sigma_1$ is the volatility of the FOR-DOM, $\sigma_2$ is the volatility of DOM-QUANTO and $\rho_{12}$ is the correlation between FOR-DOM,DOM-QUANTO pairs.</p>
+<p>The solution to this SDE is:</p>
+<p>$$S_t^{(1)} = S_0^{(1)}\exp\left((r_{DOM}- r_{FOR}+ \sigma_{1} \sigma_{2} \rho_{12} - \frac{\sigma_1^2}{2})t + \sigma_1 S_t^{(1)}W_t^{(1)}\right)$$</p>
+<h2 id="standard-black-formula-for-quanto-vanilla">Standard Black formula for Quanto Vanilla</h2>
+<p>Let $r_Q$ be the interest rate in the QUANTO currency. By the risk-neutral pricing formula, the value at time $t$ is:</p>
+<p>$$
+\begin{align*}
+V(t,x) &amp;= e^{-r_{Q}\tau}Q\mathbb{E}^{\mathbb{Q}}[(S_T - K)\cdot 1_{S_T &gt; K}|\mathcal{F}_t] \\
+&amp;= e^{-r_Q \tau} \left[ \mathbb{E}^{\mathbb{Q}}[S_T \cdot 1_{S_T &gt; K}|\mathcal{F}_t] -  K\mathbb{E}^{\mathbb{Q}}[ 1_{S_T &gt; K}|\mathcal{F}_t]\right]
+\end{align*}
+$$</p>
+<p>The two expectations are computed in the <a href="https://quantophile.github.io/mathsummaries/post/2023/11/15/the-black-scholes-formula-for-a-european-call/">standard way</a>, as in Black-Scholes theory. We get:</p>
+<p>$$
+\begin{align*}
+V(t,S_t) &amp;= e^{-r_{Q}\tau}Q\left[S_t e^{\tilde{\mu}\tau}\Phi(d_{+}(\tau,S_t)) - K\Phi(d_{-}(\tau,S_t))\right]\\
+d_{\pm}(\tau,x) &amp;= \frac{\log\frac{x}{K} + (\tilde{\mu}\pm\frac{\sigma_1^2}{2})\tau}
+{\sigma\sqrt{\tau}}\\
+\tilde{\mu} &amp;= r_{DOM} - r_{FOR} - \sigma_1 \sigma_2 \rho_{12}
+\end{align*}
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> norm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Black formula for European Quanto Call</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------------------</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">d_plus</span>(tau,x,K,mu,sigma):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (np<span style="color:#f92672">.</span>log(x<span style="color:#f92672">/</span>K) <span style="color:#f92672">+</span> (mu <span style="color:#f92672">+</span> (sigma<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>tau)<span style="color:#f92672">/</span>(sigma <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt(tau))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">d_minus</span>(tau,x,K,mu,sigma):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (np<span style="color:#f92672">.</span>log(x<span style="color:#f92672">/</span>K) <span style="color:#f92672">+</span> (mu <span style="color:#f92672">-</span> (sigma<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>tau)<span style="color:#f92672">/</span>(sigma <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt(tau))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">blackScholes</span>(S_t,K,r_DOM,r_FOR,r_Q,tau,sigma_1,sigma_2,sigma_3,Q,notional):
+</span></span><span style="display:flex;"><span>    rho_12 <span style="color:#f92672">=</span> (sigma_1<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> sigma_2<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> sigma_3<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">/</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>sigma_1<span style="color:#f92672">*</span>sigma_2)
+</span></span><span style="display:flex;"><span>    mu <span style="color:#f92672">=</span> r_DOM <span style="color:#f92672">-</span> r_FOR <span style="color:#f92672">-</span> (sigma_1 <span style="color:#f92672">*</span> sigma_2 <span style="color:#f92672">*</span> rho_12)
+</span></span><span style="display:flex;"><span>    d1 <span style="color:#f92672">=</span> d_plus(tau,S_t,K,mu,sigma_1)
+</span></span><span style="display:flex;"><span>    d2 <span style="color:#f92672">=</span> d_minus(tau,S_t,K,mu,sigma_1)
+</span></span><span style="display:flex;"><span>    phi_d_plus <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>cdf(d1)
+</span></span><span style="display:flex;"><span>    phi_d_minus <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>cdf(d2)
+</span></span><span style="display:flex;"><span>    df_quanto <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_Q <span style="color:#f92672">*</span> tau)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (df_quanto <span style="color:#f92672">*</span> Q <span style="color:#f92672">*</span> (S_t <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(mu <span style="color:#f92672">*</span> tau) <span style="color:#f92672">*</span> phi_d_plus <span style="color:#f92672">-</span> K <span style="color:#f92672">*</span> phi_d_minus))<span style="color:#f92672">*</span> notional
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   Inputs to the model</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span>FOR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;XAU&#39;</span>
+</span></span><span style="display:flex;"><span>DOM <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;USD&#39;</span>
+</span></span><span style="display:flex;"><span>QUANTO <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;EUR&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>notionalInQuantoCcy <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>strike <span style="color:#f92672">=</span> <span style="color:#ae81ff">810</span>
+</span></span><span style="display:flex;"><span>maturityInYears <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.00</span>
+</span></span><span style="display:flex;"><span>FORDOM_spot <span style="color:#f92672">=</span> <span style="color:#ae81ff">800</span>
+</span></span><span style="display:flex;"><span>DOMQUANTO_spot <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.00</span>
+</span></span><span style="display:flex;"><span>FORQUANTO_spot <span style="color:#f92672">=</span> FORDOM_spot <span style="color:#f92672">*</span> DOMQUANTO_spot
+</span></span><span style="display:flex;"><span>FORDOM_vol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.10</span>
+</span></span><span style="display:flex;"><span>DOMQUANTO_vol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.12</span>
+</span></span><span style="display:flex;"><span>FORQUANTO_vol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.20591260281974003</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r_FOR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.005</span>; r_DOM <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.02</span>; r_QUANTO <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.04</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>quanto_call <span style="color:#f92672">=</span> blackScholes(
+</span></span><span style="display:flex;"><span>                S_t <span style="color:#f92672">=</span> FORDOM_spot, 
+</span></span><span style="display:flex;"><span>                K <span style="color:#f92672">=</span> strike,
+</span></span><span style="display:flex;"><span>                r_DOM <span style="color:#f92672">=</span> r_DOM,
+</span></span><span style="display:flex;"><span>                r_FOR <span style="color:#f92672">=</span> r_FOR,
+</span></span><span style="display:flex;"><span>                r_Q <span style="color:#f92672">=</span> r_QUANTO,
+</span></span><span style="display:flex;"><span>                tau <span style="color:#f92672">=</span> maturityInYears,
+</span></span><span style="display:flex;"><span>                sigma_1 <span style="color:#f92672">=</span> FORDOM_vol,
+</span></span><span style="display:flex;"><span>                sigma_2 <span style="color:#f92672">=</span> DOMQUANTO_vol,
+</span></span><span style="display:flex;"><span>                sigma_3 <span style="color:#f92672">=</span> FORQUANTO_vol,
+</span></span><span style="display:flex;"><span>                Q <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                notional <span style="color:#f92672">=</span> notionalInQuantoCcy
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Quanto Call Option price = </span><span style="color:#e6db74">{</span>quanto_call<span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">{</span>QUANTO<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Quanto Call Option price = 35.9550188943399 EUR
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FORDOM_spot <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">700</span>,<span style="color:#ae81ff">900</span>,<span style="color:#ae81ff">201</span>)
+</span></span><span style="display:flex;"><span>quanto_prices <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> S_t <span style="color:#f92672">in</span> FORDOM_spot:
+</span></span><span style="display:flex;"><span>    black_price <span style="color:#f92672">=</span> blackScholes(
+</span></span><span style="display:flex;"><span>                    S_t <span style="color:#f92672">=</span> S_t, 
+</span></span><span style="display:flex;"><span>                    K <span style="color:#f92672">=</span> strike,
+</span></span><span style="display:flex;"><span>                    r_DOM <span style="color:#f92672">=</span> r_DOM,
+</span></span><span style="display:flex;"><span>                    r_FOR <span style="color:#f92672">=</span> r_FOR,
+</span></span><span style="display:flex;"><span>                    r_Q <span style="color:#f92672">=</span> r_QUANTO,
+</span></span><span style="display:flex;"><span>                    tau <span style="color:#f92672">=</span> maturityInYears,
+</span></span><span style="display:flex;"><span>                    sigma_1 <span style="color:#f92672">=</span> FORDOM_vol,
+</span></span><span style="display:flex;"><span>                    sigma_2 <span style="color:#f92672">=</span> DOMQUANTO_vol,
+</span></span><span style="display:flex;"><span>                    sigma_3 <span style="color:#f92672">=</span> FORQUANTO_vol,
+</span></span><span style="display:flex;"><span>                    Q <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                    notional <span style="color:#f92672">=</span> notionalInQuantoCcy
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>    quanto_prices<span style="color:#f92672">.</span>append(black_price)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>FOR<span style="color:#e6db74">}{</span>DOM<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;$V(t,S_t)$ in EUR&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(FORDOM_spot,quanto_prices)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show(<span style="color:#66d9ef">True</span>)
+</span></span></code></pre></div><p><img src="../../../../quanto_price.png" alt="png"></p>
+
+</article>
+
+
+
+</html>
