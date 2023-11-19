@@ -81,9 +81,9 @@
 <p>Consider the discounted value of the foreign money market account (in domestic currency). We have:</p>
 <p>$$
 \begin{align*}
-d(M^{f}(t)R(t)D(t)) &amp;= d(M^f(t))R(t)D(t) + M^{f}(t) d(R(t)D(t))  \
-&amp;= r_{FOR}M^{f}(t)R(t)D(t)dt + M^{f}(t)(dR(t)D(t) + R(t)dD(t))\
-&amp;= r_{FOR}M^{f}(t)R(t)D(t)dt +  M^{f}(t)R(t)D(t)((\mu dt + \sigma dW_t^{\mathbb{P}}) - r_{DOM}(t)dt)\
+d(M^{f}(t)R(t)D(t)) &amp;= d(M^f(t))R(t)D(t) + M^{f}(t) d(R(t)D(t))  \\
+&amp;= r_{FOR}M^{f}(t)R(t)D(t)dt + M^{f}(t)(dR(t)D(t) + R(t)dD(t))\\
+&amp;= r_{FOR}M^{f}(t)R(t)D(t)dt +  M^{f}(t)R(t)D(t)((\mu dt + \sigma dW_t^{\mathbb{P}}) - r_{DOM}(t)dt)\\
 &amp;= M^{f}(t)R(t)D(t)(\mu + r_{FOR}- r_{DOM})dt + \sigma dW^{\mathbb{P}}(t)) \tag{2}
 \end{align*}
 $$</p>
@@ -102,17 +102,17 @@ $$</p>
 <p>By Ito&rsquo;s formula, it follows that:</p>
 <p>$$
 \begin{align*}
-d(M^{f}(t)R(t)) &amp;= d(M^f(t)R(t)D(t))M(t) + M^{f}(t)R(t)D(t)dM(t)  \
-&amp;= M^{f}(t)R(t)D(t)(\sigma dW^{\mathbb{Q}^d}(t)) M(t) + M^{f}(t)R(t)D(t)r_{DOM}M(t)dt \
+d(M^{f}(t)R(t)) &amp;= d(M^f(t)R(t)D(t))M(t) + M^{f}(t)R(t)D(t)dM(t)  \\
+&amp;= M^{f}(t)R(t)D(t)(\sigma dW^{\mathbb{Q}^d}(t)) M(t) + M^{f}(t)R(t)D(t)r_{DOM}M(t)dt \\
 &amp;= M^{f}(t)R(t)(r_{DOM}dt + dW^{\mathbb{Q}^d}(t))
 \end{align*}
 $$</p>
 <p>Intuitively, this is what we&rsquo;d expect, the mean rate of growth of every asset (which is denominated in the same currency as $M(t)$ is the domestic risk-free rate. However, the drift of the exchange rate process is:</p>
 <p>$$
 \begin{align*}
-d(R(t)) &amp;= d(M^f(t)R(t))D^{f}(t) + M^{f}(t)R(t)dD^{f}(t)  \
-&amp;= M^{f}(t)R(t)(r_{DOM}dt + \sigma dW^{\mathbb{Q}^d}(t))D^{f}(t) - M^{f}(t)R(t)r_{FOR}(t)D^{f}(t)dt\
-&amp;= M^{f}(t)R(t)D^{f}(t)((r_{DOM} - r_{FOR})dt + \sigma dW^{\mathbb{Q}^d}(t))\
+d(R(t)) &amp;= d(M^f(t)R(t))D^{f}(t) + M^{f}(t)R(t)dD^{f}(t)  \\
+&amp;= M^{f}(t)R(t)(r_{DOM}dt + \sigma dW^{\mathbb{Q}^d}(t))D^{f}(t) - M^{f}(t)R(t)r_{FOR}(t)D^{f}(t)dt\\
+&amp;= M^{f}(t)R(t)D^{f}(t)((r_{DOM} - r_{FOR})dt + \sigma dW^{\mathbb{Q}^d}(t))\\
 &amp;= R(t)((r_{DOM} - r_{FOR})dt + \sigma dW^{\mathbb{Q}^d}(t))
 \end{align*}
 $$</p>
@@ -123,31 +123,31 @@ $$</p>
 <p>Consider the domestic money market account $M(t)$. Its value in the foreign currency expressed in terms of shares of the foreign money market account $M^f(t)$ is $\frac{M(t)}{R(t)}D^{f}(t)$. This must be a martingale under the foreign-risk neutral measure $\mathbb{Q}^f$. We have:</p>
 <p>$$
 \begin{align*}
-d\left(\frac{1}{R(t)}\right) &amp;= -\frac{1}{R^2(t)}dR(t) + \frac{1}{2}\cdot \frac{2}{R^3(t)}dR(t)\cdot dR(t)\
-&amp;= -\frac{1}{R(t)}\left[\mu dt + \sigma dW^{\mathbb{P}}(t)\right] + \frac{1}{R(t)}\sigma^2 dt\
+d\left(\frac{1}{R(t)}\right) &amp;= -\frac{1}{R^2(t)}dR(t) + \frac{1}{2}\cdot \frac{2}{R^3(t)}dR(t)\cdot dR(t)\\
+&amp;= -\frac{1}{R(t)}\left[\mu dt + \sigma dW^{\mathbb{P}}(t)\right] + \frac{1}{R(t)}\sigma^2 dt\\
 &amp;= \frac{1}{R(t)}((\sigma^2 - \mu) dt - \sigma dW^{\mathbb{P}}(t))
 \end{align*}
 $$</p>
 <p>So, we may write:</p>
 <p>$$
 \begin{align*}
-d\left(\frac{M(t)}{R(t)}\right) &amp;= M(t)d\left(\frac{1}{R(t)}\right) + dM(t)\frac{1}{R(t)}\
-&amp;= \frac{M(t)}{R(t)}((\sigma^2 - \mu) dt - \sigma dW^{\mathbb{P}}(t)) + \frac{M(t)}{R(t)}r_{DOM}dt\
+d\left(\frac{M(t)}{R(t)}\right) &amp;= M(t)d\left(\frac{1}{R(t)}\right) + dM(t)\frac{1}{R(t)}\\
+&amp;= \frac{M(t)}{R(t)}((\sigma^2 - \mu) dt - \sigma dW^{\mathbb{P}}(t)) + \frac{M(t)}{R(t)}r_{DOM}dt\\
 &amp;= \frac{M(t)}{R(t)}((r_{DOM} - \mu + \sigma^2) dt - \sigma dW^{\mathbb{P}}(t))
 \end{align*}
 $$</p>
 <p>And</p>
 <p>$$
 \begin{align*}
-d\left(\frac{M(t)D^{f}(t)}{R(t)}\right) &amp;= d\left(\frac{M(t)}{R(t)}\right)D^{f}(t) + dD^{f}(t)\frac{M(t)}{R(t)}\
-&amp;=\frac{M(t)}{R(t)}D^{f}(t)((r_{DOM} - \mu + \sigma^2) dt - \sigma dW^{\mathbb{P}}(t))-r_{FOR} D^{f}(t)\frac{M(t)}{R(t)}dt\
+d\left(\frac{M(t)D^{f}(t)}{R(t)}\right) &amp;= d\left(\frac{M(t)}{R(t)}\right)D^{f}(t) + dD^{f}(t)\frac{M(t)}{R(t)}\\
+&amp;=\frac{M(t)}{R(t)}D^{f}(t)((r_{DOM} - \mu + \sigma^2) dt - \sigma dW^{\mathbb{P}}(t))-r_{FOR} D^{f}(t)\frac{M(t)}{R(t)}dt\\
 &amp;=\frac{M(t)}{R(t)}D^{f}(t)((r_{DOM} -r_{FOR} - \mu + \sigma^2)dt - \sigma dW^{\mathbb{P}}(t))
 \end{align*}
 $$</p>
 <p>Let $\nu = -\frac{(r_{DOM} -r_{FOR} - \mu + \sigma^2)}{\sigma}$ and define the Radon-Nikodym derivative as:</p>
 <p>$$
 \begin{align*}
-dW^{\mathbb{Q}^f}(t) &amp;= \nu dt +  dW^{\mathbb{P}}(t)\
+dW^{\mathbb{Q}^f}(t) &amp;= \nu dt +  dW^{\mathbb{P}}(t)\\
 Y_T &amp;:= \frac{d\mathbb{Q}^f}{d\mathbb{P}} = \exp\left[-\nu W^{\mathbb{P}}(T) - \frac{1}{2}\nu^2 T\right] \tag{7}
 \end{align*}
 $$</p>
@@ -156,7 +156,7 @@ $$</p>
 <p>Using Ito Calculus, we have:</p>
 <p>$$
 \begin{align*}
-d\left(\frac{M(t)}{R(t)}\right) &amp;= d\left(\frac{M(t)D^{f}(t)}{R(t)}\right) M^{f}(t) + \frac{M(t)D^{f}(t)}{R(t)}dM^{f}(t) \
+d\left(\frac{M(t)}{R(t)}\right) &amp;= d\left(\frac{M(t)D^{f}(t)}{R(t)}\right) M^{f}(t) + \frac{M(t)D^{f}(t)}{R(t)}dM^{f}(t) \\
 &amp;= -\frac{M(t)}{R(t)}\sigma dW^{\mathbb{Q}^f}(t) + \frac{M(t)}{R(t)}r_{FOR}dt
 \end{align*}
 $$</p>
@@ -176,10 +176,10 @@ $$</p>
 <p>Consider a European call option with the payout function $v_T = \max{R_T - K,0}=(R_T - K)^{+}$. By the risk-neutral pricing formula, we have:</p>
 <p>$$
 \begin{align*}
-V_0 &amp;= e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[(R_T - K)^{+}]\
-&amp;= e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[(R_T - K)1_{R_T &gt; K}]\
-&amp;= e^{-r_{DOM}T} \mathbb{E}^{\mathbb{Q}^d}[R_T 1_{R_T &gt; K}] - e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[K \cdot 1_{R_T &gt; K}]\
-&amp;= e^{-r_{DOM}T} \mathbb{E}^{\mathbb{Q}^d}[R_T 1_{R_T &gt; K}] - Ke^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[1_{R_T &gt; K}]\
+V_0 &amp;= e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[(R_T - K)^{+}]\\
+&amp;= e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[(R_T - K)1_{R_T &gt; K}]\\
+&amp;= e^{-r_{DOM}T} \mathbb{E}^{\mathbb{Q}^d}[R_T 1_{R_T &gt; K}] - e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[K \cdot 1_{R_T &gt; K}]\\
+&amp;= e^{-r_{DOM}T} \mathbb{E}^{\mathbb{Q}^d}[R_T 1_{R_T &gt; K}] - Ke^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[1_{R_T &gt; K}]\\
 &amp;= e^{-r_{DOM}T} \mathbb{E}^{\mathbb{Q}^d}[R_T 1_{R_T &gt; K}] - Ke^{-r_{DOM}T}{\mathbb{Q}^d}[{R_T &gt; K}] \tag{10}
 \end{align*}
 $$</p>
@@ -202,10 +202,10 @@ $$</p>
 <p>We can now use (13) or (14) to complete (10). Consider $\mathbb{E}^{\mathbb{Q}^d}[R_T 1_{R_T \geq K}]$. We have:</p>
 <p>$$
 \begin{align*}
-\mathbb{E}^{\mathbb{Q}^d}[R_T \cdot 1_{R_T \geq K}] &amp;= \mathbb{E}^{\mathbb{Q}^d}\left[R(0)\exp\left{\left(r_{DOM} - r_{FOR}-\frac{\sigma^2}{2}\right)T + \sigma W^{\mathbb{Q}^d}(T)\right}\cdot 1_{R_T \geq K}\right]\
-&amp;=  R(0)e^{(r_{DOM} - r_{FOR})T}\mathbb{E}^{\mathbb{Q}^d}\left[\exp\left{-\frac{\sigma^2}{2}T + \sigma W^{\mathbb{Q}^d}(T)\right}\cdot 1_{R_T \geq K}\right]\
-&amp;=  R(0)e^{(r_{DOM} - r_{FOR})T}\mathbb{E}^{\mathbb{Q}^d}\left[\frac{d\mathbb{Q}^f}{d\mathbb{Q}^d}\cdot 1_{R_T \geq K}\right]\
-&amp;=  R(0)e^{(r_{DOM} - r_{FOR})T}\mathbb{E}^{\mathbb{Q}^f}[1_{R_T \geq K}]\
+\mathbb{E}^{\mathbb{Q}^d}[R_T \cdot 1_{R_T \geq K}] &amp;= \mathbb{E}^{\mathbb{Q}^d}\left[R(0)\exp\left\{\left(r_{DOM} - r_{FOR}-\frac{\sigma^2}{2}\right)T + \sigma W^{\mathbb{Q}^d}(T)\right\}\cdot 1_{R_T \geq K}\right]\\
+&amp;=  R(0)e^{(r_{DOM} - r_{FOR})T}\mathbb{E}^{\mathbb{Q}^d}\left[\exp\left\{-\frac{\sigma^2}{2}T + \sigma W^{\mathbb{Q}^d}(T)\right\}\cdot 1_{R_T \geq K}\right]\\
+&amp;=  R(0)e^{(r_{DOM} - r_{FOR})T}\mathbb{E}^{\mathbb{Q}^d}\left[\frac{d\mathbb{Q}^f}{d\mathbb{Q}^d}\cdot 1_{R_T \geq K}\right]\\
+&amp;=  R(0)e^{(r_{DOM} - r_{FOR})T}\mathbb{E}^{\mathbb{Q}^f}[1_{R_T \geq K}]\\
 &amp;=  R(0)e^{(r_{DOM} - r_{FOR})T}{\mathbb{Q}^f}[{R_T \geq K}] \tag{15}
 \end{align*}
 $$</p>
@@ -222,12 +222,12 @@ $$</p>
 <p>We can easily compute $\mathbb{Q}^{X_i}[R_T \geq K]$ now for the foreign and domestic risk-neutral measures. We have:</p>
 <p>$$
 \begin{align*}
-&amp;\mathbb{Q}^{X(i)}\left[R_0\exp \left(\sigma W_T^{\mathbb{Q}^{X(i)}}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right) \geq K\right] \
-=&amp; \mathbb{Q}^{X(i)}\left[\exp \left(\sigma W_T^{\mathbb{Q}^{X(i)}}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right) \geq \frac{K}{R_0}\right] \
-=&amp; \mathbb{Q}^{X(i)}\left[\left(\sigma W_T^{\mathbb{Q}^{X(i)}}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right) \geq \log \frac{K}{R_0}\right] \
-=&amp; \mathbb{Q}^{X(i)}\left[\left(\sigma W_T^{\mathbb{Q}^{X(i)}}\right) \geq \log \frac{K}{R_0}-\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right] \
-=&amp; \mathbb{Q}^{X(i)}\left[\left(-\sigma W_T^{\mathbb{Q}^{X(i)}}\right) \leq \log \frac{R_0}{K}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right] \
-=&amp; \mathbb{Q}^{X(i)}\left[\left(\sigma \sqrt{T} Z\right) \leq \log \frac{R_0}{K}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right] \
+&amp;\mathbb{Q}^{X(i)}\left[R_0\exp \left(\sigma W_T^{\mathbb{Q}^{X(i)}}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right) \geq K\right] \\
+=&amp; \mathbb{Q}^{X(i)}\left[\exp \left(\sigma W_T^{\mathbb{Q}^{X(i)}}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right) \geq \frac{K}{R_0}\right] \\
+=&amp; \mathbb{Q}^{X(i)}\left[\left(\sigma W_T^{\mathbb{Q}^{X(i)}}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right) \geq \log \frac{K}{R_0}\right] \\
+=&amp; \mathbb{Q}^{X(i)}\left[\left(\sigma W_T^{\mathbb{Q}^{X(i)}}\right) \geq \log \frac{K}{R_0}-\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right] \\
+=&amp; \mathbb{Q}^{X(i)}\left[\left(-\sigma W_T^{\mathbb{Q}^{X(i)}}\right) \leq \log \frac{R_0}{K}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right] \\
+=&amp; \mathbb{Q}^{X(i)}\left[\left(\sigma \sqrt{T} Z\right) \leq \log \frac{R_0}{K}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T\right] \\
 =&amp; \mathbb{Q}^{X(i)}\left[Z \leq \frac{\log \frac{R_0}{K}+\left(r_{DOM} - r_{FOR} + \left[\frac{1}{2}-(i-1)\right]\sigma^2\right)T}{\sigma \sqrt{T} }\right]
 \end{align*}
 $$</p>

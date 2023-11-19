@@ -17,7 +17,7 @@
 $$dR(t)=\mu R(t) dt + \sigma R(t) dW^{\mathbb{P}}(t)\tag{1}$$
 Suppose we have a foreign money market account $M^{f}(t)$. The value of the foreign money market account in domestic currency is $M^{f}(t)R(t)$, where $R(t)$ is the exchange rate.
 Consider the discounted value of the foreign money market account (in domestic currency). We have:
-$$ \begin{align*} d(M^{f}(t)R(t)D(t)) &amp;amp;= d(M^f(t))R(t)D(t) + M^{f}(t) d(R(t)D(t)) \ &amp;amp;= r_{FOR}M^{f}(t)R(t)D(t)dt + M^{f}(t)(dR(t)D(t) + R(t)dD(t))\ &amp;amp;= r_{FOR}M^{f}(t)R(t)D(t)dt + M^{f}(t)R(t)D(t)((\mu dt + \sigma dW_t^{\mathbb{P}}) - r_{DOM}(t)dt)\ &amp;amp;= M^{f}(t)R(t)D(t)(\mu + r_{FOR}- r_{DOM})dt + \sigma dW^{\mathbb{P}}(t)) \tag{2} \end{align*} $$</description>
+$$ \begin{align*} d(M^{f}(t)R(t)D(t)) &amp;amp;= d(M^f(t))R(t)D(t) + M^{f}(t) d(R(t)D(t)) \\ &amp;amp;= r_{FOR}M^{f}(t)R(t)D(t)dt + M^{f}(t)(dR(t)D(t) + R(t)dD(t))\\ &amp;amp;= r_{FOR}M^{f}(t)R(t)D(t)dt + M^{f}(t)R(t)D(t)((\mu dt + \sigma dW_t^{\mathbb{P}}) - r_{DOM}(t)dt)\\ &amp;amp;= M^{f}(t)R(t)D(t)(\mu + r_{FOR}- r_{DOM})dt + \sigma dW^{\mathbb{P}}(t)) \tag{2} \end{align*} $$</description>
     </item>
     
   </channel>
