@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Nov 2023 08:47:10 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Nov 2023 22:55:20 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring Option Greeks</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/11/19/exploring-option-greeks/</link>
+      <pubDate>Sun, 19 Nov 2023 22:55:20 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/11/19/exploring-option-greeks/</guid>
+      <description>Introduction. I derived the Black-Scholes formula for European style vanilla FX options in a previous post here. The Black-Scholes model $Bl(S_0,K,T,r_{DOM},r_{FOR},\sigma)$ equipped with a single flat volatility parameter $\sigma$ produces option prices which are NOT consistent with the observed market prices of FX options across different strikes and maturities.
+Although, the BS model suffers many flaws, it is still often used, at least for quoting purposes. Since all of the other inputs into the model - market data variables such as the stock price $S_0$, the domestic depo rate $r_{DOM}$, the foreign depo rate $r_{FOR}$, and the parameters such as option strike $K$, the time-to-maturity $T$, can be either seen in the market or are known constants, we can easily solve for the value $\sigma_{\text{imp}}$ of the parameter $\sigma$ such that:</description>
+    </item>
+    
     <item>
       <title>Garman Kohlhagen for European Vanilla FX Options</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/11/19/garman-kohlhagen-for-european-vanilla-fx-options/</link>
