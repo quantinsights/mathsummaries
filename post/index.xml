@@ -6,7 +6,20 @@
     <description>Recent content in Posts on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Nov 2023 20:42:24 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Nov 2023 08:47:10 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Garman Kohlhagen for European Vanilla FX Options</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/11/19/garman-kohlhagen-for-european-vanilla-fx-options/</link>
+      <pubDate>Sun, 19 Nov 2023 08:47:10 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/11/19/garman-kohlhagen-for-european-vanilla-fx-options/</guid>
+      <description>FX Options. Let $R(t)$ be an exchange-rate such as EURUSD. Suppose it has the dynamics:
+$$dR(t)=\mu R(t) dt + \sigma R(t) dW^{\mathbb{P}}(t)\tag{1}$$
+Suppose we have a foreign money market account $M^{f}(t)$. The value of the foreign money market account in domestic currency is $M^{f}(t)R(t)$, where $R(t)$ is the exchange rate.
+Consider the discounted value of the foreign money market account (in domestic currency). We have:
+$$ \begin{align*} d(M^{f}(t)R(t)D(t)) &amp;amp;= d(M^f(t))R(t)D(t) + M^{f}(t) d(R(t)D(t)) \ &amp;amp;= r_{FOR}M^{f}(t)R(t)D(t)dt + M^{f}(t)(dR(t)D(t) + R(t)dD(t))\ &amp;amp;= r_{FOR}M^{f}(t)R(t)D(t)dt + M^{f}(t)R(t)D(t)((\mu dt + \sigma dW_t^{\mathbb{P}}) - r_{DOM}(t)dt)\ &amp;amp;= M^{f}(t)R(t)D(t)(\mu + r_{FOR}- r_{DOM})dt + \sigma dW^{\mathbb{P}}(t)) \tag{2} \end{align*} $$</description>
+    </item>
+    
     <item>
       <title>Pricing a Quanto</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/11/16/pricing-a-quanto/</link>

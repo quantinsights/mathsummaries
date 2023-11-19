@@ -6,7 +6,16 @@
     <description>Recent content in Categories on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Nov 2023 20:42:24 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Nov 2023 08:47:10 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FX Derivatives</title>
+      <link>https://quantophile.github.io/mathsummaries/categories/fx-derivatives/</link>
+      <pubDate>Sun, 19 Nov 2023 08:47:10 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/categories/fx-derivatives/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Stochastic Calculus</title>
       <link>https://quantophile.github.io/mathsummaries/categories/stochastic-calculus/</link>
