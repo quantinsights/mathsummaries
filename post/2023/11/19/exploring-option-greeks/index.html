@@ -94,14 +94,14 @@ $$</p>
 <p>Whether a call or a put, it is an option to exchange $K$ units of the domestic currency for $1$ unit of the foreign currency, valued in domestic currency - so it is the domestic/foreign price.</p>
 <p>If we want to express the above as a CCY1/CCY1 price, the conversion is easy : we just take the CCY2/CCY1 price above and convert the CCY2 value into CCY1 terms using today&rsquo;s spot rate $S_0$:</p>
 <p>$$
-V_{\text{\% f}} = \frac{\omega}{S_0}e^{-r_{DOM}T}\left[F\Phi(\omega d_{+}) - K\Phi(\omega d_{-})\right] = \frac{V_{d/f}}{S_0}
+V_{\text{\% f}} = \frac{\omega}{S_0}e^{-r_{DOM}T}[F\Phi(\omega d_{+}) - K\Phi(\omega d_{-})] = \frac{V_{d/f}}{S_0}
 $$</p>
 <p>For the %CCY2 price, we start with the CCY2/CCY1 price, this being the price in CCY2 of an option with a unit notional in the foreign currency. Since the strike is predetermined, it is also the price in CCY2 of an option with a notional of $K$ in CCY2. So, the CCY1/CCY2 price divided by $K$, is the $%ccy2$ price i.e. the percentage domestic price:</p>
 <p>$$V_{\%d} = \frac{\omega}{K} e^{-r_{DOM}T}[F \Phi(d_{+}) - K e^{-r_{DOM}T} \Phi(d_{-})] = \frac{V_{d/f}}{K}$$</p>
 <p>The ccy1/ccy2 price is the price you need to pay in foreign currency for an option on $1$ unit notional of the domestic currency.</p>
 <p>$$V_{f/d} = \frac{V_{\% d}}{S_0} = \frac{V_{d/f}}{S_0 K}$$</p>
 <p>The four prices above are relative to the notionals of $K$ in the domestic currency and $1$ in the foreign currency. If the actual notionals are $N_d$ and $N_f$ in domestic and foreign currencies where $N_d = K \cdot N_f$, then we scale accordingly.</p>
-<h4 id="implementing-the-analytic-bs-formula">Implementing the analytic BS-formula</h4>
+<h3 id="implementing-the-bl-calculator-and-option-greeks">Implementing the Bl Calculator and Option Greeks.</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Author. Quasar C.</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Date. 19-11-2023</span>
 </span></span><span style="display:flex;"><span>
@@ -141,7 +141,7 @@ $$</p>
 </span></span><span style="display:flex;"><span>    pv <span style="color:#f92672">=</span> domesticDF <span style="color:#f92672">*</span> undiscountedPrice <span style="color:#f92672">*</span> CCY1Notional
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pv
 </span></span></code></pre></div><h4 id="computing-the-atm-forward-and-the-option-price">Computing the ATM-Forward and the option price</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.40</span> ; K<span style="color:#f92672">=</span><span style="color:#ae81ff">1.45</span> ; t<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span> ;T<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span> ; r_DOM<span style="color:#f92672">=</span><span style="color:#ae81ff">0.04</span> ; r_FOR<span style="color:#f92672">=</span><span style="color:#ae81ff">0.06</span> ; sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">0.08</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">1.00</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; K<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0710</span> ; t<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span> ;T<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span> ; r_DOM<span style="color:#f92672">=</span><span style="color:#ae81ff">0.041039868</span> ; r_FOR<span style="color:#f92672">=</span> <span style="color:#ae81ff">0.025860353</span>; sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">0.08971</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>ATMForward <span style="color:#f92672">=</span> atTheMoneyForward(S_t,K,t,T,r_DOM,r_FOR,sigma)
 </span></span><span style="display:flex;"><span>
@@ -150,54 +150,41 @@ $$</p>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;At the money forward = </span><span style="color:#e6db74">{</span>ATMForward<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Call Price = </span><span style="color:#e6db74">{</span>call_price<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Put Price = </span><span style="color:#e6db74">{</span>put_price<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
-</span></span></code></pre></div><pre><code>At the money forward = 1.3722781426294575 USD
-Call Price = 0.01578455115811581 USD
-Put Price = 0.09045889091103623 USD
+</span></span></code></pre></div><pre><code>At the money forward = 1.0710350214586397 USD
+Call Price = 3.679399488751329 USD
+Put Price = 3.676038161145839 USD
 </code></pre>
 <h4 id="plotting-the-option-price-against-the-ccy1ccy2-spot">Plotting the option price against the CCY1CCY2 spot</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Plot of EUR Call/USD Put Option price&#39;</span>)
-</span></span><span style="display:flex;"><span>S_t <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">1.35</span>,<span style="color:#ae81ff">1.55</span>,<span style="color:#ae81ff">101</span>)
+</span></span><span style="display:flex;"><span>S_t <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0.90</span>,<span style="color:#ae81ff">1.24</span>,<span style="color:#ae81ff">201</span>)
+</span></span><span style="display:flex;"><span>CCY1Notional <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.00</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>call_price_1y <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">1.0</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>call_price_9m <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">0.75</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>call_price_6m <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">0.50</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>call_price_3m <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">0.25</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>call_price_1d <span style="color:#f92672">=</span> PV(S_t,K,t,(<span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span><span style="color:#ae81ff">365.00</span>),r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;EURUSD FX spot&#39;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Option price (USD)&#39;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,call_price_1y)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,call_price_9m)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,call_price_6m)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,call_price_3m)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,call_price_1d)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="../../../../exploring-option-greeks01.png" alt="png"></p>
+</span></span></code></pre></div><p><img src="./../../../../exploring-option-greeks01.png" alt="png"></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Plot of EUR Put/USD Call Option price&#39;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>put_price_1y <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">1.0</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>PUT_OPTION)
-</span></span><span style="display:flex;"><span>put_price_9m <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">0.75</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>PUT_OPTION)
-</span></span><span style="display:flex;"><span>put_price_6m <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">0.50</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>PUT_OPTION)
-</span></span><span style="display:flex;"><span>put_price_3m <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">0.50</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>PUT_OPTION)
-</span></span><span style="display:flex;"><span>put_price_1d <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">365</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>PUT_OPTION)
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;EURUSD FX spot&#39;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Option price (USD)&#39;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,put_price_1y)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,put_price_9m)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,put_price_6m)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,put_price_3m)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,put_price_1d)
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="../../../../exploring-option-greeks02.png" alt="png"></p>
-<h2 id="option-greeks">Option Greeks.</h2>
+</span></span></code></pre></div><p><img src="./../../../../exploring-option-greeks02.png" alt="png"></p>
 <p>To derive the deltas, we use the following propositions, which are really easy to prove.</p>
 <p><em><strong>Proposition.</strong></em></p>
 <p>$$\frac{\partial d_{+}}{\partial S_0} = \frac{\partial d_{-}}{\partial S_0} = \frac{1}{\sigma S_0 \sqrt{T}}$$</p>
@@ -256,11 +243,11 @@ $$</p>
 </span></span><span style="display:flex;"><span>    omega <span style="color:#f92672">=</span> callPut<span style="color:#f92672">.</span>value
 </span></span><span style="display:flex;"><span>    d_plus <span style="color:#f92672">=</span> dPlus(S_t,K,t,T,r_DOM,r_FOR,sigma)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> omega <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_FOR <span style="color:#f92672">*</span> (T<span style="color:#f92672">-</span>t)) <span style="color:#f92672">*</span> norm<span style="color:#f92672">.</span>cdf(omega <span style="color:#f92672">*</span> d_plus) <span style="color:#f92672">*</span> CCY1Notional
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.40</span> ; K<span style="color:#f92672">=</span><span style="color:#ae81ff">1.45</span> ; t<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span> ;T<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span> ; r_DOM<span style="color:#f92672">=</span><span style="color:#ae81ff">0.04</span> ; r_FOR<span style="color:#f92672">=</span><span style="color:#ae81ff">0.06</span> ; sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">0.08</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">1.00</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>pips_spot_delta <span style="color:#f92672">=</span> analyticDelta(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Spot Delta = </span><span style="color:#e6db74">{</span>pips_spot_delta<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR&#34;</span>)
-</span></span></code></pre></div><pre><code>Spot Delta = 0.24324371203694523 EUR
+</span></span></code></pre></div><pre><code>Spot Delta = 50.48090225276146 EUR
 </code></pre>
 <h4 id="plotting-the-analytic-delta-of-call-options">Plotting the Analytic Delta of call options</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close()
@@ -270,23 +257,171 @@ $$</p>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;EURUSD spot price&#39;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$\frac{\partial V}{\partial S}$&#39;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>S_t <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">1.35</span>,<span style="color:#ae81ff">1.55</span>,<span style="color:#ae81ff">101</span>)
+</span></span><span style="display:flex;"><span>S_t <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0.90</span>,<span style="color:#ae81ff">1.24</span>,<span style="color:#ae81ff">201</span>)
+</span></span><span style="display:flex;"><span>CCY1Notional <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.00</span>
 </span></span><span style="display:flex;"><span>delta <span style="color:#f92672">=</span> analyticDelta(S_t,K,t,<span style="color:#ae81ff">1.0</span>,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,delta,label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T=1Y&#39;</span>)
-</span></span><span style="display:flex;"><span>delta <span style="color:#f92672">=</span> analyticDelta(S_t,K,t,<span style="color:#ae81ff">0.75</span>,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,delta,label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T=9M&#39;</span>)
-</span></span><span style="display:flex;"><span>delta <span style="color:#f92672">=</span> analyticDelta(S_t,K,t,<span style="color:#ae81ff">0.50</span>,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,delta,label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T=6M&#39;</span>)
-</span></span><span style="display:flex;"><span>delta <span style="color:#f92672">=</span> analyticDelta(S_t,K,t,<span style="color:#ae81ff">0.25</span>,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,delta,label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T=3M&#39;</span>)
-</span></span><span style="display:flex;"><span>delta <span style="color:#f92672">=</span> analyticDelta(S_t,K,t,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">365.0</span>,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,delta,label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T=1D&#39;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(loc<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;upper left&#34;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="../../../../exploring-option-greeks03.png" alt="png"></p>
+</span></span></code></pre></div><p><img src="./../../../../exploring-option-greeks03.png" alt="png"></p>
 <h3 id="forward-delta">Forward Delta</h3>
-<p>The interpretation of the foward delta is the number of units of FOR of forward contracts a trader needs to buy to delta hedge a short option position.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"></code></pre></div>
+<p>The interpretation of the foward delta is the number of units of FOR of forward contracts a trader needs to buy to delta hedge a short option position. According to Wystup, if we translate this hedge ratio in calculus, it means that we need to compute (for a call)</p>
+<p>$$
+\frac{\partial v_{\text{option}}}{\partial v_{\text{forward}}}
+$$</p>
+<p>The value of a forward contract $v_{\text{forward}}$ for an agreed forward exchange rate $K$ is:</p>
+<p>$$
+\begin{align*}
+v_{\text{forward}} &amp;= e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[R_T - K]\\
+&amp;= e^{-r_{DOM}T}(R_0 \mathbb{E}^{\mathbb{Q}^d}[e^{(r_{DOM} - r_{FOR} - (\sigma^2/2))T + \sigma \sqrt{T} Z}] - K)\\
+&amp;= e^{-r_{DOM}T}(R_0 e^{(r_{DOM} - r_{FOR})T} - K)\\
+&amp;= R_0 e^{- r_{FOR}T} - K e^{-r_{DOM}T}
+\end{align*}
+$$</p>
+<p>So, the derivative of the value of the forward contract with respect to the spot is:</p>
+<p>$$\frac{\partial v_{\text{forward}}}{\partial R_0} = e^{-r_{FOR}T}$$</p>
+<p>Using the chain rule and the derivative of the inverse function, we obtain the forward delta:</p>
+<p>$$
+\begin{align*}
+\frac{\partial v_{\text{option}}}{\partial v_{\text{forward}}} &amp;= \frac{\partial v_{\text{option}}}{\partial v_{R_0}} \times \frac{\partial v_{R_0}}{\partial v_{\text{forward}}}\\
+&amp;=\omega e^{-r_{FOR}T}\Phi(\omega d_{+}) \times e^{r_{FOR}T}\\
+&amp;= \omega \Phi(\omega d_{+})
+\end{align*}
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forwardDelta</span>(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION):
+</span></span><span style="display:flex;"><span>    omega <span style="color:#f92672">=</span> callPut<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>    d_plus <span style="color:#f92672">=</span> dPlus(S_t,K,t,T,r_DOM,r_FOR,sigma)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> omega  <span style="color:#f92672">*</span> norm<span style="color:#f92672">.</span>cdf(omega <span style="color:#f92672">*</span> d_plus) <span style="color:#f92672">*</span> CCY1Notional
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>forward_delta <span style="color:#f92672">=</span> forwardDelta(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Forward Delta = </span><span style="color:#e6db74">{</span>forward_delta<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR of forward contracts&#34;</span>)
+</span></span></code></pre></div><pre><code>Forward Delta = 51.803382405811725 EUR of forward contracts
+</code></pre>
+<h2 id="gamma">Gamma.</h2>
+<p>$$
+\begin{align*}
+\frac{\partial^2 V}{\partial S_0^2} &amp;= \omega e^{-r_{FOR}T} \frac{\partial}{\partial S_0}\Phi(\omega d_{+}) \\
+&amp;= \omega e^{-r_{FOR}T} \phi(\omega d_{+}) \frac{\omega}{\sigma S_0 \sqrt{T}}\\
+&amp;= e^{-r_{FOR}T} \frac{\phi(\omega d_{+})}{\sigma S_0 \sqrt{T}}
+\end{align*}
+$$</p>
+<p>The interpretation of the gamma is the change of the delta as the spot changes. A high gamma means that the delta hedge must be adapted very frequently and will cause transaction costs. Gamma is typically high when the spot is near a strike of a barrier, generally, whenever the payoff has a kink or dramatically a jump. Trading systems usually quote gamma as a <em>trader&rsquo;s gamma</em>, using a one percent relative change in the spot price.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">analyticGamma</span>(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION):
+</span></span><span style="display:flex;"><span>    omega <span style="color:#f92672">=</span> callPut<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>    d_plus <span style="color:#f92672">=</span> dPlus(S_t,K,t,T,r_DOM,r_FOR,sigma)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_FOR <span style="color:#f92672">*</span> (T<span style="color:#f92672">-</span>t)) <span style="color:#f92672">*</span> norm<span style="color:#f92672">.</span>cdf(omega <span style="color:#f92672">*</span> d_plus) <span style="color:#f92672">/</span> (sigma <span style="color:#f92672">*</span> S_t <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt(T<span style="color:#f92672">-</span>t)) <span style="color:#f92672">*</span> CCY1Notional
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>gamma <span style="color:#f92672">=</span> analyticGamma(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Analytic Gamma = </span><span style="color:#e6db74">{</span>gamma<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR&#34;</span>)
+</span></span></code></pre></div><pre><code>Analytic Gamma = 533.4269573839681 EUR
+</code></pre>
+<h3 id="theta">Theta.</h3>
+<p>Let $\tau = T- t$, $\frac{\partial \tau}{\partial t} = -1$.</p>
+<p>We first observe that:</p>
+<p>$$
+\begin{align*}
+d_{-} &amp;= d_{+} - \sigma\sqrt{\tau}\\
+\frac{\partial d_{-}}{\partial t} &amp;= \frac{\partial d_{+}}{\partial t} + \frac{\sigma}{2\sqrt{\tau}}
+\end{align*}
+$$</p>
+<p>$$
+\begin{align*}
+\phi (d_{-}) &amp;= \exp\left[-\frac{1}{2}(d_{+} - \sigma \sqrt{\tau})^2\right]\\
+&amp;= \exp\left[-\frac{1}{2}(d_{+}^2 -2 d_{+}\sigma\sqrt{\tau} + \sigma^2 \tau)\right]\\
+&amp;= \exp\left(-\frac{1}{2}d_{+}^2\right) \exp(d_{+}\sigma\sqrt{\tau}) \exp(-\frac{1}{2} \sigma^2 \tau)\\
+&amp;= \phi(d_{+}) \exp\left(\log \frac{S_0}{K} + (r_{DOM} - r_{FOR} + \frac{\sigma^2}{2})\tau\right) \exp(-\frac{1}{2} \sigma^2 \tau)\\
+&amp;= \phi(d_{+}) \frac{S_0}{K} \exp((r_{DOM} - r_{FOR})\tau)\exp(\frac{\sigma^2 \tau}{2}) \exp(-\frac{1}{2} \sigma^2 \tau)\\
+&amp;= \frac{S_0}{K} \cdot \phi(d_{+}) e^{(r_{DOM} - r_{FOR})\tau}
+\end{align*}
+$$</p>
+<p>And since $\phi(\omega d_{\pm}) = \phi(d_{\pm})$, we can write:</p>
+<p>$$\phi(\omega d_{-})= \frac{S_0}{K} \phi(\omega d_{+}) e^{(r_{DOM} - r_{FOR})\tau}$$</p>
+<p>The value function of a vanilla European option is:</p>
+<p>$$v_{\text{option}} = \omega [S_0 e^{-r_{FOR}\tau} \Phi(\omega d_{+}) - K e^{-r_{DOM}\tau} \Phi(\omega d_{-})]$$</p>
+<p>Differentiating with respect to $t$, we get:</p>
+<p>$$\frac{\partial v_{\text{option}}}{\partial t} = \omega[S_0 \frac{\partial }{\partial t}e^{-r_{FOR}\tau}\Phi(\omega d_{+}) - K \frac{\partial }{\partial t} e^{-r_{DOM}\tau}\Phi(\omega d_{-})]$$</p>
+<p>The first term can be expressed as:</p>
+<p>$$
+\begin{align*}
+\frac{\partial }{\partial t} e^{-r_{FOR}\tau} \Phi(\omega d_{+}) &amp;= r_{FOR}e^{-r_{FOR}\tau}\Phi(\omega d_{+}) + \omega e^{-r_{FOR}\tau} \phi(\omega d_{+}) \frac{\partial d_{+}}{\partial t}
+\end{align*}
+$$</p>
+<p>The second term can be expressed as:</p>
+<p>$$
+\begin{align*}
+\frac{\partial }{\partial t} e^{-r_{DOM}\tau}\Phi(\omega d_{-}) &amp;= r_{DOM}e^{-r_{DOM}\tau}\Phi(\omega d_{-}) + \omega  e^{-r_{DOM}\tau}\phi(\omega d_{-}) \frac{\partial d_{-}}{\partial t}\\
+&amp;=r_{DOM}e^{-r_{DOM}\tau}\Phi(\omega d_{-}) + \omega \cdot \frac{S_0}{K}  e^{-r_{DOM}\tau}\phi(\omega d_{+}) e^{(r_{DOM} - r_{FOR})\tau}\left(\frac{\partial d_{+}}{\partial t} + \frac{\sigma}{2\sqrt{\tau}}\right)\\
+&amp;=r_{DOM}e^{-r_{DOM}\tau}\Phi(\omega d_{-}) + \omega \cdot \frac{S_0}{K}  e^{-r_{FOR}\tau}\phi(\omega d_{+}) \left(\frac{\partial d_{+}}{\partial t} + \frac{\sigma}{2\sqrt{\tau}}\right)\\
+\end{align*}
+$$</p>
+<p>Collecting the two terms we have:</p>
+<p>$$
+\begin{align*}
+&amp;S_0 \frac{\partial }{\partial t} e^{-r_{FOR}\tau} \Phi(\omega d_{+}) - K \frac{\partial }{\partial t} e^{-r_{DOM}\tau}\Phi(\omega d_{-}) \\
+=&amp; S_0 r_{FOR}e^{-r_{FOR}\tau}\Phi(\omega d_{+}) + \omega S_0 e^{-r_{FOR}\tau} \phi(\omega d_{+}) \frac{\partial d_{+}}{\partial t}\\
+-&amp; K r_{DOM}e^{-r_{DOM}\tau}\Phi(\omega d_{-}) - \omega S_0  e^{-r_{FOR}\tau}\phi(\omega d_{+}) \left(\frac{\partial d_{+}}{\partial t} + \frac{\sigma}{2\sqrt{\tau}}\right)\\
+=&amp; S_0 r_{FOR}e^{-r_{FOR}\tau}\Phi(\omega d_{+}) - K r_{DOM}e^{-r_{DOM}\tau}\Phi(\omega d_{-}) - \omega S_0  e^{-r_{FOR}\tau}\phi(\omega d_{+}) \frac{\sigma}{2\sqrt{\tau}}
+\end{align*}
+$$</p>
+<p>Therefore,</p>
+<p>$$
+\begin{align*}
+\frac{\partial v_{\text{option}}}{\partial t} &amp;= \omega [S_0 r_{FOR}e^{-r_{FOR}\tau}\Phi(\omega d_{+}) - K r_{DOM}e^{-r_{DOM}\tau}\Phi(\omega d_{-})] \\
+&amp;- S_0  e^{-r_{FOR}\tau}\phi(\omega d_{+}) \frac{\sigma}{2\sqrt{\tau}}
+\end{align*}
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">analyticTheta</span>(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION):    
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    omega <span style="color:#f92672">=</span> callPut<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>    FOR_df <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_FOR<span style="color:#f92672">*</span>(T<span style="color:#f92672">-</span>t)); DOM_df <span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_DOM<span style="color:#f92672">*</span>(T<span style="color:#f92672">-</span>t));
+</span></span><span style="display:flex;"><span>    dplus <span style="color:#f92672">=</span> dPlus(S_t,K,t,T,r_DOM,r_FOR,sigma); dminus <span style="color:#f92672">=</span> dMinus(S_t,K,t,T,r_DOM,r_FOR,sigma);
+</span></span><span style="display:flex;"><span>    Nd1 <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>cdf(omega <span style="color:#f92672">*</span> dplus); Nd2 <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>cdf(omega <span style="color:#f92672">*</span> dminus)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    theta <span style="color:#f92672">=</span> (omega <span style="color:#f92672">*</span> (S_t <span style="color:#f92672">*</span> r_FOR <span style="color:#f92672">*</span> FOR_df <span style="color:#f92672">*</span> Nd1 <span style="color:#f92672">-</span> K <span style="color:#f92672">*</span> r_DOM <span style="color:#f92672">*</span> DOM_df <span style="color:#f92672">*</span> Nd2) 
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">-</span> S_t <span style="color:#f92672">*</span> FOR_df <span style="color:#f92672">*</span> Nd1 <span style="color:#f92672">*</span> (sigma <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt(T<span style="color:#f92672">-</span>t)))) <span style="color:#f92672">*</span> CCY1Notional
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> theta
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>theta <span style="color:#f92672">=</span> analyticTheta(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Analytic Theta = </span><span style="color:#e6db74">{</span>theta<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
+</span></span></code></pre></div><pre><code>Analytic Theta = -3.04597416111385 USD
+</code></pre>
+<p>Theta reflects the change of the option value as the clock ticks. The <em>trader&rsquo;s theta</em> in a risk-management system refers to the change in the option value in one day, i.e. it can be approximated by $365 \frac{\partial v}{\partial t}$.</p>
+<h3 id="vega">Vega.</h3>
+<p>$$
+\begin{align*}
+\frac{\partial v}{\partial \sigma} &amp;= \omega[S_0 e^{-r_{FOR}\tau} \frac{\partial}{\partial \sigma}\Phi(\omega d_{+}) - K e^{-r_{DOM}\tau} \frac{\partial}{\partial \sigma}\Phi(\omega d_{-})]\\
+&amp;= \omega[S_0 e^{-r_{FOR}\tau} \phi(\omega d_{+})\frac{\partial d_{+}}{\partial \sigma} - K e^{-r_{DOM}\tau} \phi(\omega d_{-}) \frac{\partial d_{-}}{\partial \sigma}]
+\end{align*}
+$$</p>
+<p>Note that, $d_{-} = d_{+} - \sigma\sqrt{\tau}$, so $\frac{\partial d_{-}}{\partial \sigma} = \frac{\partial d_{+}}{\partial \sigma} - \sqrt{\tau}$.</p>
+<p>Also, $\phi(\omega d_{-})=\frac{K}{S_0}e^{(r_{DOM} - r_{FOR})\tau}\phi(\omega d_{+})$.</p>
+<p>Plugging these two facts in the expression for option vega, we get:</p>
+<p>$$
+\begin{align*}
+\frac{\partial v}{\partial \sigma}  &amp;= \omega[S_0 e^{-r_{FOR}\tau} \phi(\omega d_{+})\frac{\partial d_{+}}{\partial \sigma} \\
+&amp;- K e^{-r_{DOM}\tau} \frac{K}{S_0}e^{(r_{DOM} - r_{FOR})\tau}\phi(\omega d_{+}) \left(\frac{\partial d_{+}}{\partial \sigma} - \sqrt{\tau}\right)]\\
+&amp;= S_0 e^{-r_{FOR}\tau} \phi(\omega d_{+}) \sqrt{\tau}
+\end{align*}
+$$</p>
+<h3 id="vanna">Vanna.</h3>
+<p>The vanna is <em>dvega/dspot</em>. It reflects the change in the vega as the spot moves.</p>
+<p>$$
+\begin{align*}
+\frac{\partial^2 v}{\partial \sigma \partial S_0} &amp;= \frac{\partial}{\partial S_0} \left(\frac{\partial v}{\partial \sigma}\right)\\
+&amp;= e^{-r_{FOR}\tau} \sqrt{\tau}\cdot \frac{\partial}{\partial S_0}(S_0\phi(\omega d_{+}))\\
+&amp;= e^{-r_{FOR}\tau} \sqrt{\tau}(\phi(\omega d_{+}) + S_0 \frac{\partial}{\partial S_0}\phi(\omega d_{+}))\\
+&amp;= e^{-r_{FOR}\tau} \sqrt{\tau}(\phi(\omega d_{+}) + \omega S_0 \frac{\partial}{\partial d_{+}}\phi(\omega d_{+})\cdot \frac{\partial d_{+}}{\partial S_0})\\
+&amp;= e^{-r_{FOR}\tau} \sqrt{\tau}(\phi(\omega d_{+}) + \omega S_0\frac{1}{\sqrt{2\pi}} \cdot\frac{\partial}{\partial d_{+}}\exp(-d_{+}^2/2)\cdot \frac{1}{\sigma S_0 \sqrt{\tau}})\\
+&amp;= e^{-r_{FOR}\tau} \sqrt{\tau}(\phi(\omega d_{+}) + \omega \frac{1}{\sqrt{2\pi}}e^{-d_{+}^2/2} (-d_{+})\cdot \frac{1}{\sigma \sqrt{\tau}})\\
+&amp;= e^{-r_{FOR}\tau} \sqrt{\tau}\phi(\omega d_{+})(1 -  \frac{d_{+}}{\sigma \sqrt{\tau}})\\
+&amp;= -e^{-r_{FOR}\tau} \phi(\omega d_{+})\frac{d_{-}}{\sigma}
+\end{align*}
+$$</p>
+<h3 id="volga">Volga.</h3>
+<p>The volga is <em>dvega/dvol</em>. It reflects the change in the vega as the vol moves.</p>
+
 </article>
 
 
