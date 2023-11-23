@@ -223,6 +223,40 @@ $$</p>
 &amp;= \exp\left[\omega^2((r_{FOR} - r_{DOM})T)\right](K/S_0)^{\omega^2}
 \end{align*}
 $$</p>
+<p>Also,</p>
+<p>$$S_0 e^{-r_{FOR}\tau} \phi(d_{+}) = K e^{-r_{DOM}\tau} \phi(d_{-})$$</p>
+<p><em><strong>Proposition.</strong></em> The following recurring identities hold:</p>
+<p>(a) $\frac{\partial d_{+}}{\partial \sigma} = -\frac{d_{\mp}}{\sigma}$</p>
+<p><em><strong>Proof.</strong></em></p>
+<p>We have:</p>
+<p>$$
+\begin{align*}
+\frac{\partial d_{\pm}}{\partial \sigma} &amp;= \frac{\partial}{\partial \sigma}\left(\frac{\log (F/K)}{\sigma \sqrt{\tau}} + \frac{1}{2}\sigma{\sqrt{\tau}}\right)\\
+&amp;= \left(\frac{-\log (F/K)}{\sigma^2 \sqrt{\tau}} \pm \frac{1}{2}{\sqrt{\tau}}\right)\\
+&amp;= -\left(\frac{\log (F/K)}{\sigma^2 \sqrt{\tau}} \mp \frac{\frac{\sigma^2}{2}\tau}{\sigma^2 \sqrt{\tau}}\right)\\
+&amp;= -\frac{1}{\sigma}\left(\frac{\log (F/K) \mp \frac{\sigma^2}{2}\tau}{\sigma \sqrt{\tau}}\right)\\
+&amp;= -\frac{d_{\mp}}{\sigma}
+\end{align*}
+$$</p>
+<p>(b) $\frac{\partial d_{\pm}}{\partial r_{DOM}} = \frac{\sqrt{\tau}}{\sigma}$</p>
+<p><em><strong>Proof.</strong></em></p>
+<p>We have:</p>
+<p>$$
+\begin{align*}
+\frac{\partial d_{\pm}}{\partial r_{DOM}} &amp;= \frac{\partial }{\partial r_{DOM}}\frac{\log (S_0/K) + (r_{DOM} - r_{FOR})\tau \pm (\sigma^2/2)\tau}{\sigma \sqrt{\tau}}\\
+&amp;= \frac{\tau}{\sigma \sqrt{\tau}}\frac{\partial}{\partial {r_{DOM}}}(r_{DOM} - r_{FOR})\\
+&amp;= \frac{\sqrt{\tau}}{\sigma}
+\end{align*}
+$$</p>
+<p>(c) $\frac{\partial d_{\pm}}{\partial r_{FOR}}= - \frac{\sqrt{\tau}}{\sigma}$</p>
+<p><em><strong>Proof.</strong></em></p>
+<p>We have:</p>
+<p>$$
+\begin{align*}
+\frac{\partial d_{\pm}}{\partial r_{FOR}} &amp;= \frac{\sqrt{\tau}}{\sigma}\frac{\partial}{\partial {r_{FOR}}} (r_{DOM} - r_{FOR})\\
+&amp;= -\frac{\sqrt{\tau}}{\sigma}
+\end{align*}
+$$</p>
 <h3 id="pips-spot-delta">Pips Spot Delta</h3>
 <p>The pips spot delta is simply the derivative of the option price with respect to the spot rate - both expressed in ccy2/ccy1 terms.</p>
 <p>$$\Delta_{S;\text{pips}} = \frac{\partial V_{d;\text{pips}}}{\partial S_0}$$</p>
@@ -421,7 +455,24 @@ $$</p>
 $$</p>
 <h3 id="volga">Volga.</h3>
 <p>The volga is <em>dvega/dvol</em>. It reflects the change in the vega as the vol moves.</p>
-
+<p>We have:</p>
+<p>$$
+\begin{align*}
+\frac{d^2 v}{d\sigma^2} &amp;= \frac{\partial}{\partial \sigma} \left(S_0 e^{-r_{FOR}\tau} \phi(\omega d_{+}) \sqrt{\tau}\right)\\
+&amp;=S_0 e^{-r_{FOR}\tau} \sqrt{\tau} \cdot \frac{\partial}{\partial \sigma} \phi(\omega d_{+})\\
+&amp;=S_0 e^{-r_{FOR}\tau} \sqrt{\tau} \cdot \frac{\partial}{\partial d_{+}}(\phi(\omega d_{+}))\cdot \frac{\partial}{\partial \sigma} d_{+}\\
+&amp;=S_0 e^{-r_{FOR}\tau} \sqrt{\tau} \cdot (-d_{+})\phi(\omega d_{+})\cdot \frac{-d_{-}}{\sigma}\\
+&amp;=S_0 e^{-r_{FOR}\tau} \sqrt{\tau} \phi(\omega d_{+})\frac{d_{+}d_{-}}{\sigma}
+\end{align*}
+$$</p>
+<h2 id="rho">Rho.</h2>
+<p>$$
+\begin{align*}
+\frac{\partial v}{\partial r_{DOM}} &amp;= \omega \frac{\partial}{\partial r_{DOM}}\left(S_0 e^{-r_{FOR} \tau} \Phi(\omega d_{+}) - K e^{-r_{DOM}\tau} \Phi(\omega d_{-})\right)\\
+&amp;= \omega \left[S_0\right]
+\end{align*}
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"></code></pre></div>
 </article>
 
 
