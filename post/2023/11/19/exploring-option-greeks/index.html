@@ -80,8 +80,7 @@
 <p>$$Bl(S_0,K,T,r_{DOM},r_{FOR},\sigma_{\text{imp}}) = V_{\text{market}}$$</p>
 <p>This value $\sigma_{\text{imp}}$ implied from the market price of the option is called the <strong>implied volatility</strong>.</p>
 <p>Thus, although the BS model suffers from flaws, it is mainly used as a quote converter. In the FX options market, option prices are quoted in terms of implied volatilities. The BS formula is used to convert implied vols $\sigma_{\text{imp}}$ to prices and vice versa. The delta hedge to be exchanged between counterparties is calculated according to the BS formula, and this is also true for the Vega hedge of various exotic options. In many cases, the model is also used to run trading books.</p>
-<p>Market conventions used in the FX markets are usually specified in terms of the price and vol attributes of options with various delta characteristics. So, it&rsquo;s nice to explore the intricacies of various types of FX delta and how they are used in the description of market volatility surfaces. The entire concept of the FX volatility smile is based on the parametrization with respect to delta.</p>
-<p>I walk-through the various market conventions used in practice.</p>
+<p>In this note, I explore various delta conventions and derive the greeks. Check out <a href="https://mathfinance.com/wp-content/uploads/2017/06/CPQF_Arbeits20_neu2.pdf">FX Vol smile</a> by Wyestup! The entire concept of the FX volatility smile is based on the parametrization with respect to delta.</p>
 <h2 id="quote-style-conversions">Quote style conversions.</h2>
 <p>In FX markets, options are quoted in one of 4 quote styles - domestic per foreign (d/f), percentage foreign (%f), percentage domestic (%d) and foreign per domestic (f/d).</p>
 <p>The standard Black-Scholes formula is:</p>
@@ -107,6 +106,7 @@ $$</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
 </span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> norm
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> enum <span style="color:#f92672">import</span> Enum
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># An FX option is the right to exchange 1 unit notional of the </span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># foreign currency for K units of the domestic currency at time T. </span>
@@ -141,18 +141,42 @@ $$</p>
 </span></span><span style="display:flex;"><span>    pv <span style="color:#f92672">=</span> domesticDF <span style="color:#f92672">*</span> undiscountedPrice <span style="color:#f92672">*</span> CCY1Notional
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pv
 </span></span></code></pre></div><h4 id="computing-the-atm-forward-and-the-option-price">Computing the ATM-Forward and the option price</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; K<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0710</span> ; t<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span> ;T<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span> ; r_DOM<span style="color:#f92672">=</span><span style="color:#ae81ff">0.041039868</span> ; r_FOR<span style="color:#f92672">=</span> <span style="color:#ae81ff">0.025860353</span>; sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">0.08971</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; K<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0710350214586397</span> ; t<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span> ;T<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span> ; 
+</span></span><span style="display:flex;"><span>r_DOM<span style="color:#f92672">=</span><span style="color:#ae81ff">0.041039868</span> ; r_FOR<span style="color:#f92672">=</span> <span style="color:#ae81ff">0.025860353</span>; sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">0.08971</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ATMForward <span style="color:#f92672">=</span> atTheMoneyForward(S_t,K,t,T,r_DOM,r_FOR,sigma)
+</span></span><span style="display:flex;"><span>forward <span style="color:#f92672">=</span> atTheMoneyForward(S_t,K,t,T,r_DOM,r_FOR,sigma)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>call_price <span style="color:#f92672">=</span> PV(S_t,K,t,T,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
 </span></span><span style="display:flex;"><span>put_price <span style="color:#f92672">=</span> PV(S_t,K,t,T,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>PUT_OPTION)
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;At the money forward = </span><span style="color:#e6db74">{</span>ATMForward<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Call Price = </span><span style="color:#e6db74">{</span>call_price<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Put Price = </span><span style="color:#e6db74">{</span>put_price<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
-</span></span></code></pre></div><pre><code>At the money forward = 1.0710350214586397 USD
-Call Price = 3.679399488751329 USD
-Put Price = 3.676038161145839 USD
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Notional = </span><span style="color:#e6db74">{</span>CCY1Notional<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">At the money forward = </span><span style="color:#e6db74">{</span>forward<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Call Price = </span><span style="color:#e6db74">{</span>call_price<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD pips&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Put Price = </span><span style="color:#e6db74">{</span>put_price<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD pips&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Call price = </span><span style="color:#e6db74">{</span>call_price<span style="color:#f92672">/</span>S_t<span style="color:#e6db74">}</span><span style="color:#e6db74"> % EUR&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Put price = </span><span style="color:#e6db74">{</span>put_price<span style="color:#f92672">/</span>S_t<span style="color:#e6db74">}</span><span style="color:#e6db74"> % EUR&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Call price = </span><span style="color:#e6db74">{</span>call_price<span style="color:#f92672">/</span>K<span style="color:#e6db74">}</span><span style="color:#e6db74"> % USD&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Put price = </span><span style="color:#e6db74">{</span>put_price<span style="color:#f92672">/</span>K<span style="color:#e6db74">}</span><span style="color:#e6db74"> % USD&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Call price = </span><span style="color:#e6db74">{</span>call_price<span style="color:#f92672">/</span>(S_t <span style="color:#f92672">*</span> K)<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR pips&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Put price = </span><span style="color:#e6db74">{</span>put_price<span style="color:#f92672">/</span>(S_t <span style="color:#f92672">*</span> K)<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR pips&#34;</span>)
+</span></span></code></pre></div><pre><code>Notional = 100.0 EUR
+
+At the money forward = 1.0710350214586397 USD
+
+Call Price = 3.6777787101031754 USD pips
+Put Price = 3.6777787101031754 USD pips
+
+Call price = 3.4863766329540007 % EUR
+Put price = 3.4863766329540007 % EUR
+
+Call price = 3.4338547633058893 % USD
+Put price = 3.4338547633058893 % USD
+
+Call price = 3.2551471829613132 EUR pips
+Put price = 3.2551471829613132 EUR pips
 </code></pre>
 <h4 id="plotting-the-option-price-against-the-ccy1ccy2-spot">Plotting the option price against the CCY1CCY2 spot</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
@@ -160,12 +184,12 @@ Put Price = 3.676038161145839 USD
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Plot of EUR Call/USD Put Option price&#39;</span>)
 </span></span><span style="display:flex;"><span>S_t <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0.90</span>,<span style="color:#ae81ff">1.24</span>,<span style="color:#ae81ff">201</span>)
-</span></span><span style="display:flex;"><span>CCY1Notional <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.00</span>
+</span></span><span style="display:flex;"><span>CCY1Notional <span style="color:#f92672">=</span> <span style="color:#ae81ff">100.00</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>call_price_1y <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">1.0</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;EURUSD FX spot&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Option price (USD)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Call option price (USD pips)&#39;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,call_price_1y)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
@@ -179,12 +203,33 @@ Put Price = 3.676038161145839 USD
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;EURUSD FX spot&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Option price (USD)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Put option price (USD pips)&#39;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,put_price_1y)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><p><img src="./../../../../exploring-option-greeks02.png" alt="png"></p>
+<h2 id="outright-forward-rate">Outright forward rate.</h2>
+<p>Consider a contract with payoff at time $T$, $V_T = R_T - K$. The value of this claim at time zero is:</p>
+<p>$$
+\begin{align*}
+v_0 &amp;= e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[R_T - K]\\
+&amp;= e^{-r_{DOM}T}(R_0 \mathbb{E}^{\mathbb{Q}^d}[e^{(r_{DOM} - r_{FOR} - (\sigma^2/2))T + \sigma \sqrt{T} Z}] - K)\\
+&amp;= e^{-r_{DOM}T}(R_0 e^{(r_{DOM} - r_{FOR})T} - K)\\
+&amp;= R_0 e^{- r_{FOR}T} - K e^{-r_{DOM}T}
+\end{align*}
+$$</p>
+<p>The forward price(strike) $K=F_{0,T}$ is set such that, the value of the contract at time zero is $0$. So,</p>
+<p>$$
+F_{0,T} = K =R_0 e^{(r_{DOM}-r_{FOR})T}
+$$</p>
+<h2 id="put-call-parity">Put call parity.</h2>
+<p>We know that,</p>
+<p>$$(S_T - K)^{+} - (K - S_T)^{+} = (S_T - K)$$</p>
+<p>By the risk-neutral-pricing formula:</p>
+<p>$$\mathbb{E}^{\mathbb{Q}^d}[e^{-r_{DOM}T}(S_T - K)^{+}|\mathcal{F_t}] - \mathbb{E}^{\mathbb{Q}^d}[e^{-r_{DOM}T}(K - S_T)^{+}|\mathcal{F_t}] = \mathbb{E}^{\mathbb{Q}^d}[e^{-r_{DOM}T}(S_T - K)|\mathcal{F_t}]$$</p>
+<p>Thus,</p>
+<p>$$V_{\text{call}}(t,T) - V_{\text{put}}(t,T) = e^{-r_{FOR}T}S_t - e^{-r_{DOM}T} K = F(t,T)$$</p>
 <p>To derive the deltas, we use the following propositions, which are really easy to prove.</p>
 <p><em><strong>Proposition.</strong></em></p>
 <p>$$\frac{\partial d_{+}}{\partial S_0} = \frac{\partial d_{-}}{\partial S_0} = \frac{1}{\sigma S_0 \sqrt{T}}$$</p>
@@ -257,6 +302,8 @@ $$</p>
 &amp;= -\frac{\sqrt{\tau}}{\sigma}
 \end{align*}
 $$</p>
+<h2 id="delta">Delta</h2>
+<p>The delta of an option is the percentage of the foreign notional one must buy when you have a short position in an FX option. For instance, a delta of 0.35 indicates buying $35%$ of the foreign notional to delta hedge the short position. In FX markets, we distinguish between spot delta for a hedge in the spot market and forward delta for a hedge in the outright forward markets.</p>
 <h3 id="pips-spot-delta">Pips Spot Delta</h3>
 <p>The pips spot delta is simply the derivative of the option price with respect to the spot rate - both expressed in ccy2/ccy1 terms.</p>
 <p>$$\Delta_{S;\text{pips}} = \frac{\partial V_{d;\text{pips}}}{\partial S_0}$$</p>
@@ -277,11 +324,13 @@ $$</p>
 </span></span><span style="display:flex;"><span>    omega <span style="color:#f92672">=</span> callPut<span style="color:#f92672">.</span>value
 </span></span><span style="display:flex;"><span>    d_plus <span style="color:#f92672">=</span> dPlus(S_t,K,t,T,r_DOM,r_FOR,sigma)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> omega <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_FOR <span style="color:#f92672">*</span> (T<span style="color:#f92672">-</span>t)) <span style="color:#f92672">*</span> norm<span style="color:#f92672">.</span>cdf(omega <span style="color:#f92672">*</span> d_plus) <span style="color:#f92672">*</span> CCY1Notional
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.0</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>pips_spot_delta <span style="color:#f92672">=</span> analyticDelta(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Spot Delta = </span><span style="color:#e6db74">{</span>pips_spot_delta<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR&#34;</span>)
-</span></span></code></pre></div><pre><code>Spot Delta = 50.48090225276146 EUR
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Call option Spot Delta = </span><span style="color:#e6db74">{</span>pips_spot_delta<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Spot Delta in percentage = </span><span style="color:#e6db74">{</span>pips_spot_delta<span style="color:#f92672">/</span>CCY1Notional <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> percent&#34;</span>)
+</span></span></code></pre></div><pre><code>Call option Spot Delta = 50.466746420569166 EUR
+Spot Delta in percentage = 50.466746420569166 percent
 </code></pre>
 <h4 id="plotting-the-analytic-delta-of-call-options">Plotting the Analytic Delta of call options</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close()
@@ -298,27 +347,19 @@ $$</p>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(loc<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;upper left&#34;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><p><img src="./../../../../exploring-option-greeks03.png" alt="png"></p>
-<h3 id="forward-delta">Forward Delta</h3>
-<p>The interpretation of the foward delta is the number of units of FOR of forward contracts a trader needs to buy to delta hedge a short option position. According to Wystup, if we translate this hedge ratio in calculus, it means that we need to compute (for a call)</p>
+<h3 id="pips-forward-delta">Pips Forward Delta</h3>
+<p>The interpretation of the foward delta is the number of units of FOR of forward contracts a trader needs to buy to delta hedge a short option position.</p>
+<p>It is the ratio of the change in the FV of the option with respect to the change in value of the outright forward.</p>
 <p>$$
-\frac{\partial v_{\text{option}}}{\partial v_{\text{forward}}}
-$$</p>
-<p>The value of a forward contract $v_{\text{forward}}$ for an agreed forward exchange rate $K$ is:</p>
-<p>$$
-\begin{align*}
-v_{\text{forward}} &amp;= e^{-r_{DOM}T}\mathbb{E}^{\mathbb{Q}^d}[R_T - K]\\
-&amp;= e^{-r_{DOM}T}(R_0 \mathbb{E}^{\mathbb{Q}^d}[e^{(r_{DOM} - r_{FOR} - (\sigma^2/2))T + \sigma \sqrt{T} Z}] - K)\\
-&amp;= e^{-r_{DOM}T}(R_0 e^{(r_{DOM} - r_{FOR})T} - K)\\
-&amp;= R_0 e^{- r_{FOR}T} - K e^{-r_{DOM}T}
-\end{align*}
+\Delta_{\text{F;pips}}=e^{r_{DOM}T}\frac{\partial v_{\text{option}}}{\partial F_{0,T}}
 $$</p>
 <p>So, the derivative of the value of the forward contract with respect to the spot is:</p>
-<p>$$\frac{\partial v_{\text{forward}}}{\partial R_0} = e^{-r_{FOR}T}$$</p>
+<p>$$\frac{\partial F_{0,T}}{\partial R_0} = e^{(r_{DOM} - r_{FOR})T}$$</p>
 <p>Using the chain rule and the derivative of the inverse function, we obtain the forward delta:</p>
 <p>$$
 \begin{align*}
-\frac{\partial v_{\text{option}}}{\partial v_{\text{forward}}} &amp;= \frac{\partial v_{\text{option}}}{\partial v_{R_0}} \times \frac{\partial v_{R_0}}{\partial v_{\text{forward}}}\\
-&amp;=\omega e^{-r_{FOR}T}\Phi(\omega d_{+}) \times e^{r_{FOR}T}\\
+e^{r_{DOM}T}\frac{\partial v_{\text{option}}}{\partial F_{0,T}} &amp;= e^{r_{DOM}T}\frac{\partial v_{\text{option}}}{\partial R_0} \times \frac{\partial R_0}{\partial F_{0,T}}\\
+&amp;=e^{r_{DOM}T} \cdot \omega e^{-r_{FOR}T}\Phi(\omega d_{+}) \times e^{(r_{FOR}- r_{DOM})T}\\
 &amp;= \omega \Phi(\omega d_{+})
 \end{align*}
 $$</p>
@@ -329,8 +370,25 @@ $$</p>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>forward_delta <span style="color:#f92672">=</span> forwardDelta(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Forward Delta = </span><span style="color:#e6db74">{</span>forward_delta<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR of forward contracts&#34;</span>)
-</span></span></code></pre></div><pre><code>Forward Delta = 51.803382405811725 EUR of forward contracts
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Forward Delta = </span><span style="color:#e6db74">{</span>forward_delta <span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR of forward contracts&#34;</span>)
+</span></span></code></pre></div><pre><code>Forward Delta = 51.78885572432219 EUR of forward contracts
+</code></pre>
+<h3 id="percentage-spot-premium-adjusted-delta">Percentage Spot (Premium-adjusted) Delta.</h3>
+<p>The percentage spot delta is the ratio of the change in the PV of the option expressed in FOR currency terms - to the change in the spot - expressed in FOR currency terms.</p>
+<p>$$
+\begin{align*}
+\Delta_{S;\%} &amp;= \frac{\partial V_{\% f}}{(\partial S_0)/S_0}\\
+&amp;= S_0 \times \frac{\partial}{\partial S_0}\left(\frac{V_{\text{d;pips}}}{S_0}\right)\\
+&amp;= S_0 \times \frac{S_0 \frac{\partial V_{\text{d;pips}}}{\partial S_0} - V_{\text{d;pips}} \frac{\partial (S_0)}{\partial S_0}}{S_0^2}\\
+&amp;= \frac{(\partial V_{\text{d;pips}}/\partial S_0)S_0 -  V_{\text{d;pips}}}{S_0}\\
+&amp;= \frac{\partial V_{\text{d;pips}}}{\partial S_0} - \frac{V_{\text{d;pips}}}{S_0}\\
+&amp;= \Delta_{\text{S;pips}} - V_{\% f}
+\end{align*}
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>premiumAdjustedDelta <span style="color:#f92672">=</span> pips_spot_delta <span style="color:#f92672">-</span> (call_price<span style="color:#f92672">/</span>S_t)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Premium Adjusted Delta = </span><span style="color:#e6db74">{</span>premiumAdjustedDelta<span style="color:#e6db74">}</span><span style="color:#e6db74"> percent&#34;</span>)
+</span></span></code></pre></div><pre><code>Premium Adjusted Delta = 46.98036978761517 percent
 </code></pre>
 <h2 id="gamma">Gamma.</h2>
 <p>$$
@@ -472,6 +530,50 @@ $$</p>
 &amp;= \omega \left[S_0\right]
 \end{align*}
 $$</p>
+<h2 id="at-the-money-definitions">At-The-Money Definitions</h2>
+<p>The At-the-Money option, as the name suggests, is meant to correspond to, being midway between in-the-money and out-of-the-money. In practice, this is not as obvious:</p>
+<p>ATM-Spot :</p>
+<p>$$K = S_0$$</p>
+<p>ATM Forward :</p>
+<p>$$K = F_{0,T}$$</p>
+<p>ATM value neutral straddle :</p>
+<p>$$K \text{ such that call value = put value}$$</p>
+<p>ATM delta neutral straddle :</p>
+<p>$$K \text{ such that call delta = -put delta}$$</p>
+<p>Since $V_{call} = V_{put}$, when $K = F_{0,T}$, <strong>ATM-value neutral</strong> is equivalent to <strong>ATMF</strong>.</p>
+<h3 id="at-the-money-dnsdelta-neutral-strike">At-the-money DNS(Delta-neutral-strike)</h3>
+<p>A more natural way to define an ATM strike is the strike $K_{ATM}$ for which it possible to buy a straddle (long call + long put with strike $K_{ATM}$) that  correponds to a pure long vega position with no net delta. This is called the <strong>Delta-Neutral-Straddle</strong> (DNS) and has the advantage that such a trade can be effected without and spot or forward hedge being needed.</p>
+<p>The <strong>Delta-Neutral-Straddle</strong> is defined by $K_{ATM} = K_{DNS}$ where $K_{DNS}$ is chosen such that:</p>
+<p>$$ \Delta_{Q}(\text{Call Option}) + \Delta_{Q}(\text{Put Option}) = 0$$</p>
+<p>or equivalently,</p>
+<p>$$ \Delta_{Q}(\omega=+1,K_{DNS},T,\sigma_{ATM}) + \Delta_{Q}(\omega=-1,K_{DNS},T,\sigma_{ATM}) = 0$$</p>
+<p>where $Q$ is the quote convention for the option delta. Now, the deltas can be quoted as spot delta, forward delta, percentage spot delta or percentage forward delta.</p>
+<p>Let&rsquo;s actually solve $K_{DNS}$ analytically in the simplest case of spot and foward delta.</p>
+<p>We attempt to solve:</p>
+<p>$$
+(+1)\Phi\left(+\frac{\log(F/K) + (\sigma_{ATM}^2/2)T}{\sigma\sqrt{T}}\right) + (-1)\Phi\left(-\frac{\log(F/K) + (\sigma_{ATM}^2/2)T}{\sigma\sqrt{T}}\right)=0
+$$</p>
+<p>$$
+\Phi\left(+\frac{\log(F/K) + (\sigma_{ATM}^2/2)T}{\sigma\sqrt{T}}\right) =\Phi\left(-\frac{\log(F/K) + (\sigma_{ATM}^2/2)T}{\sigma\sqrt{T}}\right)
+$$</p>
+<p>Since $\ln(\cdot)$ is monotonic, it follows that:</p>
+<p>$$
+\begin{align*}
+2\log(F/K) + 2(\sigma_{ATM}^2/2)T &amp;= 0\\
+\log(F/K) &amp;= - (\sigma_{ATM}^2/2)T \\
+\log(K/F) &amp;= (\sigma_{ATM}^2/2)T\\
+K_{DNS} &amp;= F_{0,T} e^{\frac{\sigma_{\text{ATM}}^2}{2}T}
+\end{align*}
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>K_DNS <span style="color:#f92672">=</span> forward <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(((sigma<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>T)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;ATM delta-neutral Strike = </span><span style="color:#e6db74">{</span>K_DNS<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>ATM delta-neutral Strike = 1.0753534871192036
+</code></pre>
+<h2 id="market-strangles">Market Strangles</h2>
+<p>Suppose that we neglect the effect of volatility skew and presume that volatility, while non-constant across various strikes, is basically symmetric. The concept of the market strangle is that we buy an out-of-the-money put and an out-of-the-money call with strikes placed a similar distance away from the at-the-money strike in moneyness terms. For clarity, let&rsquo;s suppose, we are talking about the 25-delta market strangle, though the market strangle for any delta is pretty similar.</p>
+<p>The idea here is that, without needing to know the actual volatility smile, we can estimate the volatility that is needed to price a market strangle instrument consistently with the market, by taking the at-the-money volatility and adding a strangle premium $\sigma_{25-d-ms}$ to it. The premium thus added, in volatility terms, is called the market strangle.</p>
+<p>The important point to make is that the strikes for calls and puts are both calculated subject to the Black-Scholes model with constant volatility of $\sigma_{ATM} + \sigma_{25-d-ms}$; these strikes are known as market strangle strikes $K_{25-d-c-ms}$ and $K_{25-d-p-ms}$. With that, we obtain strikes for calls and puts that have deltas of $+0.25$ and $-0.25$ respectively.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"></code></pre></div>
 </article>
 
