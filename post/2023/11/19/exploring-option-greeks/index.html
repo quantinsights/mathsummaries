@@ -141,8 +141,8 @@ $$</p>
 </span></span><span style="display:flex;"><span>    pv <span style="color:#f92672">=</span> domesticDF <span style="color:#f92672">*</span> undiscountedPrice <span style="color:#f92672">*</span> CCY1Notional
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pv
 </span></span></code></pre></div><h4 id="computing-the-atm-forward-and-the-option-price">Computing the ATM-Forward and the option price</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; K<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0710350214586397</span> ; t<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span> ;T<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span> ; 
-</span></span><span style="display:flex;"><span>r_DOM<span style="color:#f92672">=</span><span style="color:#ae81ff">0.041039868</span> ; r_FOR<span style="color:#f92672">=</span> <span style="color:#ae81ff">0.025860353</span>; sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">0.08971</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>S_t<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0549</span> ; K<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0710350214586397</span> ; t<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span> ;T<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span> ; r_DOM<span style="color:#f92672">=</span><span style="color:#ae81ff">0.041039868</span> ; 
+</span></span><span style="display:flex;"><span>r_FOR<span style="color:#f92672">=</span> <span style="color:#ae81ff">0.025860353</span>; sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">0.08971</span> ; CCY1Notional<span style="color:#f92672">=</span><span style="color:#ae81ff">100.00</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>forward <span style="color:#f92672">=</span> atTheMoneyForward(S_t,K,t,T,r_DOM,r_FOR,sigma)
 </span></span><span style="display:flex;"><span>
@@ -189,7 +189,7 @@ Put price = 3.2551471829613132 EUR pips
 </span></span><span style="display:flex;"><span>call_price_1y <span style="color:#f92672">=</span> PV(S_t,K,t,<span style="color:#ae81ff">1.0</span>,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;EURUSD FX spot&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Call option price (USD pips)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Call option price (USD pips)&#39;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(S_t,call_price_1y)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
@@ -405,7 +405,7 @@ $$</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_FOR <span style="color:#f92672">*</span> (T<span style="color:#f92672">-</span>t)) <span style="color:#f92672">*</span> norm<span style="color:#f92672">.</span>cdf(omega <span style="color:#f92672">*</span> d_plus) <span style="color:#f92672">/</span> (sigma <span style="color:#f92672">*</span> S_t <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt(T<span style="color:#f92672">-</span>t)) <span style="color:#f92672">*</span> CCY1Notional
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>gamma <span style="color:#f92672">=</span> analyticGamma(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Analytic Gamma = </span><span style="color:#e6db74">{</span>gamma<span style="color:#e6db74">}</span><span style="color:#e6db74"> EUR&#34;</span>)
-</span></span></code></pre></div><pre><code>Analytic Gamma = 533.4269573839681 EUR
+</span></span></code></pre></div><pre><code>Analytic Gamma = 533.2773740334613 EUR
 </code></pre>
 <h3 id="theta">Theta.</h3>
 <p>Let $\tau = T- t$, $\frac{\partial \tau}{\partial t} = -1$.</p>
@@ -477,7 +477,7 @@ $$</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>theta <span style="color:#f92672">=</span> analyticTheta(S_t,K,t,T,r_DOM,r_FOR,sigma,CCY1Notional, callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION)
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Analytic Theta = </span><span style="color:#e6db74">{</span>theta<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD&#34;</span>)
-</span></span></code></pre></div><pre><code>Analytic Theta = -3.04597416111385 USD
+</span></span></code></pre></div><pre><code>Analytic Theta = -3.0451441830007884 USD
 </code></pre>
 <p>Theta reflects the change of the option value as the clock ticks. The <em>trader&rsquo;s theta</em> in a risk-management system refers to the change in the option value in one day, i.e. it can be approximated by $365 \frac{\partial v}{\partial t}$.</p>
 <h3 id="vega">Vega.</h3>
@@ -574,6 +574,79 @@ $$</p>
 <p>Suppose that we neglect the effect of volatility skew and presume that volatility, while non-constant across various strikes, is basically symmetric. The concept of the market strangle is that we buy an out-of-the-money put and an out-of-the-money call with strikes placed a similar distance away from the at-the-money strike in moneyness terms. For clarity, let&rsquo;s suppose, we are talking about the 25-delta market strangle, though the market strangle for any delta is pretty similar.</p>
 <p>The idea here is that, without needing to know the actual volatility smile, we can estimate the volatility that is needed to price a market strangle instrument consistently with the market, by taking the at-the-money volatility and adding a strangle premium $\sigma_{25-d-ms}$ to it. The premium thus added, in volatility terms, is called the market strangle.</p>
 <p>The important point to make is that the strikes for calls and puts are both calculated subject to the Black-Scholes model with constant volatility of $\sigma_{ATM} + \sigma_{25-d-ms}$; these strikes are known as market strangle strikes $K_{25-d-c-ms}$ and $K_{25-d-p-ms}$. With that, we obtain strikes for calls and puts that have deltas of $+0.25$ and $-0.25$ respectively.</p>
+<p>This requires the solution of:</p>
+<p>$$
+\begin{align*}
+\Delta_{Q}(-1, K_{25-d-p-ms},T,\sigma_{ATM}+\sigma_{25-d-ms}) &amp;=-0.25\\
+\Delta_{Q}(1, K_{25-d-c-ms},T,\sigma_{ATM}+\sigma_{25-d-ms}) &amp;=0.25
+\end{align*}
+$$</p>
+<p>The crucial part of this, and we return to this point later, is that even if the volatility smile is not symmetric, and therefore neither the call with the strike $K_{25-d-c-ms}$ nor the put with strike $K_{25-d-p-ms}$ should be actually priced with the volatility $\sigma_{ATM} + \sigma_{25-d-ms}$, the aggregate price obtained for the market strangle (long a call with strike $K_{25-d-c-ms}$ and long a put with strike $K_{25-d-p-ms}$) under the actual market volatility smile should be identical to the same aggregate price for the same market strangle instrument, under the assumption of Black-Scholes volatility of $\sigma_{ATM} + \sigma_{25-d-ms}$.</p>
+<p>In other words, the market strangle $\sigma_{25-d-ms}$ provides the adjustment to $\sigma_{ATM}$ which is substituted into a Black-Scholes model and used to calculate the $25$-delta call and put strikes and then to price a straddle with those strikes using a full-volatility smile (though the two price components may well differ, the sum must agree).</p>
+<p>We put:</p>
+<p>$$
+V_{25-d-ms} = V(-1,K_{25-d-p-ms},T,\sigma_{ATM}+\sigma_{25-d-ms}) + V(+1,K_{25-d-c-ms},T,\sigma_{ATM}+\sigma_{25-d-ms})
+$$</p>
+<p>$25\Delta$ market strangles are quoted by $\sigma_{25-d-ms}$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy <span style="color:#f92672">import</span> optimize
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> norm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   Market Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------------------</span>
+</span></span><span style="display:flex;"><span>_25dmarket_strangle_quote <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.004805857</span>
+</span></span><span style="display:flex;"><span>sigma_ATM<span style="color:#f92672">=</span><span style="color:#ae81ff">0.08971</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------------------</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sigma <span style="color:#f92672">=</span> sigma_ATM <span style="color:#f92672">+</span> _25dmarket_strangle_quote
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">spot_delta_call</span>(K):
+</span></span><span style="display:flex;"><span>    d_plus <span style="color:#f92672">=</span> dPlus(S_t,K,t,T,r_DOM,r_FOR,sigma)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> norm<span style="color:#f92672">.</span>cdf(d_plus) <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_FOR <span style="color:#f92672">*</span> T)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">spot_delta_put</span>(K):
+</span></span><span style="display:flex;"><span>    d_plus <span style="color:#f92672">=</span> dPlus(S_t,K,t,T,r_DOM,r_FOR,sigma)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span> norm<span style="color:#f92672">.</span>cdf(<span style="color:#f92672">-</span>d_plus) <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>r_FOR <span style="color:#f92672">*</span> T)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(K): <span style="color:#66d9ef">return</span> (spot_delta_call(K) <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.250</span>)
+</span></span><span style="display:flex;"><span>K_25d_call_ms <span style="color:#f92672">=</span> optimize<span style="color:#f92672">.</span>brentq(f,<span style="color:#ae81ff">0.01</span>,<span style="color:#ae81ff">5.00</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(K): <span style="color:#66d9ef">return</span>(spot_delta_put(K) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.250</span>)
+</span></span><span style="display:flex;"><span>K_25d_put_ms <span style="color:#f92672">=</span> optimize<span style="color:#f92672">.</span>brentq(f,<span style="color:#ae81ff">0.01</span>,<span style="color:#ae81ff">5.00</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>_25dcallms <span style="color:#f92672">=</span> PV(S_t,K_25d_call_ms,t,T,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>CALL_OPTION) 
+</span></span><span style="display:flex;"><span>_25dputms <span style="color:#f92672">=</span> PV(S_t,K_25d_put_ms,t,T,r_DOM,r_FOR,sigma, CCY1Notional,callPut <span style="color:#f92672">=</span> CallPut<span style="color:#f92672">.</span>PUT_OPTION) 
+</span></span><span style="display:flex;"><span>market_strangle <span style="color:#f92672">=</span> _25dcallms <span style="color:#f92672">+</span> _25dputms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Market Strangle = </span><span style="color:#e6db74">{</span>market_strangle<span style="color:#e6db74">}</span><span style="color:#e6db74"> USD pips&#34;</span>)
+</span></span></code></pre></div><pre><code>Market Strangle = 3.00508046115969 USD pips
+</code></pre>
+<h2 id="smile-strangle-and-risk-reversal">Smile Strangle and Risk Reversal.</h2>
+<p>The at-the-money volatility and market-strangle volatility provide two degrees of freedom, which allows a volatility smile to be described but without a skew. To introduce a market parameter corresponding to the skew, we use the risk-reversal. In order to do this, we need to suppose that a volatility smile of the form $\sigma_X(K)$ exists, because each european option with different strike $K$ is priced using the smile volatility $\sigma_X(K)$, unlike the at-the-money or market strangle for which we can use a single volatility (which we know in advance from the market data).</p>
+<p>Let&rsquo;s describe the conditions we have on this smile:</p>
+<p>$$\sigma_X(K_{ATM}) = \sigma_{ATM} \tag{1}$$</p>
+<p>$$V_{25-d-ms} = V(-1, K_{25-d-p-ms},T,\sigma_X(K_{25-d-p-ms})) +  V(+1, K_{25-d-p-ms},T,\sigma_X(K_{25-d-c-ms})) \tag{2}$$</p>
+<p>The task is now to find 25-delta smile strikes $K_{25-d-C}$ and $K_{25-d-P}$ for which the Black-Scholes delta is $\pm0.25$ subject to using the smile volatilities $\sigma_X(K_{25-d-C})$ and $\sigma_X(K_{25-d-P})$ respectively. We therefore need to solve:</p>
+<p>$$\Delta_{Q}(-1,K_{25-d-P},T,\sigma_X(K_{25-d-P}))=-0.25 \tag{3}$$
+$$\Delta_{Q}(-1,K_{25-d-C},T,\sigma_X(K_{25-d-C}))=+0.25 \tag{4}$$</p>
+<p>Once these strikes have been determined, we set $\sigma_{25-d-P} = \sigma_{X}(K_{25-d-p})$. The 25-delta risk reversal is calculated from the difference. However, the market generally imposes a sign convention that indicates whether the risk-reversal is defined as $\sigma_{25-d-C} - \sigma_{25-d-P}$  or $\sigma_{25-d-P}-\sigma_{25-d-C}$. We use $\phi_{RR}\in {1,-1}$ to denote which is meant, depending on whether risk reversals favor (that is attribute higher implied volatilities to) calls on ccy1/ccy2 or ccy2/ccy1 and put :</p>
+<p>$$\sigma_{25-d-RR} = \phi_{RR} \cdot [\sigma_{25-d-C} - \sigma_{25-d-P}] \tag{5}$$</p>
+<p>The equations (1), (2) and (5) provide us with the conditions necessary for $\sigma_X(K)$ to be consistent with the market, as parameterized by $\sigma_{ATM}$, $\sigma_{25-d-ms}$ and $\sigma_{25-d-RR}$. If other deltas on the smile are quoted, most commonly $10$-delta, then the conditions (3) and (5) applied in the same way, except using $\sigma_{10-d-ms}$ and $\sigma_{10-d-rr}$.</p>
+<p>It is important to note that the smile strikes $K_{25-d-C}$ and $K_{25-d-P}$ are in general not the same as market strangle strikes $K_{25-d-C-MS}$ and $K_{25-d-P-MS}$. The $25$-delta smile strangle is given by the average volatility of the 25-delta call and 25-delta put, expressed as a premium over the at-the-money volatility:</p>
+<p>$$
+\sigma_{25-d-SS} = \frac{1}{2}[\sigma_{25-d-C} + \sigma_{25-d-P}] - \sigma_{ATM} \tag{6}
+$$</p>
+<p>Note that, if $\sigma_{25-d-RR}=0$ in equation (5), then we have $\sigma_{25-d-C}=\sigma_{25-d-P}$ and therefore, $\sigma_{25-d-SS} = \sigma_{25-d-C} - \sigma_{ATM} = \sigma_{25-d-P} - \sigma_{ATM}$. Consequently, $\sigma_{25-d-ms} = \sigma_{25-d-ss}$ in the case where $\sigma_{25-d-RR} = 0$, but in general, this is not so.</p>
+<p><img src="./../../../../exploring-option-greeks04.png" alt="png"></p>
+<p>In the figure, the dotted lines indicate the volatilities at the three strikes $K_{ATM}$, $K_{25-d-P}$ and $K_{25-d-C}$. The oblique dotted line connecting the 25-delta call and 25-delta put points on the graph is bisected, so that the midpoint of that line segment has a volatility equal to the average of $\sigma_{25-d-P}$ and $\sigma_{25-d-C}$. The vertical distance of that midpoint above the ATM level is therefore the smile strangle $\sigma_{25-d-SS}$ as indicated in the graph.</p>
+<p>The discrepancy between market strangles and smile strangles is the largest for currency pairs with a large skew (that is large absolute values of risk-reversals) e.g. USDJPY.</p>
+<p>We therefore have several strikes - even without including the 10-delta smile, we have</p>
+<p>$${K_{25-d-P},K_{25-d-P-ms},K_{ATM},K_{25-d-C},K_{25-d-C-ms}}$$</p>
+<p>There is no unique prescription of $\sigma_X(K)$ and we therefore need to calibrate a smile $\sigma_X(K)$ that satisfies:</p>
+<p>$$\sigma_X(K_{ATM}) = \sigma_{ATM}\tag{7}$$</p>
+<p>$$V_{25-d-ms} = V(-1,K_{25-d-P-ms},T,\sigma_X(K_{25-d-P-ms})) + V(+1,K_{25-d-P-ms},T,\sigma_X(K_{25-d-C-ms}))\tag{8}$$</p>
+<p>$$\sigma_{25-d-RR} = \phi_{RR}[\sigma_X(K_{25-d-C}) - \sigma_X(K_{25-d-P})]\tag {9}$$</p>
+<p>where the strikes are determined as detailed above. When these three equations are satisfied, we have:</p>
+<p>$$\sigma_{25-d-ss} = \frac{1}{2}[\sigma_X(K_{25-d-C}) + \sigma_X(K_{25-d-P})] - \sigma_X(K_{ATM})$$</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"></code></pre></div>
 </article>
 
