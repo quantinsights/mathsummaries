@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Nov 2023 22:55:20 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Nov 2023 14:46:22 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implementing Vanna Volga</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/11/26/implementing-vanna-volga/</link>
+      <pubDate>Sun, 26 Nov 2023 14:46:22 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/11/26/implementing-vanna-volga/</guid>
+      <description>Background. It is possible to calculate analytically the values of vanillas or barrier options using the Black-Scholes model, however, they are far from quoted prices. This is because the BS-model is based on the assumption that the volatility $\sigma$ of the stock price process remains constant throughout the lifetime of the option.
+The vanna-volga method also known as the trader&amp;rsquo;s rule of thumb is based on adding an analytical correction to the Black-Scholes price of the instrument.</description>
+    </item>
+    
     <item>
       <title>Exploring Option Greeks</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/11/19/exploring-option-greeks/</link>

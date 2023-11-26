@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Volatility Surface on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/categories/volatility-surface/</link>
+    <description>Recent content in Volatility Surface on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Nov 2023 14:46:22 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/volatility-surface/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implementing Vanna Volga</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/11/26/implementing-vanna-volga/</link>
+      <pubDate>Sun, 26 Nov 2023 14:46:22 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/11/26/implementing-vanna-volga/</guid>
+      <description>Background. It is possible to calculate analytically the values of vanillas or barrier options using the Black-Scholes model, however, they are far from quoted prices. This is because the BS-model is based on the assumption that the volatility $\sigma$ of the stock price process remains constant throughout the lifetime of the option.
+The vanna-volga method also known as the trader&amp;rsquo;s rule of thumb is based on adding an analytical correction to the Black-Scholes price of the instrument.</description>
+    </item>
+    
+  </channel>
+</rss>
