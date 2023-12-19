@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>C&#43;&#43; Refresher - Part 1 | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.118.2">
+<meta name="description" content="I present here some quantitative finance projects that I have done or have been working on. Hope they can be of any help to you.&#34;&#34;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/minimal.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/post/2023/12/18/c-refresher-part-1/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/katex/katex.min.css">
+<script defer src="https://quantophile.github.io/mathsummaries/katex/katex.min.js"></script>
+<script defer src="https://quantophile.github.io/mathsummaries/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+    <nav>
+    
+      <a href="">Home</a>
+    
+      <a href="about/">About</a>
+    
+      <a href="categories/">Categories</a>
+    
+      <a href="tags/">Tags</a>
+    
+      <a href="index.xml">Subscribe</a>
+    
+    </nav>
+  
+</header>
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+    integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"
+    integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: true},
+      ],
+    });
+  });
+</script>
+
+<article>
+  <header>
+    <h1>C&#43;&#43; Refresher - Part 1</h1>
+    <time datetime="2023-12-18T13:02:33&#43;01:00">December 18, 2023</time>
+  </header>
+  <h3 id="hazards-of-dynamic-memory-allocation">Hazards of dynamic memory allocation.</h3>
+<h4 id="dangling-pointers-and-multiple-deallocations">Dangling pointers and multiple deallocations.</h4>
+<p>A <em>dangling pointer</em> is a pointer variable that still contains the address to the free store memory that has already been deallocated using <code>delete</code> or <code>delete[]</code>. Dereferencing a dangling pointer makes you read from, or even worse write to memory that might already be allocated to and used by other parts of the program, resulting in all kinds of unpredictable results.</p>
+<p>Multiple deallocations which occur when you deallocate an already deallocated memory (and hence dangling) pointer for a second time is a recipe for disaster.</p>
+<p>One basic strategy to guard yourself against dangling pointers is to always reset a pointer to <code>nullptr</code>, after the memory it points to is released. However, in more complex programs, different parts of the code often collaborate by accessing the same memory - an object or an array of objects - all through distinct copies of the same pointer. In such cases, our simple strategy falls short. Which part of the code is going to call <code>delete</code>/<code>delete[]</code>? And when? How do you ensure that no other part of the code is still using the same dynamically allocated memory.</p>
+<h4 id="allocationdeallocation-mismatch">Allocation/Deallocation mismatch.</h4>
+<p>A dynamically allocated array, allocated using <code>new[]</code>, is captured in a regular pointer cariable. But, so is a single allocated value that is allocated using <code>new</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">double</span><span style="color:#f92672">*</span> single_df {<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">double</span> {<span style="color:#ae81ff">0.95</span>}};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">double</span><span style="color:#f92672">*</span> array_of_dfs {<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">double</span>[<span style="color:#ae81ff">3</span>] {<span style="color:#ae81ff">1.00</span>, <span style="color:#ae81ff">0.95</span>, <span style="color:#ae81ff">0.90</span>}};
+</span></span></code></pre></div><p>After this the compiler has no way to distinguish between the two, especially once such a pointer gets passed around different parts of the program. This means that the following two statements will compile without error.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">delete</span>[] single_df;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">delete</span> array_of_dfs;
+</span></span></code></pre></div><p>Every <code>new</code> must be paired with a single <code>delete</code>; every <code>new[]</code> must be paired with a single <code>delete[]</code>.</p>
+<h4 id="memory-leaks">Memory Leaks.</h4>
+<p>A memory leak occurs when you allocate memory using <code>new</code> or <code>new[]</code> and fail to release it. If you lose the address of free store memory you have allocated by overwriting the address in the pointer you were using to access it, for instance, you have a memory leak.</p>
+<p>When it comes to scope, pointers are just like any other variable. The lifetime of a pointer extends from the point at which you define it in a block to the closing brace of the block. After that it no longer exists, the free store goes out of scope and it&rsquo;s no longer possible to delete the memory.</p>
+<p>It&rsquo;s still relatively easy to see, where you&rsquo;ve simply forgotten to use <code>delete</code> to free memory when use of the memory ceases at a point close to where you allocated it, but you&rsquo;d be surprised how often programmers make mistakes like this, especially if, for instance, <code>return</code> statements creep in between allocation and deallocation of your variable. And naturally, memory leaks are even more difficult to spot in complex programs, where memory may be allocated in part of the the program and should be released in a completely separate part.</p>
+<p>One basic strategy for avoiding memory leaks is to immediately add <code>delete</code> operation at an appropriate place each time you use the <code>new</code> operator. But this strategy by no means is fail-safe. Even C++ programmers are fallible creatures.</p>
+<h4 id="fragmentation-of-the-free-store">Fragmentation of the Free-Store.</h4>
+<p>Memory fragmentation can arise in programs that frequently dynamically allocate and release memory blocks. Each time, the <code>new</code> operator is used, it allocates a contiguous block of bytes. If you create and destroy many memory blocks of different sizes, it&rsquo;s possible to arrive at a situation in which the allocated memory is interspersed with small blocks of free memory, non of which is large enough to accomodate a new memory allocation request by your program. The aggregate of the free memory can be quite largbe, but if all the individual blocks are small (smaller than a current allocation request), the allocation request will fail.</p>
+<h3 id="golden-rule-of-dynamic-memory-allocation">Golden rule of dynamic memory allocation.</h3>
+<p>Never use the operators <code>new</code>, <code>new[]</code>, <code>delete</code> and <code>delete[]</code> directly in day-to-day coding. These operators have no place in modern C++ code. Always use either the <code>std::vector&lt;T&gt;</code> container to replace dynamic arrays or a smart pointer to dynamically allocate individual objects and manage their lifetimes.</p>
+<h2 id="raw-pointers-and-smart-pointers">Raw pointers and Smart Pointers.</h2>
+<p>Pointer types <code>int*</code>, <code>double*</code> are referred to as <em>raw pointers</em> because variables of these types contain nothing more than an address. A raw pointer can store the address of an automatic variable or a memory-block allocated in the free-store.</p>
+<p>A <em>smart pointer</em> is an object that mimics a raw pointer in that, it contains an address, and you can use it in the same way in many respects. Smart pointers are normally used only to store the address of memory allocated in the free store. A smart pointer does much more than a raw pointer, though. The most notable feature of a smart pointer, is that we don&rsquo;t have to worry about using the <code>delete</code> or <code>delete[]</code> operator to free memory. It will be released automatically, when it is no longer needed. This means that multiple allocations, allocation/deallocation mismatches and memory leaks will no longer be possible.</p>
+<ul>
+<li>
+<p>A <code>std::unique_ptr&lt;T&gt;</code> object behaves as a pointer to type <code>T</code> and is unique in the sense that there can be only one single <code>unique_ptr&lt;&gt;</code> object containing the same address. In other words, there can never be two or more <code>unique_ptr&lt;T&gt;</code> objects pointing to the same memory address at the same time. A <code>unique_ptr&lt;&gt;</code> object is said to own the object it points to exclusively. The uniqueness is enforced by the fact, that a compiler will never allow you to copy a <code>unique_ptr&lt;&gt;</code>.</p>
+</li>
+<li>
+<p>A <code>std::shared_ptr&lt;T&gt;</code> object also behaves as a pointer to type <code>T</code>, but in contrast with <code>unique_ptr&lt;T&gt;</code> there can be any number of <code>shared_ptr&lt;&gt;</code> objects that allow <em>shared ownership</em> of an object in the free-store. At any given moment, the number of <code>shared_ptr&lt;&gt;</code> objects that contain a given address in time is known by the runtime. This is called <em>reference counting</em>. The reference count for a <code>shared_ptr&lt;&gt;</code> containing a given free store address is incremented each time a new <code>shared_ptr</code> object is creating containing that address, and its decremented when a <code>shared_ptr</code> containing the address is destroyed or assigned to point to a different address. When there are no <code>shared_ptr</code> objects containing a given address, the reference count will have dropped to zero, and the memory for the object at that address is released automatically. All <code>shared_ptr&lt;&gt;</code> objects that point to the same address have access to the the count of how many there are.</p>
+</li>
+<li>
+<p>A <code>weak_ptr&lt;T&gt;</code> is linked to a <code>shared_ptr&lt;T&gt;</code> and contains the same address. Creating a <code>weak_ptr&lt;&gt;</code> does not increment the reference count associated with the linked <code>shared_ptr&lt;&gt;</code> object, though, so a <code>weak_ptr&lt;&gt;</code> does not prevent the object pointered to from being destroyed. Its memory will still be released when the last <code>shared_ptr&lt;&gt;</code> referencing it is destroyed or reassigned to point to a different address, even when associated <code>weak_ptr&lt;&gt;</code> objects still exist. If this happens, the <code>weak_ptr&lt;&gt;</code> will nevertheless not contain a dangling pointer, atleast not one that you could inadvertently access. The reason is that you cannot access the address encapsulated by a <code>weak_ptr&lt;T&gt;</code> directly. The compiler forces you to first create a <code>shared_ptr&lt;T&gt;</code> object out of it that refers to the same address. If the memory address for the <code>weak_ptr&lt;&gt;</code> is still valid, forcing you to create a <code>shared_ptr&lt;&gt;</code> first ensures that the reference count is again incremented and that the pointer can be used safely again. If the memory is released already, however, this operation will result in a <code>shared_ptr&lt;&gt;1</code> containing a <code>nullptr</code>.</p>
+</li>
+</ul>
+<p>One use for having <code>weak_ptr&lt;&gt;</code> objects is to avoid so called reference cycles with <code>shared_ptr&lt;&gt;</code> objects. Conceptually, a reference cycle is where a <code>shared_ptr&lt;Y&gt;</code> inside the object <code>x</code> points to some other object <code>y</code> that contains a <code>shared_ptr&lt;X&gt;</code>, which points back to <code>x</code>. With this situation, neither <code>x</code> nor <code>y</code> can be destroyed. In practice, this may occur in many ways. <code>weak_ptr</code> allows you to break such cycles. Another use of weak pointers is in the implementation of object caches.</p>
+<h3 id="using-unique_ptrt-and-shared_ptrt-pointers">Using <code>unique_ptr&lt;T&gt;</code> and <code>shared_ptr&lt;T&gt;</code> pointers.</h3>
+<p>A <code>unique_ptr&lt;T&gt;</code> object stores an address uniquely, so the value to which it points is owned exlusively by the <code>unique_ptr&lt;T&gt;</code> smart pointer. When the <code>unique_ptr&lt;T&gt;</code> is destroyed, so is the value to which it points. Like all smart pointers, a <code>unique_ptr&lt;&gt;</code> is most useful when working with dynamically allocated objects. Objects then should not be shared by multiple parts of the program, or where the lifetime of the dynamic pobject is naturally tied to a single other object in your program.</p>
+<p>One common use for a <code>unique_ptr&lt;&gt;</code> is to hold something called a <em>polymorphic pointer</em>, which in essence is a pointer to a dynamically allocated object that can be of any number of related class types.</p>
+<p>To create and initialize a double variable on the free-store, we write:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> pDiscountFactor {std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">0.95</span>)};
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Discount Factor = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>pDiscountFactor;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>Discount Factor = 0.95
+</code></pre><p>The memory allocated on the free store holding <code>0.95</code> is released once <code>pDiscountFactor</code> goes out of scope and is destroyed after the <code>return</code> statement.</p>
+<p>The below code snippet shows how smart pointers work.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">X</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        X()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">X created&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">~</span>X()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">X destroyed&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Y</span>{
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        Y()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Y created&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">~</span>Y()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Y destroyed&#34;</span>;
+</span></span><span style="display:flex;"><span>        } 
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Inside main&#34;</span>;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Y<span style="color:#f92672">&gt;</span> sPtrY1 {std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>Y<span style="color:#f92672">&gt;</span>()};
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//inner scope
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Inside inner&#34;</span>;
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>X<span style="color:#f92672">&gt;</span> uPtrX1 {std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>X<span style="color:#f92672">&gt;</span>()};
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Y<span style="color:#f92672">&gt;</span> sPtrY2 {sPtrY1};
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// copy assignment and copy construction is not allowed on unique_ptr objects
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//std::unique_ptr&lt;X&gt; uPtrX2 = uPtrX1;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Exiting inner&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Exiting main&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>Inside main
+Y created
+Inside inner
+X created
+Exiting inner
+X destroyed
+Exiting main
+Y destroyed
+</code></pre><h2 id="references">References.</h2>
+<p>A reference is a name that you can use as an alias for another variable. Unlike a pointer, you cannot declare a reference and not initialize it. Because a reference is an alias, the variable which it is an alias must be provided when the reference is initialized. Also, a reference cannot be modified to be an alias for something else.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> a, <span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> b)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> temp {a};
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> b;
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> temp;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x {<span style="color:#ae81ff">10</span>}; 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y {<span style="color:#ae81ff">15</span>};
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> Before swap:&#34;</span>;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> x = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> x ;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> y = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> y;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    swap(x,y);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> After swap:&#34;</span>;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> x = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> x ;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> y = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> y;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code> Before swap:
+ x = 10
+ y = 15
+ After swap:
+ x = 15
+ y = 10
+</code></pre><p>Never return a pointer or reference to an automatic stack-allocated local variable from within a function. Automatic variables are destroyed and the stack is popped, once the control goes outside the scope in which they are declared.</p>
+<h2 id="function-templates">Function Templates.</h2>
+<p>A function template itself is not a definition of a function; it is a blueprint or a recipe for definining an entire family of functions. A function template is a parametric function definition, where a particular function instance is created by one or more parameter values. The compiler uses a function template to generate a function definition when necessary. If it is never necessary, no code results from the template. A function definition that is generated from a template is an <em>instance</em> or <em>instantiation</em> of the template.</p>
+<p>The parameters of a function template are usually data-types, where an instance can be generated for a parameter value of type <code>int</code>, for example, and another with parameter valuer of type <code>string</code>. But parameters are not necessarily types. They can be other things such as a dimension, for example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>T larger(T a, T b)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The compiler creates instances of the template from any statement that uses the <code>larger()</code> function. Here&rsquo;s an example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Larger of 1.50 and 2.50 is : &#34;</span>  <span style="color:#f92672">&lt;&lt;</span> larger(<span style="color:#ae81ff">1.5</span>,<span style="color:#ae81ff">2.5</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>Larger of 1.50 and 2.50 is : 2.5
+</code></pre><p>You just use the function in the normal way. You don&rsquo;t need to specify a value for the template parameter <code>T</code>. The compiler deduces the type that is to replace <code>T</code> from the arguments in the <code>larger</code> function call. This mechanism is referred to as <em>template argument deduction</em>. The arguments to <code>larger()</code> are literals of type <code>double</code>, so this call causes the compiler to search for an existing definition of <code>larger()</code> with <code>double</code> parameters. If it doesn&rsquo;t find one, the compiler creates this version of <code>larger()</code> from the template by susbstituting <code>double</code> for <code>T</code> in the template definition.</p>
+<p>The resulting function accepts arguments of type <code>double</code> and returs a <code>double</code> value.</p>
+<p>The compiler makes sure to generate each template instance only once. If a subsequent function call requires the same instance, then it calls the instance that exists.</p>
+<h3 id="template-type-parameters">Template type parameters.</h3>
+<p>The name of the template type parameter can be used anywhere in the template&rsquo;s function signature, return type and body. It is a placeholder for a type and can thus be put in any context you would normally put a concrete type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> larger(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a,<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> b)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="function-template-overloading">Function Template overloading.</h3>
+<p>Templated functions can be overloaded.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> largest(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a,<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> b)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> T largest(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> data)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    T max {};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> v:data)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (v <span style="color:#f92672">&gt;=</span> max)
+</span></span><span style="display:flex;"><span>            max <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Larger of 1.50 and 2.50 is : &#34;</span>  <span style="color:#f92672">&lt;&lt;</span> largest(<span style="color:#ae81ff">1.5</span>,<span style="color:#ae81ff">2.5</span>);
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> data {
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Largest of [2,5,8,4,7,3] is : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> largest(data);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>Larger of 1.50 and 2.50 is : 2.5
+Largest of [2,5,8,4,7,3] is : 8
+</code></pre><h2 id="classes-and-object-oriented-programming">Classes and Object Oriented Programming.</h2>
+<p>An interesting exercise to write a <code>Matrix&lt;T&gt;</code> class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Matrix.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;initializer_list&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdexcept&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T <span style="color:#f92672">=</span> <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Matrix</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Default constructor
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Matrix() <span style="color:#f92672">:</span> Matrix(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Parameterized constructor with number of rows, cols as 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// as arguments.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Matrix(std<span style="color:#f92672">::</span>size_t m, std<span style="color:#f92672">::</span>size_t n) <span style="color:#f92672">:</span> m_rows(m), m_cols(n)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        m_data.resize(m_rows <span style="color:#f92672">*</span> m_cols, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Parameterized constructor with matrix elements provided 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// in brace initializer lists.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Matrix(std<span style="color:#f92672">::</span>initializer_list<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>initializer_list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> m) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i{}, j{};
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> row : m)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> el : row)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                m_data.push_back(el);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">++</span>j;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">++</span>i;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        m_rows <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        m_cols <span style="color:#f92672">=</span> j;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Copy constructor
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Matrix(<span style="color:#66d9ef">const</span> Matrix<span style="color:#f92672">&amp;</span> A) <span style="color:#f92672">:</span> m_rows{ A.m_rows }, m_cols{ A.m_cols }, m_data{ A.m_data } {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>size_t rows() <span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> m_rows;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>size_t cols() <span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> m_cols;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    T<span style="color:#f92672">&amp;</span> at(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> m_data[i <span style="color:#f92672">*</span> m_cols <span style="color:#f92672">+</span> j];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> at(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j) <span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> m_data[i <span style="color:#f92672">*</span> m_cols <span style="color:#f92672">+</span> j];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    T<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span>()(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>invalid_argument(<span style="color:#e6db74">&#34;The row index must be non-negative!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>invalid_argument(<span style="color:#e6db74">&#34;The column index must be non-negative!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;=</span> m_rows)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>invalid_argument(<span style="color:#e6db74">&#34;The row index must be less than &#34;</span> <span style="color:#f92672">+</span> m_rows);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">&gt;=</span> m_cols)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>invalid_argument(<span style="color:#e6db74">&#34;The col index must be less than &#34;</span> <span style="color:#f92672">+</span> m_cols);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">at</span>(i, j);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> T <span style="color:#a6e22e">operator</span>()(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j) <span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>invalid_argument(<span style="color:#e6db74">&#34;The row index must be non-negative!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>invalid_argument(<span style="color:#e6db74">&#34;The column index must be non-negative!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;=</span> m_rows)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>invalid_argument(<span style="color:#e6db74">&#34;The row index must be less than &#34;</span> <span style="color:#f92672">+</span> m_rows);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">&gt;=</span> m_cols)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>invalid_argument(<span style="color:#e6db74">&#34;The col index must be less than &#34;</span> <span style="color:#f92672">+</span> m_cols);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> at(i, j);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> Matrix <span style="color:#66d9ef">operator</span><span style="color:#f92672">+</span>(<span style="color:#66d9ef">const</span> Matrix<span style="color:#f92672">&amp;</span> mat)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (mat.rows() <span style="color:#f92672">!=</span> rows())
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>runtime_error(<span style="color:#e6db74">&#34;In A + B, matrices A, B should have the same number of rows!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (mat.cols() <span style="color:#f92672">!=</span> cols())
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>runtime_error(<span style="color:#e6db74">&#34;In A + B, matrices A, B should have the same number of cols!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Matrix <span style="color:#a6e22e">result</span>(rows(), cols());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i{}; i <span style="color:#f92672">&lt;</span> rows(); <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j{}; j <span style="color:#f92672">&lt;</span> cols(); <span style="color:#f92672">++</span>j)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                result(i, j) <span style="color:#f92672">=</span> at(i, j) <span style="color:#f92672">+</span> mat(i, j);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> Matrix <span style="color:#66d9ef">operator</span><span style="color:#f92672">-</span>(<span style="color:#66d9ef">const</span> Matrix<span style="color:#f92672">&amp;</span> mat)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (mat.rows() <span style="color:#f92672">!=</span> rows())
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>runtime_error(<span style="color:#e6db74">&#34;In A - B, matrices A, B should have the same number of rows!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (mat.cols() <span style="color:#f92672">!=</span> cols())
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>runtime_error(<span style="color:#e6db74">&#34;In A - B, matrices A, B should have the same number of cols!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Matrix <span style="color:#a6e22e">result</span>(rows(), cols());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i{}; i <span style="color:#f92672">&lt;</span> rows(); <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j{}; j <span style="color:#f92672">&lt;</span> cols(); <span style="color:#f92672">++</span>j)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                result(i, j) <span style="color:#f92672">=</span> at(i, j) <span style="color:#f92672">-</span> mat(i, j);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Matrix<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(<span style="color:#66d9ef">const</span> Matrix<span style="color:#f92672">&amp;</span> mat)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        m_data <span style="color:#f92672">=</span> mat.m_data;
+</span></span><span style="display:flex;"><span>        m_rows <span style="color:#f92672">=</span> mat.rows();
+</span></span><span style="display:flex;"><span>        m_cols <span style="color:#f92672">=</span> mat.cols();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> Matrix <span style="color:#66d9ef">operator</span><span style="color:#f92672">*</span>(<span style="color:#66d9ef">const</span> Matrix<span style="color:#f92672">&amp;</span> mat)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (cols() <span style="color:#f92672">!=</span> mat.rows())
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>runtime_error(<span style="color:#e6db74">&#34;In A * B, cols of A must equal rows of B!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Matrix result{ rows(), mat.cols() };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i{}; i <span style="color:#f92672">&lt;</span> rows(); <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k{}; k <span style="color:#f92672">&lt;</span> cols(); <span style="color:#f92672">++</span>k)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j{}; j <span style="color:#f92672">&lt;</span> mat.cols(); <span style="color:#f92672">++</span>j)
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    result(i, j) <span style="color:#f92672">+=</span> at(i, k) <span style="color:#f92672">*</span> mat(k, j);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> m_data{};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> m_rows;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> m_cols;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">//Matrix.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Matrix.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Matrix<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> A{
+</span></span><span style="display:flex;"><span>        {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>}
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Matrix<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> B{
+</span></span><span style="display:flex;"><span>        {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>}
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Matrix<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> A <span style="color:#f92672">+</span> B;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> result(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>) <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&lt;&lt;</span> result(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> result(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>) <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&lt;&lt;</span> result(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="access-specifiers-and-class-hierarchies">Access specifiers and class hierarchies.</h3>
+<ul>
+<li>
+<p>When the base class specifier is <code>public</code>, the access status of the inherited members remains unchanged. Thus, inherited <code>public</code> members are <code>public</code>, and inherited <code>protected</code> members are <code>protected</code> in a derived class.</p>
+</li>
+<li>
+<p>When the base class specifier is <code>protected</code>, both public and protected members of the base class are inherited as <code>protected</code> members in the child class.</p>
+</li>
+<li>
+<p>When the base class specifier is <code>private</code>, inherited <code>public</code> and <code>protected</code> members become <code>private</code> to the derived class, so that they&rsquo;re accessible by member functions of the the derived class, but they cannot be accessed if they&rsquo;re inherited in another derived class.</p>
+</li>
+</ul>
+<h3 id="constructors-and-destructors-in-derived-classes">Constructors and Destructors in derived classes.</h3>
+<p>Every constructor of the derived class always starts by invoking a constructor of the base class. And that base class constructor then invokes the constructor of its base class, and so on.</p>
+<p><em>Remark.</em> You cannot initialize the member variables of a base class in the initialization list for the derived class constructor. Not even if thos members are public or protected.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    A(){
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Inside A&#39;s constructor&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>A()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Inside A&#39;s destructor&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> A
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    B()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Inside B&#39;s constructor&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>B()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Inside B&#39;s destructor&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    B b;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>Inside A&#39;s constructor
+Inside B&#39;s constructor
+Inside B&#39;s destructor
+Inside A&#39;s destructor
+</code></pre><p>Suppose you have a base class <code>Parent</code>, two child classes <code>Child_1</code> and <code>Child_2</code> that inherit from <code>Parent</code> and a <code>Grandchild</code> class that inherits from <code>Child_1</code> and <code>Child_2</code>. This is the diamond problem, named after the shape of such inheritance diagrams. The <code>Grandchild</code> inherits two copies of <code>Parent</code> : one through <code>Child_1</code> and another through <code>Child_2</code>.</p>
+<p>To prevent the duplication of the base class, we identify to the compiler that the base class should appear only once within the derived class. We do this by specifying the class as a <em>virtual base class</em> using the <code>virtual</code> keword. The <code>Child_1</code> and <code>Child_2</code> classes would be defined like this:</p>
+<pre tabindex="0"><code>class Child_1 : public virtual Parent
+{
+	//...
+};
+
+class Child_2 : public virtual Parent
+{
+	//...
+};
+</code></pre><h3 id="polymorphism">Polymorphism.</h3>
+<p>Every derived class object is a base class object. So, you can use a base class pointer/reference to store the address of a derived class object. It is easy to implement dynamic dispatch through virtual methods.</p>
+<p>The below code snippet is instructive in understanding run-time polymorphism.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> foo() {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Greetings from a!&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span><span style="color:#66d9ef">public</span> A {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> foo()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Greetings from b!&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> B {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> foo()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Greetings from c!&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">D</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> C {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> foo()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Greetings from d!&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    D d{};
+</span></span><span style="display:flex;"><span>    A<span style="color:#f92672">*</span> aptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d;
+</span></span><span style="display:flex;"><span>    aptr<span style="color:#f92672">-&gt;</span>foo();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    B<span style="color:#f92672">*</span> bptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d;
+</span></span><span style="display:flex;"><span>    bptr<span style="color:#f92672">-&gt;</span>foo();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    C<span style="color:#f92672">*</span> cptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//This should not compile. The virtual method foo() is private in C, which is not allowed.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//cptr-&gt;foo();
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    D<span style="color:#f92672">*</span> dptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d;
+</span></span><span style="display:flex;"><span>    dptr<span style="color:#f92672">-&gt;</span>foo();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>When you specify a function as <code>virtual</code> in a base class, you indicate to the compiler that you want dynamic binding for function calls in any class that&rsquo;s derived from this base class. A function that you specifyn as <code>virtual</code> in the base class will be <code>virtual</code> in all classes that directly or indirectly derive from the base class. This is the case, whether or not you specify the function as <code>virtual</code> in the derived class.</p>
+<p>The call to a virtual function using an <strong>object</strong> is always resolved statically. You only get dybamic resolution of calls to virtual functions through a pointer or a reference. Consider the below code snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>    D d{};
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    A<span style="color:#f92672">&amp;</span> aRef <span style="color:#f92672">=</span> d;
+</span></span><span style="display:flex;"><span>    B<span style="color:#f92672">&amp;</span> bRef <span style="color:#f92672">=</span> d;
+</span></span><span style="display:flex;"><span>    A a; B b;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    aRef.foo();
+</span></span><span style="display:flex;"><span>    bRef.foo();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    a.foo();
+</span></span><span style="display:flex;"><span>    b.foo();
+</span></span></code></pre></div><pre tabindex="0"><code>Greetings from a!
+Greetings from d!
+Greetings from a!
+Greetings from b!
+</code></pre><h4 id="requirements-for-a-virtual-function">Requirements for a virtual function.</h4>
+<p>For a function to be <code>virtual</code>, its definition in a derived class must have the same signature as it has in the base class. If the base class function is <code>const</code>, for instance, then the derive class function must also be <code>const</code>. Generally, the return type of a virtual function in a derived class must be the same as in the base class as well, but there&rsquo;s an exception when the return type in the base class is a pointer or a reference to a class type. In this case, the derived class version of a virtual function may return a pointer or a reference to a more specialized type than that of the base. This is called <em>covariance</em>.</p>
+<p>Another restriction is that a virtual function can&rsquo;t be a template function.</p>
+<p>In standard object-oriented programming terms, a function in a derived class that redefines a function of the base class is said to <em>override</em> this function. A function with the same name as a virtual function in a base class only <strong>overrides</strong> that function if the remainder of their signatures match exactly as well; if they do not, the function in the derived class is a new function that <em>hides</em> the one in the base class.
+This means that if you try to use different parameters for a virtual function in a derived class or use different <code>const</code> specifiers, then the virtual function mechanism won&rsquo;t work. The function in the derived class then defines, a new different function - and this new function will therefore operate with static binding that is established and fixed at compile time.</p>
+<h4 id="override-specifier"><code>override</code> specifier.</h4>
+<p>The <code>override</code> specification guarantees that you don&rsquo;t make mistakes in function overrides and these exactly match the virtual function signatures in base class.</p>
+<h4 id="final-qualifier"><code>final</code> qualifier.</h4>
+<p>Sometimes, we may want to prevent a member function from being overriden in a derived class. We can do this by specifying that a function is <code>final</code>.</p>
+<h3 id="virtual-destructors">Virtual destructors.</h3>
+<p>Along with the other function, the destructor methods of classes should also be resolved dynamically. That is, if a <code>Base*</code> pointer points to <code>Derived</code> object, the <code>Derived</code> class destructor method should be called first. (Object creation is top-down, destruction is bottom-up in an inheritance hierarchy). So, it&rsquo;s always prudent to declare destructor methods as <code>virtual</code>.</p>
+<h3 id="calling-the-base-class-version-of-a-virtual-function">Calling the base class version of a virtual function.</h3>
+<p>It&rsquo;s easy to call the derived class version of a virtual function through a pointer or reference to a derived class object - the call is made dynamically. However, what do you do when you actually want to call the base class function for a derived class object?</p>
+<p>Consider the <code>Box</code> and <code>ToughPack</code> classes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Box</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    Box() <span style="color:#f92672">:</span> Box(<span style="color:#ae81ff">1.0</span>) {}
+</span></span><span style="display:flex;"><span>    Box(<span style="color:#66d9ef">double</span> side) <span style="color:#f92672">:</span> Box(side, side, side) {}
+</span></span><span style="display:flex;"><span>    Box(<span style="color:#66d9ef">double</span> length, <span style="color:#66d9ef">double</span> width, <span style="color:#66d9ef">double</span> height) <span style="color:#f92672">:</span> m_length(length), m_width(width), m_height(height) {}
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> <span style="color:#66d9ef">virtual</span> <span style="color:#a6e22e">volume</span>()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> m_length <span style="color:#f92672">*</span> m_width <span style="color:#f92672">*</span> m_height;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>Box()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Box dtor&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> m_length;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> m_width;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> m_height;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ToughPack</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Box
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    ToughPack() <span style="color:#f92672">:</span> Box() {}
+</span></span><span style="display:flex;"><span>    ToughPack(<span style="color:#66d9ef">double</span> side) <span style="color:#f92672">:</span> Box(side) {}
+</span></span><span style="display:flex;"><span>    ToughPack(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">double</span> y, <span style="color:#66d9ef">double</span> z) <span style="color:#f92672">:</span> Box(x,y,z) {}
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Function to calculate volume allowing for 15% of packing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">volume</span>() <span style="color:#66d9ef">override</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.85</span> <span style="color:#f92672">*</span> m_length <span style="color:#f92672">*</span> m_width <span style="color:#f92672">*</span> m_height ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>ToughPack()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">ToughPack dtor&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>In <code>ToughPack</code>&rsquo;s <code>volume()</code> method, the <code>m_length*m_width*m_height</code> part of the <code>return</code> statement is exactly the formula used to compute the <code>volume()</code> inside the base class <code>Box</code>. In this case, the amount of code we had to retype was limited, but this won&rsquo;t always be the case. It would therefore be much better if you could simply call the base class version of this function isntead.</p>
+<p>A plausible first attempt to do so would be:</p>
+<pre tabindex="0"><code>double volume() const override
+{
+	return 0.85 * volume(); // Infinite recursion!
+}
+</code></pre><p>However, this would call <code>volume()</code> override itself, which would then be calling itself again, which would then be calling itself again! This leads to infinite recursion and a crash.</p>
+<p>Calling the base class version from within a function override like this is common. The solution is to explicitly ask the compiler to call the base class version of the function.</p>
+<pre tabindex="0"><code>double volume() const override
+{
+	return 0.85 * Box::volume(); 
+}
+</code></pre><h3 id="when-my-base-classs-constructor-calls-a-virtual-function-on-its-this-object-why-doesnt-my-derived-classs-override-of-that-virtual-function-get-invoked">When my base class’s constructor calls a virtual function on its this object, why doesn’t my derived class’s override of that virtual function get invoked?</h3>
+<p>What happens when we call virtual functions from inside constructors and destructors? Calling a polymorphic function from inside a constructor/desctructor is a recipe for disaster in most cases. It should be avoided whenver possible.</p>
+<p>In a constructor, the virtual call mechanism is disabled, because overriding from derived classes hasn&rsquo;t happened yet. Objects are constructed from <code>Base</code> up, &ldquo;Base before derived&rdquo;.</p>
+<p>Since <code>Base</code> object must be constructed before <code>Derived</code>, the call to <code>f()</code> always resolves statically to <code>Base::f()</code> from inside the constructor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	B(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> ss) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;B constructor</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>; f(ss); }
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span>) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;B::f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">D</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> B {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	D(<span style="color:#66d9ef">const</span> string <span style="color:#f92672">&amp;</span> ss) <span style="color:#f92672">:</span>B(ss) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;D constructor</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> ss) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;D::f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>; s <span style="color:#f92672">=</span> ss; }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	string s;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	D d(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>B constructor
+B::f
+D constructor
+</code></pre><h3 id="how-can-i-set-up-my-class-so-it-wont-be-inherited-from">How can I set up my class so it won&rsquo;t be inherited from?</h3>
+<p>Just declare the class as <code>final</code>.</p>
+<h2 id="pure-virtual-functions">Pure virtual functions.</h2>
+<p>There are situations where we require a base class with a virtual function that&rsquo;s redefined in each of the derived classes, but hwere there&rsquo;s no meaningful definition for the function in the base class. For example, you might define a base class <code>Shape</code>, from which you derive classes definining specific shapes, such as <code>Circle</code>, <code>Ellipse</code>, <code>Rectangle</code>, <code>Hexagon</code> and so on. The <code>Shape</code> class could include a virtual function <code>area()</code>, that you&rsquo;d call for the derived class object to compute the area of a particular shape. The <code>Shape</code> class itself, though, cannot possibly provide a meaningful implementation of the <code>area()</code> function, one that caters, for instance, to both <code>Circle</code>s and <code>Rectangle</code>s. This is a job for a <em>pure virtual function</em>.</p>
+<p>The purpose of a pure virtual function is to enable the derived class versions of the function to be called polymorphically. To declare a pure virtual function rather than an ordinary virtual function that has a definition, you use the same syntax but add <code>=0</code> to it&rsquo;s declaration within the class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    Shape() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">area</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">//pure virtual function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rectangle</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Shape {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    Rectangle(<span style="color:#66d9ef">double</span> l, <span style="color:#66d9ef">double</span> w) <span style="color:#f92672">:</span> m_length(l), m_width(w) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">area</span>() <span style="color:#66d9ef">override</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> m_length <span style="color:#f92672">*</span> m_width;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> m_length;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> m_width;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Shape {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    Circle(<span style="color:#66d9ef">double</span> r) <span style="color:#f92672">:</span> m_radius(r) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">area</span>() <span style="color:#66d9ef">override</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">3.14159</span> <span style="color:#f92672">*</span> m_radius <span style="color:#f92672">*</span> m_radius;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> m_radius;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Let&#39;s create a container to hold different kinds of shapes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>Shape<span style="color:#f92672">&gt;&gt;</span> shapes{};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    shapes.push_back(std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>Rectangle<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">5.0</span>, <span style="color:#ae81ff">5.0</span>));
+</span></span><span style="display:flex;"><span>    shapes.push_back(std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>Circle<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">3.0</span>));
+</span></span><span style="display:flex;"><span>    shapes.push_back(std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>Rectangle<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">12.0</span>));
+</span></span><span style="display:flex;"><span>    shapes.push_back(std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>Circle<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">5.0</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i{}; i <span style="color:#f92672">&lt;</span> shapes.size(); <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Area = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> shapes[i]<span style="color:#f92672">-&gt;</span>area();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>Area = 25
+Area = 28.2743
+Area = 120
+Area = 78.5397
+</code></pre><h2 id="abstract-classes">Abstract Classes.</h2>
+<p>An abstract class purely exists for the purpose of deriving classes from it and cannot be instantiated.</p>
+<p>Any class that contains atleast one pure virtual function is an abstract class. Because an abstract class cannot be instantiated, you cannot pass it by value to a function, a parameter of type <code>Shape</code> will not compile. Similarly, you cannot return a <code>Shape</code> object from a functiojn. However, pointers or references to an abstract class can be used as parameter or return types, so types such as <code>Shape*</code> <code>std::shared_ptr&lt;Shape*&gt;</code> and <code>Shape&amp;</code> are fine in these settings.</p>
+<p>Any class that inherits from <code>Shape</code> is obligated to provide an implementation of the <code>area()</code> method. If it doesn&rsquo;t, it too is an abstract class. More specifically, if any pure virtual function of an abstract base class isn&rsquo;t in a derived class, then the pure virtual function will be inherited as such, and the derived class becomes an abstract class.</p>
+<p>Thus, abstract base classes (ABCs) are often used as interfaces.</p>
+
+</article>
+
+
+
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/tags/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Dec 2023 13:02:33 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43; Refresher - Part 1</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/12/18/c-refresher-part-1/</link>
+      <pubDate>Mon, 18 Dec 2023 13:02:33 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/12/18/c-refresher-part-1/</guid>
+      <description>Hazards of dynamic memory allocation. Dangling pointers and multiple deallocations. A dangling pointer is a pointer variable that still contains the address to the free store memory that has already been deallocated using delete or delete[]. Dereferencing a dangling pointer makes you read from, or even worse write to memory that might already be allocated to and used by other parts of the program, resulting in all kinds of unpredictable results.</description>
+    </item>
+    
+  </channel>
+</rss>
