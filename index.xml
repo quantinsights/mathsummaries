@@ -6,7 +6,16 @@
     <description>Recent content on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 Dec 2023 13:02:33 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 Dec 2023 15:41:24 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43; Refresher - Part 2</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2023/12/19/c-refresher-part-2/</link>
+      <pubDate>Tue, 19 Dec 2023 15:41:24 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2023/12/19/c-refresher-part-2/</guid>
+      <description>Move Semantics. Writing the move constructor and move assignment operator. lvalue and rvalue. Every single expression has a value category: an lvalue or an rvalue. An lvalue evaluates to some persistent value with an address in the memory in which you can store something on an ongoing basis. A variable with a name is an lvalue. An rvalue evaluates to a result that is stored only transiently. Historically, lvalues and rvalues are so called because an lvalue typically appears on the left of an expression, whereas an rvalue could appear only on the right side.</description>
+    </item>
+    
     <item>
       <title>C&#43;&#43; Refresher - Part 1</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/12/18/c-refresher-part-1/</link>
