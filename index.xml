@@ -169,16 +169,15 @@ Why should I read this? While the official solutions may be more accurate, they 
     </item>
     
     <item>
-      <title>About Hugo XMag</title>
+      <title>Curriculum Vitae.</title>
       <link>https://quantophile.github.io/mathsummaries/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/about/</guid>
-      <description>XMag is the second Hugo theme I have designed. It is based on my first Hugo theme XMin, and similarly, features minimalism but with a magazine style on the homepage inspired by The Signpost on Wikipedia. You can find its source code on Github: https://github.com/yihui/hugo-xmag (licensed under MIT).
-Features This theme includes a few cool features:
-Responsive article summary blocks on homepage
-Thumbnails in summary blocks
-Magazine title in Blackletter (𝔅𝔏𝔄ℭ𝔎 𝔏𝔈𝔗𝔗𝔈ℜ)</description>
+      <description>Work experience. Quantiative Analyst. Credit Suisse, Quantitative Strategies : Credit Derivatives
+Apr 2019-Present
+Developed improvements to the C++/F# global quant library, focusing on bonds, asset swaps/ASW01 calculations, CDS, IndexCDS, CDSwaptions, CLNs (Credit-Linked Notes), Synthetic Funding notes, CDO and tranche products.
+Built an orchestrator framework in F#, put together Bonds Repack spreadsheet tool which streamlines viewing of cashflows, PV, risks and performing bookings of all the legs involved in the issuance of bond-repacks for the structured credit desk.</description>
     </item>
     
   </channel>
