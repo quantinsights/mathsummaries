@@ -93,12 +93,12 @@
 <p>It&rsquo;s still relatively easy to see, where you&rsquo;ve simply forgotten to use <code>delete</code> to free memory when use of the memory ceases at a point close to where you allocated it, but you&rsquo;d be surprised how often programmers make mistakes like this, especially if, for instance, <code>return</code> statements creep in between allocation and deallocation of your variable. And naturally, memory leaks are even more difficult to spot in complex programs, where memory may be allocated in part of the the program and should be released in a completely separate part.</p>
 <p>One basic strategy for avoiding memory leaks is to immediately add <code>delete</code> operation at an appropriate place each time you use the <code>new</code> operator. But this strategy by no means is fail-safe. Even C++ programmers are fallible creatures.</p>
 <h4 id="fragmentation-of-the-free-store">Fragmentation of the Free-Store.</h4>
-<p>Memory fragmentation can arise in programs that frequently dynamically allocate and release memory blocks. Each time, the <code>new</code> operator is used, it allocates a contiguous block of bytes. If you create and destroy many memory blocks of different sizes, it&rsquo;s possible to arrive at a situation in which the allocated memory is interspersed with small blocks of free memory, non of which is large enough to accomodate a new memory allocation request by your program. The aggregate of the free memory can be quite largbe, but if all the individual blocks are small (smaller than a current allocation request), the allocation request will fail.</p>
+<p>Memory fragmentation can arise in programs that frequently dynamically allocate and release memory blocks. Each time, the <code>new</code> operator is used, it allocates a contiguous block of bytes. If you create and destroy many memory blocks of different sizes, it&rsquo;s possible to arrive at a situation in which the allocated memory is interspersed with small blocks of free memory, none of which is large enough to accomodate a new memory allocation request by your program. The aggregate of the free memory can be quite large, but if all the individual blocks are small (smaller than a current allocation request), the allocation request will fail.</p>
 <h3 id="golden-rule-of-dynamic-memory-allocation">Golden rule of dynamic memory allocation.</h3>
 <p>Never use the operators <code>new</code>, <code>new[]</code>, <code>delete</code> and <code>delete[]</code> directly in day-to-day coding. These operators have no place in modern C++ code. Always use either the <code>std::vector&lt;T&gt;</code> container to replace dynamic arrays or a smart pointer to dynamically allocate individual objects and manage their lifetimes.</p>
 <h2 id="raw-pointers-and-smart-pointers">Raw pointers and Smart Pointers.</h2>
 <p>Pointer types <code>int*</code>, <code>double*</code> are referred to as <em>raw pointers</em> because variables of these types contain nothing more than an address. A raw pointer can store the address of an automatic variable or a memory-block allocated in the free-store.</p>
-<p>A <em>smart pointer</em> is an object that mimics a raw pointer in that, it contains an address, and you can use it in the same way in many respects. Smart pointers are normally used only to store the address of memory allocated in the free store. A smart pointer does much more than a raw pointer, though. The most notable feature of a smart pointer, is that we don&rsquo;t have to worry about using the <code>delete</code> or <code>delete[]</code> operator to free memory. It will be released automatically, when it is no longer needed. This means that multiple allocations, allocation/deallocation mismatches and memory leaks will no longer be possible.</p>
+<p>A <em>smart pointer</em> is an object that mimics a raw pointer in that, it contains an address, and you can use it in the same way in many respects. Smart pointers are normally used only to store the address of memory allocated in the free store. A smart pointer does much more than a raw pointer, though. The most notable feature of a smart pointer, is that we don&rsquo;t have to worry about using the <code>delete</code> or <code>delete[]</code> operator to free memory. It will be released automatically, when it is no longer needed. This means that dangling pointers and multiple deallocations, allocation/deallocation mismatches and memory leaks will no longer be possible.</p>
 <ul>
 <li>
 <p>A <code>std::unique_ptr&lt;T&gt;</code> object behaves as a pointer to type <code>T</code> and is unique in the sense that there can be only one single <code>unique_ptr&lt;&gt;</code> object containing the same address. In other words, there can never be two or more <code>unique_ptr&lt;T&gt;</code> objects pointing to the same memory address at the same time. A <code>unique_ptr&lt;&gt;</code> object is said to own the object it points to exclusively. The uniqueness is enforced by the fact, that a compiler will never allow you to copy a <code>unique_ptr&lt;&gt;</code>.</p>
@@ -107,11 +107,96 @@
 <p>A <code>std::shared_ptr&lt;T&gt;</code> object also behaves as a pointer to type <code>T</code>, but in contrast with <code>unique_ptr&lt;T&gt;</code> there can be any number of <code>shared_ptr&lt;&gt;</code> objects that allow <em>shared ownership</em> of an object in the free-store. At any given moment, the number of <code>shared_ptr&lt;&gt;</code> objects that contain a given address in time is known by the runtime. This is called <em>reference counting</em>. The reference count for a <code>shared_ptr&lt;&gt;</code> containing a given free store address is incremented each time a new <code>shared_ptr</code> object is creating containing that address, and its decremented when a <code>shared_ptr</code> containing the address is destroyed or assigned to point to a different address. When there are no <code>shared_ptr</code> objects containing a given address, the reference count will have dropped to zero, and the memory for the object at that address is released automatically. All <code>shared_ptr&lt;&gt;</code> objects that point to the same address have access to the the count of how many there are.</p>
 </li>
 <li>
-<p>A <code>weak_ptr&lt;T&gt;</code> is linked to a <code>shared_ptr&lt;T&gt;</code> and contains the same address. Creating a <code>weak_ptr&lt;&gt;</code> does not increment the reference count associated with the linked <code>shared_ptr&lt;&gt;</code> object, though, so a <code>weak_ptr&lt;&gt;</code> does not prevent the object pointered to from being destroyed. Its memory will still be released when the last <code>shared_ptr&lt;&gt;</code> referencing it is destroyed or reassigned to point to a different address, even when associated <code>weak_ptr&lt;&gt;</code> objects still exist. If this happens, the <code>weak_ptr&lt;&gt;</code> will nevertheless not contain a dangling pointer, atleast not one that you could inadvertently access. The reason is that you cannot access the address encapsulated by a <code>weak_ptr&lt;T&gt;</code> directly. The compiler forces you to first create a <code>shared_ptr&lt;T&gt;</code> object out of it that refers to the same address. If the memory address for the <code>weak_ptr&lt;&gt;</code> is still valid, forcing you to create a <code>shared_ptr&lt;&gt;</code> first ensures that the reference count is again incremented and that the pointer can be used safely again. If the memory is released already, however, this operation will result in a <code>shared_ptr&lt;&gt;1</code> containing a <code>nullptr</code>.</p>
+<p>A <code>weak_ptr&lt;T&gt;</code> is linked to a <code>shared_ptr&lt;T&gt;</code> and contains the same address. Creating a <code>weak_ptr&lt;&gt;</code> does not increment the reference count associated with the linked <code>shared_ptr&lt;&gt;</code> object, though, so a <code>weak_ptr&lt;&gt;</code> does not prevent the object pointed to from being destroyed. Its memory will still be released when the last <code>shared_ptr&lt;&gt;</code> referencing it is destroyed or reassigned to point to a different address, even when associated <code>weak_ptr&lt;&gt;</code> objects still exist. If this happens, the <code>weak_ptr&lt;&gt;</code> will nevertheless not contain a dangling pointer, atleast not one that you could inadvertently access. The reason is that you cannot access the address encapsulated by a <code>weak_ptr&lt;T&gt;</code> directly. The compiler forces you to first create a <code>shared_ptr&lt;T&gt;</code> object out of it that refers to the same address. If the memory address for the <code>weak_ptr&lt;&gt;</code> is still valid, forcing you to create a <code>shared_ptr&lt;&gt;</code> first ensures that the reference count is again incremented and that the pointer can be used safely again. If the memory is released already, however, this operation will result in a <code>shared_ptr&lt;&gt;1</code> containing a <code>nullptr</code>.</p>
 </li>
 </ul>
 <p>One use for having <code>weak_ptr&lt;&gt;</code> objects is to avoid so called reference cycles with <code>shared_ptr&lt;&gt;</code> objects. Conceptually, a reference cycle is where a <code>shared_ptr&lt;Y&gt;</code> inside the object <code>x</code> points to some other object <code>y</code> that contains a <code>shared_ptr&lt;X&gt;</code>, which points back to <code>x</code>. With this situation, neither <code>x</code> nor <code>y</code> can be destroyed. In practice, this may occur in many ways. <code>weak_ptr</code> allows you to break such cycles. Another use of weak pointers is in the implementation of object caches.</p>
-<h3 id="using-unique_ptrt-and-shared_ptrt-pointers">Using <code>unique_ptr&lt;T&gt;</code> and <code>shared_ptr&lt;T&gt;</code> pointers.</h3>
+<p>In the below code snippet, the destructors <code>~A()</code> and <code>~B()</code> are not invoked even when the objects <code>shrd_a</code> and <code>shrd_b</code> go out of scope.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    shared_ptr<span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span> m_b;
+</span></span><span style="display:flex;"><span>    A() {cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">A()&#34;</span>;}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>A() {cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">~A()&#34;</span>;}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    shared_ptr<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span> m_a;
+</span></span><span style="display:flex;"><span>    B () {cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">B()&#34;</span>;}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>B() {cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">~B()&#34;</span>;}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        shared_ptr<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span> shrd_a {make_shared<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span>()}; <span style="color:#75715e">//A&#39;s ref count = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        shared_ptr<span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span> shrd_b {make_shared<span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span>()}; <span style="color:#75715e">//B&#39;s ref count = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>        shrd_a<span style="color:#f92672">-&gt;</span>m_b <span style="color:#f92672">=</span> shrd_b; <span style="color:#75715e">//B&#39;s ref count = 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        shrd_b<span style="color:#f92672">-&gt;</span>m_a <span style="color:#f92672">=</span> shrd_a; <span style="color:#75715e">//A&#39;s ref count = 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//shrd_a and shrd_b go out of scope and are destroyed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// A&#39;s ref count = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// B&#39;s ref count = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// ((Memory of A, B is deallocated only when ref count drops to 0))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>A()
+B()
+</code></pre><p>To solve it, the programmer needs to be aware of the ownership relationship among the objects, or needs to invent an ownership relationship, if no such ownership exists. The above C++ code can be changed so that A owns B:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    shared_ptr<span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span> m_b;
+</span></span><span style="display:flex;"><span>    A() {cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">A()&#34;</span>;}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>A() {cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">~A()&#34;</span>;}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    weak_ptr<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span> m_a;
+</span></span><span style="display:flex;"><span>    B () {cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">B()&#34;</span>;}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>B() {cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">~B()&#34;</span>;}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        shared_ptr<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span> shrd_a {make_shared<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span>()}; <span style="color:#75715e">//A&#39;s ref count = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        shared_ptr<span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span> shrd_b {make_shared<span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span>()}; <span style="color:#75715e">//B&#39;s ref count = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>        shrd_a<span style="color:#f92672">-&gt;</span>m_b <span style="color:#f92672">=</span> shrd_b; <span style="color:#75715e">//B&#39;s ref count = 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        shrd_b<span style="color:#f92672">-&gt;</span>m_a <span style="color:#f92672">=</span> shrd_a; <span style="color:#75715e">//A&#39;s ref count = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//shrd_a and shrd_b go out of scope and are destroyed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// A&#39;s ref count = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// B&#39;s ref count = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// A is destroyed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// B&#39;s ref count = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// B is destroyed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre tabindex="0"><code>A()
+B()
+~A()
+~B()
+</code></pre><h3 id="using-unique_ptrt-and-shared_ptrt-pointers">Using <code>unique_ptr&lt;T&gt;</code> and <code>shared_ptr&lt;T&gt;</code> pointers.</h3>
 <p>A <code>unique_ptr&lt;T&gt;</code> object stores an address uniquely, so the value to which it points is owned exlusively by the <code>unique_ptr&lt;T&gt;</code> smart pointer. When the <code>unique_ptr&lt;T&gt;</code> is destroyed, so is the value to which it points. Like all smart pointers, a <code>unique_ptr&lt;&gt;</code> is most useful when working with dynamically allocated objects. Objects then should not be shared by multiple parts of the program, or where the lifetime of the dynamic pobject is naturally tied to a single other object in your program.</p>
 <p>One common use for a <code>unique_ptr&lt;&gt;</code> is to hold something called a <em>polymorphic pointer</em>, which in essence is a pointer to a dynamically allocated object that can be of any number of related class types.</p>
 <p>To create and initialize a double variable on the free-store, we write:</p>
@@ -485,6 +570,9 @@ Largest of [2,5,8,4,7,3] is : 8
 </span></span></code></pre></div><h3 id="access-specifiers-and-class-hierarchies">Access specifiers and class hierarchies.</h3>
 <ul>
 <li>
+<p>The private members of the base class are inaccessible to the derived class.</p>
+</li>
+<li>
 <p>When the base class specifier is <code>public</code>, the access status of the inherited members remains unchanged. Thus, inherited <code>public</code> members are <code>public</code>, and inherited <code>protected</code> members are <code>protected</code> in a derived class.</p>
 </li>
 <li>
@@ -496,7 +584,7 @@ Largest of [2,5,8,4,7,3] is : 8
 </ul>
 <h3 id="constructors-and-destructors-in-derived-classes">Constructors and Destructors in derived classes.</h3>
 <p>Every constructor of the derived class always starts by invoking a constructor of the base class. And that base class constructor then invokes the constructor of its base class, and so on.</p>
-<p><em>Remark.</em> You cannot initialize the member variables of a base class in the initialization list for the derived class constructor. Not even if thos members are public or protected.</p>
+<p><em>Remark.</em> You cannot initialize the member variables of a base class in the initialization list for the derived class constructor. Not even if those members are public or protected.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
@@ -604,7 +692,10 @@ class Child_2 : public virtual Parent
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>When you specify a function as <code>virtual</code> in a base class, you indicate to the compiler that you want dynamic binding for function calls in any class that&rsquo;s derived from this base class. A function that you specifyn as <code>virtual</code> in the base class will be <code>virtual</code> in all classes that directly or indirectly derive from the base class. This is the case, whether or not you specify the function as <code>virtual</code> in the derived class.</p>
+</span></span></code></pre></div><pre tabindex="0"><code>Greetings from a!
+Greetings from d!
+Greetings from d!
+</code></pre><p>When you specify a function as <code>virtual</code> in a base class, you indicate to the compiler that you want dynamic binding for function calls in any class that&rsquo;s derived from this base class. A function that you specifyn as <code>virtual</code> in the base class will be <code>virtual</code> in all classes that directly or indirectly derive from the base class. This is the case, whether or not you specify the function as <code>virtual</code> in the derived class.</p>
 <p>The call to a virtual function using an <strong>object</strong> is always resolved statically. You only get dybamic resolution of calls to virtual functions through a pointer or a reference. Consider the below code snippet:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>    D d{};
 </span></span><span style="display:flex;"><span>    
