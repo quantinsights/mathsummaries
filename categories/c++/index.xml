@@ -13,7 +13,7 @@
       <pubDate>Tue, 19 Dec 2023 15:41:24 +0100</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/post/2023/12/19/c-refresher-part-2/</guid>
-      <description>Move Semantics. Writing the move constructor and move assignment operator. lvalue and rvalue. Every single expression has a value category: an lvalue or an rvalue. An lvalue evaluates to some persistent value with an address in the memory in which you can store something on an ongoing basis. A variable with a name is an lvalue. An rvalue evaluates to a result that is stored only transiently. Historically, lvalues and rvalues are so called because an lvalue typically appears on the left of an expression, whereas an rvalue could appear only on the right side.</description>
+      <description>Move Semantics. Writing the move constructor and move assignment operator. lvalue and rvalue. Every single expression has a value category: an lvalue or an rvalue. An lvalue is an expression that refers to a persistent memory location and allows us to take the address of that memory location via the address-of &amp;amp; operator. An rvalue evaluates to a result that is stored only transiently. rvalues are typically things you can&amp;rsquo;t take an address of e.</description>
     </item>
     
     <item>

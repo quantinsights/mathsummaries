@@ -695,7 +695,7 @@ class Child_2 : public virtual Parent
 </span></span></code></pre></div><pre tabindex="0"><code>Greetings from a!
 Greetings from d!
 Greetings from d!
-</code></pre><p>When you specify a function as <code>virtual</code> in a base class, you indicate to the compiler that you want dynamic binding for function calls in any class that&rsquo;s derived from this base class. A function that you specifyn as <code>virtual</code> in the base class will be <code>virtual</code> in all classes that directly or indirectly derive from the base class. This is the case, whether or not you specify the function as <code>virtual</code> in the derived class.</p>
+</code></pre><p>When you specify a function as <code>virtual</code> in a base class, you indicate to the compiler that you want dynamic binding for function calls in any class that&rsquo;s derived from this base class. A function that you specify as <code>virtual</code> in the base class will be <code>virtual</code> in all classes that directly or indirectly derive from the base class. This is the case, whether or not you specify the function as <code>virtual</code> in the derived class.</p>
 <p>The call to a virtual function using an <strong>object</strong> is always resolved statically. You only get dybamic resolution of calls to virtual functions through a pointer or a reference. Consider the below code snippet:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>    D d{};
 </span></span><span style="display:flex;"><span>    
