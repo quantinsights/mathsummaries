@@ -285,7 +285,8 @@ auto swap {[&amp;]() {
 </span></span></code></pre></div><pre tabindex="0"><code>18 &lt; 8: false
 18 &gt; 8: true
 18 nearer to 10 than 8: false
-</code></pre>
+</code></pre><p>The <code>std::function&lt;&gt;</code> variable <code>compare</code> is assigned all three different kinds of first class functions - a function pointer, a function object from the standard template library and a lambda closure. In between, all three first class functions are called. More precisely, they are invoked through the <code>compare</code> variable&rsquo;s function call operator. A <code>std::function&lt;&gt;</code> itself is, in other words, a function object - that encapsulates any other kind of first class function.</p>
+
 </article>
 
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Radon-Nikodym on Math Summaries</title>
+    <link>https://quantophile.github.io/mathsummaries/categories/radon-nikodym/</link>
+    <description>Recent content in Radon-Nikodym on Math Summaries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Jan 2024 16:33:58 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/radon-nikodym/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Price of a Power Call Option</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2024/01/21/price-of-a-power-call-option/</link>
+      <pubDate>Sun, 21 Jan 2024 16:33:58 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2024/01/21/price-of-a-power-call-option/</guid>
+      <description>Price of European option with payoff $V(T)=\max (S^2(T) - K,0)$ Deriving the dynamics of $X(t) = S^2(t)$. In the Black-Scholes world, the stock price $S(t)$ has $\mathbb{Q}$-dynamics:
+$$ dS_t = rS(t)dt + \sigma S(t) dW^{\mathbb{Q}}(t) \tag{1} $$
+Let $X(t) = S^2(t)$. The square of the stock price has the $\mathbb{Q}$-dyamics:
+$$ \begin{align*} dX_t &amp;amp;= 2S(t)dS(t) + \frac{1}{2}\cdot 2 \cdot dS_t \cdot dS_t\\ &amp;amp;= 2S(t) ( rS(t)dt + \sigma S(t) dW^{\mathbb{Q}}(t)) + \sigma^2 S^2(t) dt \\ &amp;amp;= S^2(t)[(2r + \sigma^2)dt + 2\sigma dW^{\mathbb{Q}}(t)]\\ &amp;amp;= X(t)[(2r + \sigma^2)dt + 2\sigma dW^{\mathbb{Q}}(t)] \end{align*} $$</description>
+    </item>
+    
+  </channel>
+</rss>

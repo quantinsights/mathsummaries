@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>Price of a Power Call Option | Math Summaries</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.118.2">
+<meta name="description" content="I present here some quantitative finance projects that I have done or have been working on. Hope they can be of any help to you.&#34;&#34;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/css/minimal.css">
+<link rel="canonical" href="https://quantophile.github.io/mathsummaries/post/2024/01/21/price-of-a-power-call-option/">
+<link rel="alternate" type="application/rss+xml" href="" title="Math Summaries">
+<link rel="stylesheet" href="https://quantophile.github.io/mathsummaries/katex/katex.min.css">
+<script defer src="https://quantophile.github.io/mathsummaries/katex/katex.min.js"></script>
+<script defer src="https://quantophile.github.io/mathsummaries/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<header>
+  
+    <a href="https://quantophile.github.io/mathsummaries/" class="title">Math Summaries</a>
+  
+  
+    <nav>
+    
+      <a href="">Home</a>
+    
+      <a href="about/">About</a>
+    
+      <a href="categories/">Categories</a>
+    
+      <a href="tags/">Tags</a>
+    
+      <a href="index.xml">Subscribe</a>
+    
+    </nav>
+  
+</header>
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+    integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"
+    integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: true},
+      ],
+    });
+  });
+</script>
+
+<article>
+  <header>
+    <h1>Price of a Power Call Option</h1>
+    <time datetime="2024-01-21T16:33:58&#43;01:00">January 21, 2024</time>
+  </header>
+  <h1 id="price-of-european-option-with-payoff-vtmax-s2t---k0">Price of European option with payoff $V(T)=\max (S^2(T) - K,0)$</h1>
+<h2 id="deriving-the-dynamics-of-xt--s2t">Deriving the dynamics of $X(t) = S^2(t)$.</h2>
+<p>In the Black-Scholes world, the stock price $S(t)$ has $\mathbb{Q}$-dynamics:</p>
+<p>$$
+dS_t = rS(t)dt + \sigma S(t) dW^{\mathbb{Q}}(t) \tag{1}
+$$</p>
+<p>Let $X(t) = S^2(t)$. The square of the stock price has the $\mathbb{Q}$-dyamics:</p>
+<p>$$
+\begin{align*}
+dX_t &amp;= 2S(t)dS(t) + \frac{1}{2}\cdot 2 \cdot dS_t \cdot dS_t\\
+&amp;= 2S(t) ( rS(t)dt + \sigma S(t) dW^{\mathbb{Q}}(t)) + \sigma^2 S^2(t) dt \\
+&amp;= S^2(t)[(2r + \sigma^2)dt + 2\sigma dW^{\mathbb{Q}}(t)]\\
+&amp;= X(t)[(2r + \sigma^2)dt + 2\sigma dW^{\mathbb{Q}}(t)]
+\end{align*}
+$$</p>
+<p>Let $f(x) = \log x$. By Ito&rsquo;s formula:</p>
+<p>$$
+\begin{align*}
+d(\log X_t) &amp;= \frac{1}{X(t)}dX(t) + \frac{1}{2}\cdot \left(-\frac{1}{X^2(t)}\right)dX(t)\cdot dX(t)\\
+&amp;= (2r + \sigma^2)dt + 2\sigma dW^{\mathbb{Q}}(t) - \frac{1}{2}\cdot 4\sigma^2 dt\\
+&amp;= (2r - \sigma^2)dt + 2\sigma dW^{\mathbb{Q}}(t) \\
+X(t) &amp;= X(0) \exp[(2r - \sigma^2)t + 2\sigma W^{\mathbb{Q}}(t)] \tag{2}
+\end{align*}
+$$</p>
+<h2 id="computing-the-expectations">Computing the expectations.</h2>
+<p>By the risk neutral pricing formula, the price of the claim $V(T) = \max(S^2(T) - K,0)$ at time $t$ is:</p>
+<p>$$
+\begin{align*}
+V(t,T) &amp;= \mathbb{E}^{\mathbb{Q}}[e^{-r(T-t)}(S^2(T) - K)\cdot 1_{S^2(T) &gt; K}|\mathcal{F}_t] \\
+&amp;= e^{-r(T-t)}\mathbb{E}^{\mathbb{Q}}[S^2(T) 1_{S^2(T) &gt; K}|\mathcal{F}_t] - Ke^{-r(T-t)}\mathbb{E}^{\mathbb{Q}}[1_{S^2(T) &gt; K}|\mathcal{F}_t]
+\end{align*}\tag{3}
+$$</p>
+<h3 id="computing-mathbbemathbbq1_st--kmathcalf_t">Computing $\mathbb{E}^{\mathbb{Q}}[1_{S(T) &gt; K}|\mathcal{F}_t]$.</h3>
+<p>Define :</p>
+<p>$$
+\begin{align*}
+\tau &amp;:= T - t\\
+d_{1}(\tau,x) &amp;= \frac{\log\frac{x}{\sqrt{K}} + \left(r + \frac{3}{2}\sigma^2\right)\tau}{\sigma \sqrt{\tau}}\\
+d_{2}(\tau,x) &amp;= \frac{\log\frac{x}{\sqrt{K}} + \left(r - \frac{\sigma^2}{2}\right)\tau}{\sigma \sqrt{\tau}}
+\end{align*}
+$$</p>
+<p>The second expectation $\mathbb{E}^{\mathbb{Q}}[1_{S(T) &gt; K}|\mathcal{F}_t]$ is computed in the standard way.</p>
+<p>$$
+\begin{align*}
+\mathbb{E}^{\mathbb{Q}}[1_{S^2(T) &gt; K}|\mathcal{F}_t] &amp;= \mathbb{Q}(S^2(T) &gt; K|\mathcal{F_t})\\
+&amp;=\mathbb{Q}\left(\log S^2(T) &gt; \log K|\mathcal{F_t}\right)\\
+&amp;=\mathbb{Q}\left(\log S^2(t) + (2r - \sigma^2)\tau + 2\sigma \sqrt{\tau} Z &gt; \log K|\mathcal{F_t}\right)\\
+&amp;=\mathbb{Q}\left( 2\sigma \sqrt{\tau} Z &gt; \log K - \log S^2(t) - 2(r - \sigma^2/2)\tau|\mathcal{F_t}\right)\\
+&amp;=\mathbb{Q}\left(Z &gt; \frac{\log K - \log S^2(t) - 2(r - \sigma^2/2)\tau}{2\sigma \sqrt{\tau}}|\mathcal{F_t}\right)\\
+&amp;=\mathbb{Q}\left(Z &lt; \frac{\log S^2(t) - \log K + 2(r - \sigma^2/2)\tau}{2\sigma \sqrt{\tau}}|\mathcal{F_t}\right)\\
+&amp;=\mathbb{Q}\left(Z &lt; \frac{\log \frac{S^2(t)}{K} + 2(r - \sigma^2/2)\tau}{2\sigma \sqrt{\tau}}|\mathcal{F_t}\right)\\
+&amp;=\mathbb{Q}\left(Z &lt; \frac{\log \frac{S(t)}{\sqrt{K}} + (r - \sigma^2/2)\tau}{\sigma \sqrt{\tau}}|\mathcal{F_t}\right)\\
+&amp;=\Phi(d_{2}(\tau,S(t)))
+\end{align*} \tag{4}
+$$</p>
+<h3 id="computing-mathbbemathbbqs2t-1_s2t--kmathcalf_t">Computing $\mathbb{E}^{\mathbb{Q}}[S^2(T) 1_{S^2(T) &gt; K}|\mathcal{F}_t]$.</h3>
+<p>Let $\tilde{\mathbb{Q}}$ be another probability measure related to $\mathbb{Q}$ defined by the Radon-Nikodym derivative:</p>
+<p>$$
+\begin{align*}
+\frac{d\tilde{\mathbb{Q}}}{d\mathbb{Q}} &amp;= \frac{N(T)/B(T)}{N(0)/B(0)} \\
+&amp;= \frac{S^2(T)/e^{rT}}{S^2(0)/1}\\
+&amp;= \exp\left[(r-\sigma^2)T + 2\sigma W^{\mathbb{Q}(T)}\right]\\
+&amp;= \exp\left[2\sigma W^{\mathbb{Q}(T)}-\frac{1}{2}4\sigma^2 T\right]\exp\left[rT + \sigma^2 T\right]
+\end{align*}
+$$</p>
+<p>Using Girsanov&rsquo;s theorem, we can express $W^{\tilde{\mathbb{Q}}}(t) = W^{\mathbb{Q}}(t) - 2\sigma t$ and the constant expression $\exp\left[rT + \sigma^2 T\right]$ is taken care of at the end, after we have found a suitable CDF.</p>
+<p>By the change of measure theorem, the first expectation can be expressed as follows:</p>
+<p>$$
+\begin{align*}
+\mathbb{E}^{\tilde{\mathbb{Q}}}[1_{S^2(T)&gt;K}|\mathcal{F}_t] &amp;= \mathbb{E}^{\mathbb{Q}}\left[\frac{(d\tilde{\mathbb{Q}}/d\mathbb{Q})_T}
+{(d\tilde{\mathbb{Q}}/d\mathbb{Q})_t}1_{S^2(T)&gt;K}|\mathcal{F}_t\right]\\
+\mathbb{E}^{\tilde{\mathbb{Q}}}[1_{S^2(T)&gt;K}|\mathcal{F}_t] &amp;= \mathbb{E}^{\mathbb{Q}}\left[\frac{S^2(T)e^{-rT}}
+{S^2(t)e^{-rt}}1_{S^2(T)&gt;K}|\mathcal{F}_t\right]\\
+S^2(t)\mathbb{E}^{\tilde{\mathbb{Q}}}[1_{S^2(T)&gt;K}|\mathcal{F}_t] &amp;= \mathbb{E}^{\mathbb{Q}}\left[S^2(T)e^{-r(T-t)}
+1_{S^2(T)&gt;K}|\mathcal{F}_t\right] \tag{5}
+\end{align*}
+$$</p>
+<h3 id="computing-mathbbetildemathbbq1_s2tkmathcalf_t">Computing $\mathbb{E}^{\tilde{\mathbb{Q}}}[1_{S^2(T)&gt;K}|\mathcal{F}_t]$.</h3>
+<p>We can now solve for $\tilde{\mathbb{Q}}(S^2(T) &gt; K)$ as:</p>
+<p>$$
+\begin{align*}
+\mathbb{E}^{\tilde{\mathbb{Q}}}[1_{S^2(T)&gt;K}|\mathcal{F}_t] &amp;= \tilde{\mathbb{Q}}\left(S^2(T) &gt; K\right)\\
+&amp;=\tilde{\mathbb{Q}}\left(\log S^2(T) &gt; \log K\right)\\
+&amp;=\tilde{\mathbb{Q}}\left(\log S^2(t) + (2r - \sigma^2)\tau + 2\sigma W^{\mathbb{Q}}(\tau) &gt; \log K\right)\\
+&amp;=\tilde{\mathbb{Q}}\left(\log S^2(t) + (2r - \sigma^2)\tau + 2\sigma (W^{\tilde{\mathbb{Q}}}(\tau) + 2\sigma \tau) &gt; \log K\right)\\
+&amp;=\tilde{\mathbb{Q}}\left(\log S^2(t) + (2r + 3\sigma^2)\tau + 2\sigma W^{\tilde{\mathbb{Q}}}(\tau) &gt; \log K\right)\\
+&amp;=\tilde{\mathbb{Q}}\left(2\sigma W^{\tilde{\mathbb{Q}}}(\tau) &gt; \log K - \log S^2(t) - (2r + 3\sigma^2)\tau \right)\\
+&amp;=\tilde{\mathbb{Q}}\left(W^{\tilde{\mathbb{Q}}}(1) &gt; \frac{\log \sqrt{K} - \log S(t) - (r + \frac{3}{2}\sigma^2)\tau}{\sigma\sqrt{\tau}}\right)\\
+&amp;=\tilde{\mathbb{Q}}\left(W^{\tilde{\mathbb{Q}}}(1) &lt; \frac{\log \frac{S(t)}{\sqrt{K}} + (r + \frac{3}{2}\sigma^2)\tau}{\sigma\sqrt{\tau}}\right)\\
+&amp;=\Phi(d_1(\tau,S(t))
+\end{align*}
+$$</p>
+<h2 id="conclusion">Conclusion.</h2>
+<p>The price of the European power call option having payoff $V(T)=\max (S^\alpha(T) - K,0)$, where $\alpha = 2$ is:</p>
+<p>$$
+V(t,T) = S^2(t)\Phi(d_1(\tau,S(t))) - Ke^{-r(T-t)}\Phi(d_2(\tau,S(t)))
+$$</p>
+
+</article>
+
+
+
+</html>

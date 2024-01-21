@@ -6,7 +6,18 @@
     <description>Recent content in C&#43;&#43; on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Dec 2023 15:41:24 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jan 2024 20:17:26 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>STL Algorithms</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2024/01/02/stl-algorithms/</link>
+      <pubDate>Tue, 02 Jan 2024 20:17:26 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2024/01/02/stl-algorithms/</guid>
+      <description>Heaps. A real-life heap of pebbles consists smaller stones on the top, while the bigger one is at the bottom.
+Heaps in C++ are the opposite of rock-towers, the biggest element is at the top, and every element is bigger than it&amp;rsquo;s children. The C++ heap is a max-heap.
+The (binary) heap data structure is an array object that we can view nearly as a complete binary tree. Each node of the tree corresponds to an element of the array.</description>
+    </item>
+    
     <item>
       <title>C&#43;&#43; Refresher - Part 2</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/12/19/c-refresher-part-2/</link>

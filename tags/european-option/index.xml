@@ -6,7 +6,19 @@
     <description>Recent content in european-option on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Nov 2023 22:55:20 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/european-option/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Jan 2024 16:33:58 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/european-option/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Price of a Power Call Option</title>
+      <link>https://quantophile.github.io/mathsummaries/post/2024/01/21/price-of-a-power-call-option/</link>
+      <pubDate>Sun, 21 Jan 2024 16:33:58 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/post/2024/01/21/price-of-a-power-call-option/</guid>
+      <description>Price of European option with payoff $V(T)=\max (S^2(T) - K,0)$ Deriving the dynamics of $X(t) = S^2(t)$. In the Black-Scholes world, the stock price $S(t)$ has $\mathbb{Q}$-dynamics:
+$$ dS_t = rS(t)dt + \sigma S(t) dW^{\mathbb{Q}}(t) \tag{1} $$
+Let $X(t) = S^2(t)$. The square of the stock price has the $\mathbb{Q}$-dyamics:
+$$ \begin{align*} dX_t &amp;amp;= 2S(t)dS(t) + \frac{1}{2}\cdot 2 \cdot dS_t \cdot dS_t\\ &amp;amp;= 2S(t) ( rS(t)dt + \sigma S(t) dW^{\mathbb{Q}}(t)) + \sigma^2 S^2(t) dt \\ &amp;amp;= S^2(t)[(2r + \sigma^2)dt + 2\sigma dW^{\mathbb{Q}}(t)]\\ &amp;amp;= X(t)[(2r + \sigma^2)dt + 2\sigma dW^{\mathbb{Q}}(t)] \end{align*} $$</description>
+    </item>
+    
     <item>
       <title>Exploring Option Greeks</title>
       <link>https://quantophile.github.io/mathsummaries/post/2023/11/19/exploring-option-greeks/</link>

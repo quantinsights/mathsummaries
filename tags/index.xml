@@ -6,11 +6,38 @@
     <description>Recent content in Tags on Math Summaries</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Dec 2023 15:41:24 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Jan 2024 16:33:58 +0100</lastBuildDate><atom:link href="https://quantophile.github.io/mathsummaries/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>european-option</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/european-option/</link>
+      <pubDate>Sun, 21 Jan 2024 16:33:58 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/european-option/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fx-option</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/fx-option/</link>
+      <pubDate>Sun, 21 Jan 2024 16:33:58 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/fx-option/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vanilla-option</title>
+      <link>https://quantophile.github.io/mathsummaries/tags/vanilla-option/</link>
+      <pubDate>Sun, 21 Jan 2024 16:33:58 +0100</pubDate>
+      
+      <guid>https://quantophile.github.io/mathsummaries/tags/vanilla-option/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>C&#43;&#43;</title>
       <link>https://quantophile.github.io/mathsummaries/tags/c&#43;&#43;/</link>
-      <pubDate>Tue, 19 Dec 2023 15:41:24 +0100</pubDate>
+      <pubDate>Tue, 02 Jan 2024 20:17:26 +0100</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/tags/c&#43;&#43;/</guid>
       <description></description>
@@ -22,33 +49,6 @@
       <pubDate>Sun, 26 Nov 2023 14:46:22 +0100</pubDate>
       
       <guid>https://quantophile.github.io/mathsummaries/tags/vanna-volga/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>european-option</title>
-      <link>https://quantophile.github.io/mathsummaries/tags/european-option/</link>
-      <pubDate>Sun, 19 Nov 2023 22:55:20 +0100</pubDate>
-      
-      <guid>https://quantophile.github.io/mathsummaries/tags/european-option/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>fx-option</title>
-      <link>https://quantophile.github.io/mathsummaries/tags/fx-option/</link>
-      <pubDate>Sun, 19 Nov 2023 22:55:20 +0100</pubDate>
-      
-      <guid>https://quantophile.github.io/mathsummaries/tags/fx-option/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>vanilla-option</title>
-      <link>https://quantophile.github.io/mathsummaries/tags/vanilla-option/</link>
-      <pubDate>Sun, 19 Nov 2023 22:55:20 +0100</pubDate>
-      
-      <guid>https://quantophile.github.io/mathsummaries/tags/vanilla-option/</guid>
       <description></description>
     </item>
     
