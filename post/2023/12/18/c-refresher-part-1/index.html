@@ -107,7 +107,7 @@
 <p>A <code>std::shared_ptr&lt;T&gt;</code> object also behaves as a pointer to type <code>T</code>, but in contrast with <code>unique_ptr&lt;T&gt;</code> there can be any number of <code>shared_ptr&lt;&gt;</code> objects that allow <em>shared ownership</em> of an object in the free-store. At any given moment, the number of <code>shared_ptr&lt;&gt;</code> objects that contain a given address in time is known by the runtime. This is called <em>reference counting</em>. The reference count for a <code>shared_ptr&lt;&gt;</code> containing a given free store address is incremented each time a new <code>shared_ptr</code> object is creating containing that address, and its decremented when a <code>shared_ptr</code> containing the address is destroyed or assigned to point to a different address. When there are no <code>shared_ptr</code> objects containing a given address, the reference count will have dropped to zero, and the memory for the object at that address is released automatically. All <code>shared_ptr&lt;&gt;</code> objects that point to the same address have access to the the count of how many there are.</p>
 </li>
 <li>
-<p>A <code>weak_ptr&lt;T&gt;</code> is linked to a <code>shared_ptr&lt;T&gt;</code> and contains the same address. Creating a <code>weak_ptr&lt;&gt;</code> does not increment the reference count associated with the linked <code>shared_ptr&lt;&gt;</code> object, though, so a <code>weak_ptr&lt;&gt;</code> does not prevent the object pointed to from being destroyed. Its memory will still be released when the last <code>shared_ptr&lt;&gt;</code> referencing it is destroyed or reassigned to point to a different address, even when associated <code>weak_ptr&lt;&gt;</code> objects still exist. If this happens, the <code>weak_ptr&lt;&gt;</code> will nevertheless not contain a dangling pointer, atleast not one that you could inadvertently access. The reason is that you cannot access the address encapsulated by a <code>weak_ptr&lt;T&gt;</code> directly. The compiler forces you to first create a <code>shared_ptr&lt;T&gt;</code> object out of it that refers to the same address. If the memory address for the <code>weak_ptr&lt;&gt;</code> is still valid, forcing you to create a <code>shared_ptr&lt;&gt;</code> first ensures that the reference count is again incremented and that the pointer can be used safely again. If the memory is released already, however, this operation will result in a <code>shared_ptr&lt;&gt;1</code> containing a <code>nullptr</code>.</p>
+<p>A <code>weak_ptr&lt;T&gt;</code> is linked to a <code>shared_ptr&lt;T&gt;</code> and contains the same address. Creating a <code>weak_ptr&lt;&gt;</code> does not increment the reference count associated with the linked <code>shared_ptr&lt;&gt;</code> object, though, so a <code>weak_ptr&lt;&gt;</code> does not prevent the object pointed to from being destroyed. Its memory will still be released when the last <code>shared_ptr&lt;&gt;</code> referencing it is destroyed or reassigned to point to a different address, even when associated <code>weak_ptr&lt;&gt;</code> objects still exist. If this happens, the <code>weak_ptr&lt;&gt;</code> will nevertheless not contain a dangling pointer, atleast not one that you could inadvertently access. The reason is that you cannot access the address encapsulated by a <code>weak_ptr&lt;T&gt;</code> directly. The compiler forces you to first create a <code>shared_ptr&lt;T&gt;</code> object out of it that refers to the same address. If the memory address for the <code>weak_ptr&lt;&gt;</code> is still valid, forcing you to create a <code>shared_ptr&lt;&gt;</code> first ensures that the reference count is again incremented and that the pointer can be used safely again. If the memory is released already, however, this operation will result in a <code>shared_ptr&lt;T&gt;</code> containing a <code>nullptr</code>.</p>
 </li>
 </ul>
 <p>One use for having <code>weak_ptr&lt;&gt;</code> objects is to avoid so called reference cycles with <code>shared_ptr&lt;&gt;</code> objects. Conceptually, a reference cycle is where a <code>shared_ptr&lt;Y&gt;</code> inside the object <code>x</code> points to some other object <code>y</code> that contains a <code>shared_ptr&lt;X&gt;</code>, which points back to <code>x</code>. With this situation, neither <code>x</code> nor <code>y</code> can be destroyed. In practice, this may occur in many ways. <code>weak_ptr</code> allows you to break such cycles. Another use of weak pointers is in the implementation of object caches.</p>
@@ -638,10 +638,11 @@ class Child_2 : public virtual Parent
 </code></pre><h3 id="polymorphism">Polymorphism.</h3>
 <p>Every derived class object is a base class object. So, you can use a base class pointer/reference to store the address of a derived class object. It is easy to implement dynamic dispatch through virtual methods.</p>
 <p>The below code snippet is instructive in understanding run-time polymorphism.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span> {
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> foo() {
@@ -676,21 +677,17 @@ class Child_2 : public virtual Parent
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    D d{};
-</span></span><span style="display:flex;"><span>    A<span style="color:#f92672">*</span> aptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d;
-</span></span><span style="display:flex;"><span>    aptr<span style="color:#f92672">-&gt;</span>foo();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    B<span style="color:#f92672">*</span> bptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d;
-</span></span><span style="display:flex;"><span>    bptr<span style="color:#f92672">-&gt;</span>foo();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    C<span style="color:#f92672">*</span> cptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d;
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//This should not compile. The virtual method foo() is private in C, which is not allowed.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//cptr-&gt;foo();
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span> a_ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>D<span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>    a_ptr <span style="color:#f92672">-&gt;</span>foo();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span> b_ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>D<span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>    b_ptr <span style="color:#f92672">-&gt;</span>foo();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>C<span style="color:#f92672">&gt;</span> c_ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>D<span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//c_ptr -&gt;foo();  //will not compile, foo() is a private member is not inherited by D
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
-</span></span><span style="display:flex;"><span>    D<span style="color:#f92672">*</span> dptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d;
-</span></span><span style="display:flex;"><span>    dptr<span style="color:#f92672">-&gt;</span>foo();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>D<span style="color:#f92672">&gt;</span> d_ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>D<span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>    d_ptr <span style="color:#f92672">-&gt;</span>foo();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><pre tabindex="0"><code>Greetings from a!
 Greetings from d!
@@ -872,7 +869,7 @@ Area = 120
 Area = 78.5397
 </code></pre><h2 id="abstract-classes">Abstract Classes.</h2>
 <p>An abstract class purely exists for the purpose of deriving classes from it and cannot be instantiated.</p>
-<p>Any class that contains atleast one pure virtual function is an abstract class. Because an abstract class cannot be instantiated, you cannot pass it by value to a function, a parameter of type <code>Shape</code> will not compile. Similarly, you cannot return a <code>Shape</code> object from a functiojn. However, pointers or references to an abstract class can be used as parameter or return types, so types such as <code>Shape*</code> <code>std::shared_ptr&lt;Shape*&gt;</code> and <code>Shape&amp;</code> are fine in these settings.</p>
+<p>Any class that contains atleast one pure virtual function is an abstract class. Because an abstract class cannot be instantiated, you cannot pass it by value to a function, a parameter of type <code>Shape</code> will not compile. Similarly, you cannot return a <code>Shape</code> object from a functiojn. However, pointers or references to an abstract class can be used as parameter or return types, so types such as <code>Shape*</code> <code>std::shared_ptr&lt;Shape&gt;</code> and <code>Shape&amp;</code> are fine in these settings.</p>
 <p>Any class that inherits from <code>Shape</code> is obligated to provide an implementation of the <code>area()</code> method. If it doesn&rsquo;t, it too is an abstract class. More specifically, if any pure virtual function of an abstract base class isn&rsquo;t in a derived class, then the pure virtual function will be inherited as such, and the derived class becomes an abstract class.</p>
 <p>Thus, abstract base classes (ABCs) are often used as interfaces.</p>
 
