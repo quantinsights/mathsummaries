@@ -108,34 +108,20 @@ v2 = v1
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> sampleGaussian(<span style="color:#66d9ef">int</span> N)
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> createVector(<span style="color:#66d9ef">double</span> value, <span style="color:#66d9ef">int</span> N)
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Generate pseudo-random numbers
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    default_random_engine generator;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Pass Uniform[0,1] sample to a distribution functor to 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//generate values according to some chosen statistical distribution
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    normal_distribution<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> normal_dist(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Generate a Gaussian sample of size N
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> sample{};
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> roller <span style="color:#f92672">=</span> bind(normal_dist, generator);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i{}; i <span style="color:#f92672">&lt;</span> N; <span style="color:#f92672">++</span>i) {
-</span></span><span style="display:flex;"><span>        sample.push_back(roller());
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sample;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(value, N);
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
 </span></span><span style="display:flex;"><span>	std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> v2 {};
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	v2 <span style="color:#f92672">=</span> sampleGaussian(<span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>	v2 <span style="color:#f92672">=</span> createVector(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span>);
 </span></span><span style="display:flex;"><span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>The function <code>sampleGaussian(int N)</code> generates a sample of size <code>N</code> that has a $\mathcal{N}(0,1)$ standard normal distribution. The function returns a <code>vector&lt;double&gt;</code>.</p>
-<p>To begin with, again the vector <code>v2</code> is an empty vector, just like earlier with its pointers zeroed out. Then we directly assign <code>sampleGaussian(5)</code> to <code>v2</code>. Now, the first thing that happens is, of course, we return a vector from the function. That value is something we don&rsquo;t really have a name for (in the calling scope), we can call it <code>__tmp__</code>. This is assigned to <code>v2</code>. But, do we really want to create a deep-copy at this point. That would be a shame, because, if we do a deep-copy, <code>__tmp__</code> would be destroyed at the end of the statement and we&rsquo;ve wasted a lot of energy copying the elements.</p>
+</span></span></code></pre></div><p>The function <code>createVector</code> returns a vector of size <code>N</code> filled with <code>value</code>.</p>
+<p>To begin with, again the vector <code>v2</code> is an empty vector, just like earlier with its pointers zeroed out. Then we directly assign <code>createVector(1,5)</code> to <code>v2</code>. Now, the first thing that happens is, of course, we return a vector from the function. That value is something we don&rsquo;t really have a name for (in the calling scope), we can call it <code>__tmp__</code>. This is assigned to <code>v2</code>. But, do we really want to create a deep-copy at this point. That would be a shame, because, if we do a deep-copy, <code>__tmp__</code> would be destroyed at the end of the statement and we&rsquo;ve wasted a lot of energy copying the elements.</p>
 <p>What we really want to do is, actually, we would like to transfer the contents of <code>__tmp__</code> to <code>v2</code>, in a very simple way. We simply want to copy the pointers of <code>__tmp__</code> to <code>v2</code>. We cannot, however, stop at this point, because effectively, now there are two <code>vector&lt;double&gt;</code> objects owning the same memory block. They do not know about each other. The second step is therefore, we have to just zero out the pointers of <code>__tmp__</code> vector.</p>
 <p>So, the idea is to do the minimum amount of work to transfer <code>__tmp__</code> vector to <code>v2</code>.</p>
 <p>Note that, this kind of optimization is only possible, because nobody knows about this <code>__tmp__</code> vector except the assignment operation <code>operator=()</code>. No one else holds reference to <code>__tmp__</code>. If there would be somebody else holding a reference, then we would have a problem.</p>
@@ -146,17 +132,18 @@ std::vector&lt;int&gt; v2 {};
 v2 = v1;
 </code></pre><p>If indeed we want to transfer(move) the contents of <code>v1</code> to <code>v2</code>, then all we need to do is, use <code>std::move</code>.</p>
 <pre tabindex="0"><code>v2 = std::move(v1);
-</code></pre><p><code>std::move</code> is basically telling us, this is a <strong>transfer of content</strong>. We&rsquo;ll look at the details later, but we basically proclaim we want to transfer the contents of <code>v1</code> to <code>v2</code>. We do exactly the same as before. We, first of all, copy the pointers from <code>v1</code> to <code>v2</code> and the second step is we zero them out in <code>v1</code>. <code>v1</code> however in this case lives on a little longer. It will be an empty vector for quite sometime, until it goes out of scope.</p>
+</code></pre><p><code>std::move</code> is basically telling us, this is a <strong>transfer of ownership</strong>. We&rsquo;ll look at the details later, but we basically proclaim we want to transfer the contents of <code>v1</code> to <code>v2</code>. We do exactly the same as before. We, first of all, copy the pointers from <code>v1</code> to <code>v2</code> and the second step is we zero them out in <code>v1</code>. <code>v1</code> however in this case lives on a little longer. It will be an empty vector for quite sometime, until it goes out of scope.</p>
 <h2 id="the-details-of-move-semantics">The details of move semantics.</h2>
 <p>Consider again:</p>
 <pre tabindex="0"><code>std::vector&lt;int&gt; v1 {1,2,3,4,5};
 std::vector&lt;int&gt; v2 {};
 v2 = v1;
-</code></pre><p><code>v1</code> is an <code>lvalue</code>. The statement <code>v2 = v1</code> invokes the copy assignment operator <code>operator=(const vector&lt;int&gt;&amp; v)</code> inside the <code>vector&lt;T&gt;</code> class. The <code>lvalue</code> <code>v1</code> binds to an <code>lvalue</code> reference <code>const vector&lt;int&gt;&amp;</code>. This assignment operator would now do a copy. It assumes that you indeed want to have this copy. Everything&rsquo;s fine.</p>
+</code></pre><p><code>v1</code> is an <code>lvalue</code>. The statement <code>v2 = v1</code> invokes the copy assignment operator <code>operator=(const vector&lt;int&gt;&amp; v)</code> on <code>v2</code>. The <code>lvalue</code> <code>v1</code> binds to an <code>lvalue</code> reference <code>const vector&lt;int&gt;&amp;</code>. This assignment operator would now do a copy. It assumes that you indeed want to have this copy. Everything&rsquo;s fine.</p>
 <p>Now, let&rsquo;s go to the second assignment.</p>
-<pre tabindex="0"><code>v2 = sampleGaussian(5);
-</code></pre><p><code>sampleGaussian(5)</code> creates a vector of $5$ random numbers distributed $N(0,1)$. Prior to C++ 11, this would actually have created a copy. And that was the problem. I could not distinguish between the first case and the second case.</p>
-<p>For that reason, they&rsquo;ve introduced <code>rvalue</code> references. The statement <code>v2=sampleGaussian(5)</code> invokes the move assignment operator <code>operator=(const vector&lt;int&gt;&amp;&amp; v)</code> inside the <code>vector&lt;T&gt;</code> class. The temporary vector <code>__tmp__</code> returned from the function is an <code>rvalue</code> and binds to the <code>rvalue</code> reference <code>const vector&lt;int&gt;&amp;&amp;</code>. Remember, the ref count of the <code>__tmp__</code> vector equals $1$, only the move assignment operator function knows about it, so I can do a move. <code>__tmp__</code> is not needed afterwards.</p>
+<pre tabindex="0"><code>v2 = createVector(1,5);
+</code></pre><p><code>createVector(1,5)</code> creates a vector of $5$ elements initialized to $1$. Prior to C++ 11, this would actually have created a copy. And that was the problem. One could not distinguish between the first case and the second case.</p>
+<p>For that reason, they&rsquo;ve introduced <code>rvalue</code> references. The statement <code>v2=createVector(1,5)</code> invokes the move assignment operator <code>operator=(const vector&lt;int&gt;&amp;&amp; v)</code> inside the <code>vector&lt;T&gt;</code> class. The temporary vector <code>__tmp__</code> returned from the function is an <code>rvalue</code> and binds to the <code>rvalue</code> reference <code>const vector&lt;int&gt;&amp;&amp;</code>. Remember, the ref count of the <code>__tmp__</code> vector equals $1$, only the move assignment operator function knows about it, so I can do a move. <code>__tmp__</code> is not needed afterwards. The move assignment operator will re-wire the pointers, it will copy the pointers of <code>v2</code> to <code>v1</code>. It will then hollow out the pointers of <code>v2</code>.</p>
+<h2 id="writing-a-move-constructor-and-a-move-assignment-operator">Writing a move constructor and a move assignment operator.</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
