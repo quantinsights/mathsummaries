@@ -187,12 +187,63 @@ v2 = v1;
 <li>an <code>lvalue</code> reference, if they are initialized by an <code>lvalue</code>.</li>
 <li>an <code>rvalue</code> reference, if they are initialized by an <code>rvalue</code>.</li>
 </ul>
-<p><code>rvalue</code> references are forwarding references if they:</p>
-<ul>
-<li>involve type deduction</li>
-<li>appear exactly in the form <code>T&amp;&amp;</code> or <code>auto&amp;&amp;</code>.</li>
-</ul>
-<p>A programming language is said to offer first-class function if it allows you to treat functions like any other variable. In such a language, for instance, you can assign a function as a value to a variable, just as an <code>int</code> or <code>string</code>. You can pass a function as an argument to another function or return one as the result of another function.</p>
+<p>A <code>T&amp;&amp;</code> or <code>auto&amp;&amp;</code> is called a forwarding reference.</p>
+<p>Consider the following code snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> foo(T<span style="color:#f92672">&amp;&amp;</span> x)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">foo(T&amp;&amp;)&#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Widget</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> m_i;
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>string m_s;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> m_ptr {<span style="color:#66d9ef">nullptr</span>};
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        Widget(<span style="color:#66d9ef">int</span> i, std<span style="color:#f92672">::</span>string s, <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ptr) <span style="color:#f92672">:</span> m_i{i}, m_s{s}, m_ptr{ptr} {}
+</span></span><span style="display:flex;"><span>        Widget() <span style="color:#f92672">:</span> Widget(<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#66d9ef">nullptr</span>) {}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Widget w {};
+</span></span><span style="display:flex;"><span>    foo(w);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    foo(Widget {});
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In the <code>main()</code> function, I have a <code>Widget w</code>, this is an <code>lvalue</code>. It has a name and refers to a persistent memory storage location, with an address. If you pass it to <code>foo(T&amp;&amp;)</code>, it suprisingly works! Moreover, passing an <code>rvalue</code> to <code>foo(T&amp;&amp;)</code> also works.</p>
+<p>Now what happens? Why does this work? When you pass an <code>lvalue</code> to <code>foo(T&amp;&amp;)</code>, in template type argument deduction, this <code>T</code> for an <code>lvalue</code> deduced to be <code>Widget&amp;</code>.</p>
+<pre tabindex="0"><code> template &lt;typename T&gt;
+void foo(Widget&amp; &amp;&amp; x)
+{
+    std::cout &lt;&lt; &#34;\nfoo(T&amp;&amp;)&#34;;
+}
+</code></pre><p>Now, I have two references - an <code>lvalue</code> reference and an <code>rvalue</code> reference, we must do something and that something is called reference collapsing. This means:</p>
+<pre tabindex="0"><code>&amp; 	&amp;  =&gt; &amp;
+&amp;&amp;	&amp;  =&gt; &amp;
+&amp;	&amp;&amp; =&gt; &amp;
+&amp;&amp;	&amp;&amp; =&gt; &amp;&amp;
+</code></pre><p>So, if I have a ref and a ref-ref, it is collapsed to a single ref. Only and exclusively, if I have a ref-ref, ref-ref, in the end, do I have a ref-ref.</p>
+<p>So, finally, this is the function that we would have:</p>
+<pre tabindex="0"><code> template &lt;typename T&gt;
+void foo(Widget&amp; x)
+{
+    std::cout &lt;&lt; &#34;\nfoo(T&amp;&amp;)&#34;;
+}
+</code></pre><p>a function <code>foo</code> that accepts an <code>lvalue</code> and so it compiles. This fits perfectly.</p>
+<p>When I pass a temporary <code>Widget {}</code>, this is an <code>rvalue</code>. In template argument deduction, <code>T</code> for this <code>rvalue</code> is deduced to be <code>Widget</code>. So, finally, it would look like:</p>
+<pre tabindex="0"><code> template &lt;typename T&gt;
+void foo(Widget&amp;&amp; x)
+{
+    std::cout &lt;&lt; &#34;\nfoo(T&amp;&amp;)&#34;;
+}
+</code></pre><p>a function <code>foo</code> that accepts an <code>rvalue</code> and this too compiles.</p>
+<p>A programming language is said to offer first-class functions if it allows you to treat functions like any other variable. In such a language, for instance, you can assign a function as a value to a variable, just as an <code>int</code> or <code>string</code>. You can pass a function as an argument to another function or return one as the result of another function.</p>
 <h1 id="lambda-expressions">Lambda expressions.</h1>
 <p>Lambda expressions offer a convenient, compact syntax to quickly define callback functions or functors. And not only is the syntax compact, lambda expressions also allow you to define the callback&rsquo;s logic right there where you want to use it.</p>
 <p>A <em>lambda expression</em> has a lot in common with a function definition. In its most basic form, a lambda expression basically provides a way to define a function with no name, an <em>anonymous function</em>. But, lambda expressions are far more powerful than that. In general, a lambda expression effectively defines a full-blown functor that can carry any number of member variables. The beauty is that there&rsquo;s no need for an explicit definition of this type of object anymore; the compiler generate this type automatically for us.</p>
