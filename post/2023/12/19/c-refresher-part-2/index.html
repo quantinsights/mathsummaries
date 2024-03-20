@@ -243,8 +243,59 @@ void foo(Widget&amp;&amp; x)
     std::cout &lt;&lt; &#34;\nfoo(T&amp;&amp;)&#34;;
 }
 </code></pre><p>a function <code>foo</code> that accepts an <code>rvalue</code> and this too compiles.</p>
+<h1 id="perfect-forwarding">Perfect Forwarding.</h1>
+<p>If you want to write a function that is merely forwarding it&rsquo;s arguments to another function, then you have exactly this situation:</p>
+<pre tabindex="0"><code>template &lt;typename T, typename ???&gt;
+unique_ptr&lt;T&gt; make_unique(???)
+{
+	return unique_ptr&lt;T&gt;(new T(???));
+}
+</code></pre><p>A good example is C++ 14&rsquo;s <code>std::make_unique&lt;T&gt;()</code>. <code>std::make_unique()</code>&rsquo;s task is to forward the arguments given to the constructor of type <code>T</code>. Now, how do I do that? Interestingly, this was an unsolved problem pre C++ 11, because there was not a good general solution.</p>
+<p>The first solution we would have is to pass by value. This works pretty well, but it creates an overhead for copying. Imagine, I pass a vector of one million elements, something big. I do not want to create an extra copy of this vector in pass-by-value.</p>
+<pre tabindex="0"><code>template &lt;typename T, typename Arg&gt;
+unique_ptr&lt;T&gt; make_unique(Arg arg)
+{
+	return unique_ptr&lt;T&gt;(new T(arg));
+}
+</code></pre><p>We could pass by reference, non-<code>const</code> reference.</p>
+<pre tabindex="0"><code>template &lt;typename T, typename Arg&gt;
+unique_ptr&lt;T&gt; make_unique(Arg&amp; arg)
+{
+	return unique_ptr&lt;T&gt;(new T(arg));
+}
+</code></pre><p>But the below statement, for instance:</p>
+<pre tabindex="0"><code>std::make_unique&lt;int&gt;(1);
+</code></pre><p>would be a compilation error. $1$ is an <code>rvalue</code>, and it does not bind to an <code>lvalue</code> reference to non-<code>const</code>. This would not compile.</p>
+<p>The third option I have is reference-to-const.</p>
+<pre tabindex="0"><code>template &lt;typename T, typename Arg&gt;
+unique_ptr&lt;T&gt; make_unique(Arg const&amp; arg)
+{
+	return unique_ptr&lt;T&gt;(new T(arg));
+}
+</code></pre><p>Let&rsquo;s say I want to construct an instance of the below <code>Example</code>. The <code>Example</code> constructor takes an int-ref.</p>
+<pre tabindex="0"><code>class Example{
+	public:
+		Example(int&amp; i) {}
+};
+
+std::make_unique&lt;Example&gt;(i);	//Always adds const
+</code></pre><p>But, this would also not compile. This is exactly, what forwarding references are supposed to solve.</p>
+<pre tabindex="0"><code>template &lt;typename T, typename Arg&gt;
+unique_ptr&lt;T&gt; make_unique(Arg&amp;&amp; arg)
+{
+	return unique_ptr&lt;T&gt;(new T(arg));
+}
+</code></pre><p>This accepts <code>lvalue</code>s, <code>rvalue</code>s, <code>const</code> values, non-<code>const</code> values.</p>
+<p>There&rsquo;s this small additional problem, that you now have. For example, I can pass an <code>rvalue</code> to the function. But, just because inside the body of the <code>make_unique</code>, it has a name, it becomes an <code>lvalue</code> again. And therefore, I remove the opportunity to <code>move</code> this into <code>T</code>. So, it&rsquo;s again a flaw. This is a limitation.</p>
+<p>Using <code>std::move</code> at this point, again, would be a big mistake. If I pass an <code>lvalue</code>, I would unconditionally move, and this would of course destroy an <code>lvalue</code> that might be used in the calling scope. So, I need something different. Instead of an unconditional move, I need a conditional move. A <code>move</code> that only moves, if it is indeed an <code>rvalue</code>.</p>
+<p><code>std::forward</code> conditionally casts its input into an <code>rvalue</code> reference. It is the little brother of <code>std::move</code>. If the given value is an <code>lvalue</code>, it is cast to an <code>lvalue</code> reference. If the given value is an <code>rvalue</code>, it is cast to an <code>rvalue</code> reference.</p>
+<pre tabindex="0"><code>template &lt;typename T, typename Arg&gt;
+unique_ptr&lt;T&gt; make_unique(Arg&amp;&amp; arg)
+{
+	return unique_ptr&lt;T&gt;(new T(std::forward&lt;Arg&gt;(arg)));
+}
+</code></pre><h1 id="lambda-expressions">Lambda expressions.</h1>
 <p>A programming language is said to offer first-class functions if it allows you to treat functions like any other variable. In such a language, for instance, you can assign a function as a value to a variable, just as an <code>int</code> or <code>string</code>. You can pass a function as an argument to another function or return one as the result of another function.</p>
-<h1 id="lambda-expressions">Lambda expressions.</h1>
 <p>Lambda expressions offer a convenient, compact syntax to quickly define callback functions or functors. And not only is the syntax compact, lambda expressions also allow you to define the callback&rsquo;s logic right there where you want to use it.</p>
 <p>A <em>lambda expression</em> has a lot in common with a function definition. In its most basic form, a lambda expression basically provides a way to define a function with no name, an <em>anonymous function</em>. But, lambda expressions are far more powerful than that. In general, a lambda expression effectively defines a full-blown functor that can carry any number of member variables. The beauty is that there&rsquo;s no need for an explicit definition of this type of object anymore; the compiler generate this type automatically for us.</p>
 <p>Practically speaking, we&rsquo;ll find that a lambda expression is different from a regular function in that it can access variables that exist in the enclosing scope where it is defined.</p>
